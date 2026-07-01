@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategori Produk - RE-KOST</title>
+    <meta name="description" content="Cari barang bekas kos berkualitas berdasarkan kategori di RE-KOST. Termasuk elektronik, perabotan, buku, dan kebutuhan dapur.">
+    <!-- Link CSS Global & CSS khusus Kategori -->
+    <link rel="stylesheet" href="Css/main.css">
+    <link rel="stylesheet" href="Css/marketplace.css">
+</head>
+<body>
+
+    <!-- Background Blurry Pastel Blobs (Consistent across screens) -->
+    <div class="background-blobs" aria-hidden="true">
+        <div class="blob blob-teal"></div>
+        <div class="blob blob-orange"></div>
+    </div>
+
+    <!-- Main Outer Wrapper -->
+    <div class="marketplace-page-wrapper">
+        
+        <!-- 1. Bagian Atas / Header (Navigation & Search) -->
+        <header class="marketplace-header">
+            <div class="header-left">
+                <!-- Tombol Kembali ke Dashboard -->
+                <a href="dashboard.html" class="back-btn" aria-label="Kembali ke Beranda">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </a>
+                <span class="brand-logo">RE-KOST</span>
+            </div>
+            <div class="header-right">
+                <!-- Ikon Notifikasi (Lonceng) -->
+                <a href="notifications.html" class="action-btn" aria-label="Notifikasi">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                </a>
+                <!-- Foto Profil Pengguna -->
+                <a href="profile.html" class="profile-avatar-link" aria-label="Profil Saya">
+                    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop" alt="Foto Profil" class="profile-img">
+                </a>
+
+                <!-- Tombol Logout -->
+                <button class="action-btn logout-btn" onclick="logoutUser(event)" aria-label="Keluar dari Akun" title="Keluar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Bar Section (Baris Kedua) -->
+        <section class="search-container">
+            <div class="search-bar-wrapper">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" placeholder="Cari perabotan, elektronik, atau buku..." id="categorySearchInput" aria-label="Cari barang">
+            </div>
+        </section>
+
+        <!-- Filter Kapsul (Baris Ketiga) -->
+        <section class="filter-capsules-container" aria-label="Filter Kategori">
+            <div class="filter-scroll-wrapper">
+                <button class="filter-pill active" data-category="semua">Semua</button>
+                <button class="filter-pill" data-category="elektronik">Elektronik</button>
+                <button class="filter-pill" data-category="perabotan">Perabotan</button>
+                <button class="filter-pill" data-category="buku">Buku & ATK</button>
+                <button class="filter-pill" data-category="dapur">Dapur</button>
+                <button class="filter-pill" data-category="pakaian">Pakaian</button>
+                <button class="filter-pill" data-category="lainnya">Lainnya</button>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <main class="marketplace-content">
+            
+            <!-- 2. Bagian Informasi Jumlah & Urutan -->
+            <div class="info-bar">
+                <div class="info-left">
+                    <span class="info-text">Menampilkan <span class="count-highlight" id="itemCount">124</span> Barang</span>
+                </div>
+                <div class="info-right">
+                    <button class="sort-btn" aria-label="Urutkan Barang">
+                        <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" y1="6" x2="20" y2="6"></line>
+                            <line x1="4" y1="12" x2="20" y2="12"></line>
+                            <line x1="4" y1="18" x2="20" y2="18"></line>
+                        </svg>
+                        <span>Urutan</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. Bagian Konten Utama (Grid Produk 4 Kolom) -->
+            <div class="products-grid" id="productsGrid">
+                
+                <!-- Baris 1, Kartu 1 (Elektronik) -->
+                <a href="product-detail.html" class="product-card" data-cat="elektronik">
+                    <div class="card-image-box">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=80" alt="Headphone Sony WH-1000XM4 Bekas" class="product-image">
+                        <span class="badge-tag tag-verified">✓ Verified</span>
+                    </div>
+                    <div class="card-info">
+                        <span class="product-category">ELEKTRONIK</span>
+                        <h2 class="product-name">Headphone Sony WH-1000XM4 Bekas</h2>
+                        <span class="product-price">Rp 1.500.000</span>
+                        <div class="product-location">
+                            <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Kukusan, Depok</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Baris 1, Kartu 2 (Perabotan) -->
+                <a href="product-detail.html" class="product-card" data-cat="perabotan">
+                    <div class="card-image-box">
+                        <img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&auto=format&fit=crop&q=80" alt="Lampu Meja Belajar IKEA Tertial" class="product-image">
+                    </div>
+                    <div class="card-info">
+                        <span class="product-category">PERABOTAN</span>
+                        <h2 class="product-name">Lampu Meja Belajar IKEA Tertial</h2>
+                        <span class="product-price">Rp 120.000</span>
+                        <div class="product-location">
+                            <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Pogung Baru, Sleman</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Baris 1, Kartu 3 (Buku) -->
+                <a href="product-detail.html" class="product-card" data-cat="buku">
+                    <div class="card-image-box">
+                        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500&auto=format&fit=crop&q=80" alt="Paket Buku Kedokteran Semester 1" class="product-image">
+                        <span class="badge-tag tag-baru">BARU</span>
+                    </div>
+                    <div class="card-info">
+                        <span class="product-category">BUKU</span>
+                        <h2 class="product-name">Paket Buku Kedokteran Semester 1</h2>
+                        <span class="product-price">Rp 450.000</span>
+                        <div class="product-location">
+                            <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Sekip, Yogyakarta</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Baris 1, Kartu 4 (Dapur) -->
+                <a href="product-detail.html" class="product-card" data-cat="dapur">
+                    <div class="card-image-box">
+                        <img src="https://images.unsplash.com/photo-1517256064527-09c53b2d0bc6?w=500&auto=format&fit=crop&q=80" alt="Coffee Maker Portable Kris" class="product-image">
+                    </div>
+                    <div class="card-info">
+                        <span class="product-category">DAPUR</span>
+                        <h2 class="product-name">Coffee Maker Portable Kris</h2>
+                        <span class="product-price">Rp 210.000</span>
+                        <div class="product-location">
+                            <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Margonda, Depok</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Baris 2, Kartu 1 (Perabotan) -->
+                <a href="product-detail.html" class="product-card" data-cat="perabotan">
+                    <div class="card-image-box">
+                        <img src="https://images.unsplash.com/photo-1505797149-43b0069ec26b?w=500&auto=format&fit=crop&q=80" alt="Kursi Kerja Ergonomis Mesh" class="product-image">
+                        <span class="badge-tag tag-verified">✓ Verified</span>
+                    </div>
+                    <div class="card-info">
+                        <span class="product-category">PERABOTAN</span>
+                        <h2 class="product-name">Kursi Kerja Ergonomis Mesh</h2>
+                        <span class="product-price">Rp 850.000</span>
+                        <div class="product-location">
+                            <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Dago, Bandung</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Baris 2, Kartu 2 (Elektronik) -->
+                <a href="product-detail.html" class="product-card" data-cat="elektronik">
+                    <div class="card-image-box">
+                        <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&auto=format&fit=crop&q=80" alt="Monitor LG 24 Inch Full HD" class="product-image">
+                    </div>
+                    <div class="card-info">
+                        <span class="product-category">ELEKTRONIK</span>
+                        <h2 class="product-name">Monitor LG 24 Inch Full HD</h2>
+                        <span class="product-price">Rp 1.100.000</span>
+                        <div class="product-location">
+                            <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Grogol, Jakarta Barat</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Baris 2, Kartu 3 (Elektronik) -->
+                <a href="product-detail.html" class="product-card" data-cat="elektronik">
+                    <div class="card-image-box">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&auto=format&fit=crop&q=80" alt="Kulkas Mini Portable Polytron" class="product-image">
+                    </div>
+                    <div class="card-info">
+                        <span class="product-category">ELEKTRONIK</span>
+                        <h2 class="product-name">Kulkas Mini Portable Polytron</h2>
+                        <span class="product-price">Rp 900.000</span>
+                        <div class="product-location">
+                            <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Jatinangor, Sumedang</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Baris 2, Kartu 4 (Perabotan) -->
+                <a href="product-detail.html" class="product-card" data-cat="perabotan">
+                    <div class="card-image-box">
+                        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500&auto=format&fit=crop&q=80" alt="Gantungan Baju Minimalis Kayu" class="product-image">
+                    </div>
+                    <div class="card-info">
+                        <span class="product-category">PERABOTAN</span>
+                        <h2 class="product-name">Gantungan Baju Minimalis Kayu</h2>
+                        <span class="product-price">Rp 75.000</span>
+                        <div class="product-location">
+                            <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Tembalang, Semarang</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- Muat Lebih Banyak Button -->
+            <div class="load-more-container">
+                <button class="load-more-btn" id="loadMoreBtn">Muat Lebih Banyak</button>
+            </div>
+
+        </main>
+
+        <!-- Fixed Left Sidebar on Desktop / Fixed Bottom Navigation on Mobile -->
+        <nav class="bottom-nav" aria-label="Navigasi Utama">
+            
+            <!-- Home -->
+            <a href="dashboard.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Home</span>
+            </a>
+
+            <!-- Category -->
+            <a href="marketplace.html" class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Category</span>
+            </a>
+
+            <!-- Sell (Special Center Accent) -->
+            <a href="Page_1/sell-product.html" class="nav-item nav-item-sell">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <span>Sell</span>
+            </a>
+
+            <!-- Chat -->
+            <a href="chat.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Chat</span>
+            </a>
+
+            <!-- Profile -->
+            <a href="profile.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Profile</span>
+            </a>
+
+            <!-- Logout (Hanya muncul di desktop sidebar) -->
+            <a href="#" class="nav-item nav-item-logout" onclick="logoutUser(event)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                <span>Logout</span>
+            </a>
+
+        </nav>
+    </div>
+
+    <!-- Script Fungsional untuk Kategori Filter & Pencarian -->
+    <script>
+        function getOrInitProducts() {
+            const sampleProducts = [
+                { id: "p1", title: "Headphone Sony WH-1000XM4 Bekas", sellerName: "Aditya Pratama", campus: "Kukusan, Depok", price: 1500000, status: "aktif", category: "elektronik", categoryLabel: "ELEKTRONIK", facilities: ["ELEKTRONIK", "Verified Student"], description: "Kondisi mulus 95%, noise cancelling aktif, lengkap box.", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop", rating: 4.8, reviewsCount: 15 },
+                { id: "p2", title: "Lampu Meja Belajar IKEA Tertial", sellerName: "Budi Santoso", campus: "Pogung Baru, Sleman", price: 12000, status: "aktif", category: "perabotan", categoryLabel: "PERABOTAN", facilities: ["PERABOTAN", "Verified Student"], description: "Lampu meja belajar IKEA model jepit, warna abu-abu. Termasuk bohlam LED.", image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&auto=format&fit=crop", rating: 4.5, reviewsCount: 8 },
+                { id: "p3", title: "Paket Buku Kedokteran Semester 1", sellerName: "Siti Rahmawati", campus: "Sekip, Yogyakarta", price: 450000, status: "aktif", category: "buku", categoryLabel: "BUKU & ATK", facilities: ["BUKU & ATK", "Verified Student"], description: "Kumpulan buku kedokteran dasar, masih mulus tanpa coretan.", image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500&auto=format&fit=crop", rating: 4.7, reviewsCount: 10 },
+                { id: "p4", title: "Coffee Maker Portable Kris", sellerName: "Rina Sari", campus: "Margonda, Depok", price: 210000, status: "aktif", category: "dapur", categoryLabel: "DAPUR", facilities: ["DAPUR", "Verified Student"], description: "Pembuat kopi portable merek Kris, jarang dipakai.", image: "https://images.unsplash.com/photo-1517256064527-09c53b2d0bc6?w=500&auto=format&fit=crop", rating: 4.2, reviewsCount: 4 },
+                { id: "p5", title: "Kursi Kerja Ergonomis Mesh", sellerName: "Ahmad Faisal", campus: "Dago, Bandung", price: 850000, status: "aktif", category: "perabotan", categoryLabel: "PERABOTAN", facilities: ["PERABOTAN", "Verified Student"], description: "Kursi kerja ergonomis bahan mesh dingin, hydrolic lancar.", image: "https://images.unsplash.com/photo-1505797149-43b0069ec26b?w=500&auto=format&fit=crop", rating: 4.6, reviewsCount: 12 },
+                { id: "p6", title: "Monitor LG 24 Inch Full HD", sellerName: "Rian Hidayat", campus: "Grogol, Jakarta Barat", price: 1100000, status: "aktif", category: "elektronik", categoryLabel: "ELEKTRONIK", facilities: ["ELEKTRONIK", "Verified Student"], description: "Monitor LG IPS 24 inch, gambar jernih no dead pixel.", image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&auto=format&fit=crop", rating: 4.9, reviewsCount: 22 },
+                { id: "p7", title: "Kulkas Mini Portable Polytron", sellerName: "Dewi Lestari", campus: "Jatinangor, Sumedang", price: 900000, status: "aktif", category: "elektronik", categoryLabel: "ELEKTRONIK", facilities: ["ELEKTRONIK", "Verified Student"], description: "Kulkas mini portable Polytron, dingin normal, hemat listrik.", image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&auto=format&fit=crop", rating: 4.4, reviewsCount: 7 },
+                { id: "p8", title: "Gantungan Baju Minimalis Kayu", sellerName: "Aditya Pratama", campus: "Pogung Lor, Yogyakarta", price: 75000, status: "aktif", category: "perabotan", categoryLabel: "PERABOTAN", facilities: ["PERABOTAN", "Verified Student"], description: "Gantungan hanger baju dari kayu pinus minimalis.", image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500&auto=format&fit=crop", rating: 4.3, reviewsCount: 9 }
+            ];
+
+            let products = [];
+            try {
+                products = JSON.parse(localStorage.getItem('re_kost_products')) || [];
+            } catch (error) {
+                products = [];
+            }
+
+            if (!Array.isArray(products) || products.length === 0) {
+                products = sampleProducts;
+                localStorage.setItem('re_kost_products', JSON.stringify(products));
+            } else {
+                // Ensure all loaded products have rating & reviewsCount for backwards compatibility
+                let changed = false;
+                products = products.map(p => {
+                    if (p.rating === undefined) {
+                        const ratingMap = { p1: 4.8, p2: 4.5, p3: 4.7, p4: 4.2, p5: 4.6, p6: 4.9, p7: 4.4, p8: 4.3 };
+                        p.rating = ratingMap[p.id] || (4.0 + (Math.abs(p.title.length) % 10) / 10);
+                        changed = true;
+                    }
+                    if (p.reviewsCount === undefined) {
+                        const reviewsMap = { p1: 15, p2: 8, p3: 10, p4: 4, p5: 12, p6: 22, p7: 7, p8: 9 };
+                        p.reviewsCount = reviewsMap[p.id] || (3 + (Math.abs(p.price) % 15));
+                        changed = true;
+                    }
+                    return p;
+                });
+                if (changed) {
+                    localStorage.setItem('re_kost_products', JSON.stringify(products));
+                }
+            }
+            return products;
+        }
+
+        function normalizeProductCategory(product) {
+            const rawCategory = String(product.category || product.categoryLabel || (product.facilities && product.facilities[0]) || '').toLowerCase();
+
+            if (rawCategory.includes('elektronik')) return 'elektronik';
+            if (rawCategory.includes('perabotan') || rawCategory.includes('furnitur')) return 'perabotan';
+            if (rawCategory.includes('buku') || rawCategory.includes('atk')) return 'buku';
+            if (rawCategory.includes('dapur') || rawCategory.includes('masak')) return 'dapur';
+            if (rawCategory.includes('pakaian')) return 'pakaian';
+            return 'lainnya';
+        }
+
+        function getCategoryLabel(product) {
+            const categoryLabels = {
+                elektronik: 'ELEKTRONIK',
+                perabotan: 'PERABOTAN',
+                buku: 'BUKU & ATK',
+                dapur: 'DAPUR',
+                pakaian: 'PAKAIAN',
+                lainnya: 'LAINNYA'
+            };
+            return product.categoryLabel || categoryLabels[normalizeProductCategory(product)] || 'LAINNYA';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterPills = document.querySelectorAll('.filter-pill');
+            const itemCount = document.getElementById('itemCount');
+            const searchInput = document.getElementById('categorySearchInput');
+            const grid = document.getElementById('productsGrid');
+            const sellerFilter = getSellerFilter();
+
+            renderProducts();
+
+            if (sellerFilter && searchInput) {
+                searchInput.placeholder = 'Barang dari ' + sellerFilter;
+            }
+
+            function updateFilteredResults() {
+                const productCards = document.querySelectorAll('.product-card');
+                const activePill = document.querySelector('.filter-pill.active');
+                const selectedCat = activePill ? activePill.getAttribute('data-category') : 'semua';
+                const searchQuery = searchInput ? searchInput.value.toLowerCase().trim() : '';
+                
+                let visibleCount = 0;
+
+                productCards.forEach(card => {
+                    const cardCat = card.getAttribute('data-cat') || 'lainnya';
+                    const name = card.querySelector('.product-name')?.textContent.toLowerCase() || '';
+                    const categoryLabel = card.querySelector('.product-category')?.textContent.toLowerCase() || '';
+
+                    const matchesCategory = (selectedCat === 'semua' || cardCat === selectedCat);
+                    const matchesSearch = (name.includes(searchQuery) || categoryLabel.includes(searchQuery));
+
+                    if (matchesCategory && matchesSearch) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                itemCount.textContent = visibleCount;
+            }
+
+            function renderProducts() {
+                const products = getOrInitProducts();
+                grid.innerHTML = '';
+                
+                // Hanya barang yang sudah diverifikasi admin yang tampil di marketplace.
+                const activeProducts = products.filter(p => {
+                    const status = String(p.status || 'aktif').toLowerCase();
+                    const isActive = status === 'aktif' || status === 'active' || status === 'approved';
+                    const matchesSeller = !sellerFilter || (p.sellerName || '').toLowerCase() === sellerFilter.toLowerCase();
+                    return isActive && matchesSeller;
+                });
+                
+                activeProducts.forEach(p => {
+                    const catAttr = normalizeProductCategory(p);
+                    const categoryLabel = getCategoryLabel(p);
+                    
+                    const card = document.createElement('a');
+                    card.href = 'product-detail.html';
+                    card.className = 'product-card';
+                    card.setAttribute('data-cat', catAttr);
+                    
+                    // Click handler to view detail
+                    card.addEventListener('click', () => {
+                        localStorage.setItem('selected_product', JSON.stringify(p));
+                    });
+                    
+                    card.innerHTML = `
+                        <div class="card-image-box">
+                            <img src="${p.image}" alt="${p.title}" class="product-image" onerror="this.src='https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop'">
+                            <span class="badge-tag tag-verified">✓ Verified</span>
+                        </div>
+                        <div class="card-info">
+                            <span class="product-category">${categoryLabel}</span>
+                            <h2 class="product-name">${p.title}</h2>
+                            <div class="product-rating" style="display: flex; align-items: center; gap: 4px; font-size: 0.82rem; font-weight: 700; color: #f59e0b; margin: 2px 0 6px;">
+                                <span>★</span>
+                                <span>${p.rating || '4.8'}</span>
+                                <span style="color: var(--text-muted); font-weight: 500; font-size: 0.75rem;">(${p.reviewsCount || '15'} Ulasan)</span>
+                            </div>
+                            <span class="product-price">Rp ${p.price.toLocaleString('id-ID')}</span>
+                            <div class="product-location">
+                                <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span>${p.campus}</span>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+                
+                if (itemCount) {
+                    itemCount.textContent = activeProducts.length;
+                }
+
+                updateFilteredResults();
+            }
+
+            function getSellerFilter() {
+                const params = new URLSearchParams(window.location.search);
+                const sellerFromUrl = params.get('seller');
+                if (sellerFromUrl) return sellerFromUrl;
+
+                const sellerFromStorage = localStorage.getItem('rekost_marketplace_seller_filter');
+                localStorage.removeItem('rekost_marketplace_seller_filter');
+                return sellerFromStorage || '';
+            }
+
+            // Click listener for filter pills
+            filterPills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    filterPills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    updateFilteredResults();
+                });
+            });
+
+            // Input listener for live search
+            if (searchInput) {
+                searchInput.addEventListener('input', updateFilteredResults);
+            }
+
+            // Load More button visual interactivity
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function() {
+                    this.textContent = 'Memuat...';
+                    this.disabled = true;
+                    setTimeout(() => {
+                        this.textContent = 'Semua Barang Telah Dimuat';
+                        this.style.borderColor = '#CBD5E1';
+                        this.style.color = '#718096';
+                        this.style.cursor = 'default';
+                    }, 800);
+                });
+            }
+        });
+
+        function logoutUser(event) {
+            if (event) event.preventDefault();
+            if (confirm("Apakah Anda yakin ingin keluar dari akun RE-KOST?")) {
+                localStorage.removeItem('user_logged_in');
+                localStorage.removeItem('current_user');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

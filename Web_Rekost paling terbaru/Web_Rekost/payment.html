@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran Escrow - RE-KOST</title>
+    <meta name="description" content="Pembayaran aman dengan sistem Escrow (Rekber) RE-KOST. Melindungi mahasiswa dari penipuan.">
+    <!-- Link CSS Global & CSS khusus Pembayaran -->
+    <link rel="stylesheet" href="Css/main.css">
+    <link rel="stylesheet" href="Css/payment.css">
+</head>
+<body>
+
+    <!-- Background Blurry Pastel Blobs -->
+    <div class="background-blobs" aria-hidden="true">
+        <div class="blob blob-teal"></div>
+        <div class="blob blob-orange"></div>
+    </div>
+
+    <!-- Main Wrapper -->
+    <div class="payment-wrapper">
+        
+        <!-- Header -->
+        <header class="payment-header">
+            <div class="header-title-group">
+                <a href="checkout.html" class="btn-back" id="backBtn" aria-label="Kembali ke Checkout">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </a>
+                <span class="payment-title">Pembayaran Rekber</span>
+            </div>
+            <span style="font-weight: 800; color: var(--color-primary); letter-spacing: 0.04em;">RE-KOST</span>
+        </header>
+
+        <!-- Content -->
+        <main class="payment-content-container">
+            
+            <!-- Timeline Card Tracker -->
+            <section class="payment-card" aria-label="Status Transaksi Escrow">
+                <div class="escrow-timeline">
+                    <div class="timeline-progress-bar" id="progressBar"></div>
+                    
+                    <div class="timeline-step active" id="step1">
+                        <span class="step-node">1</span>
+                        <span class="step-label">Bayar</span>
+                    </div>
+                    <div class="timeline-step" id="step2">
+                        <span class="step-node">2</span>
+                        <span class="step-label">Di-escrow</span>
+                    </div>
+                    <div class="timeline-step" id="step3">
+                        <span class="step-node">3</span>
+                        <span class="step-label">Cair</span>
+                    </div>
+                </div>
+
+                <!-- Status Banner -->
+                <div class="status-banner waiting" id="statusBanner">
+                    <!-- Loading or info icon -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 20px; height: 20px;">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <span id="statusText">Menunggu Transfer ke Rekening Escrow Admin</span>
+                </div>
+            </section>
+
+            <!-- Box Panduan Transfer (Waiting Payment State) -->
+            <section class="payment-card" id="paymentDetailsCard">
+                <div class="card-title">Instruksi Pembayaran</div>
+                <div class="instruction-box">
+                    <span class="amount-label">Jumlah Yang Harus Ditransfer</span>
+                    <span class="amount-value" id="amountValue">Rp 0</span>
+                    
+                    <!-- Detail Rekening Bersama Admin -->
+                    <div class="account-details-box" id="bankTransferDetails">
+                        <div class="acc-row" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #EDF2F7; padding-bottom: 8px; margin-bottom: 8px;">
+                            <span class="acc-label">Metode Pembayaran</span>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <img id="paymentMethodLogo" src="" alt="Logo Bank" style="height: 18px; max-width: 80px; object-fit: contain; display: inline-block;">
+                                <span class="acc-value" id="paymentMethodName">Bank Transfer</span>
+                            </div>
+                        </div>
+                        <div class="acc-row">
+                            <span class="acc-label">Bank Penerima</span>
+                            <span class="acc-value" id="bankPenerima">RE-KOST ESCROW BANK</span>
+                        </div>
+                        <div class="acc-row">
+                            <span class="acc-label">Nomor Rekening Bersama</span>
+                            <div class="acc-val-group">
+                                <span class="acc-value" id="accNumber">1370098273641</span>
+                                <button class="btn-copy" id="btnCopyAcc" onclick="copyValue('1370098273641')">Salin</button>
+                            </div>
+                        </div>
+                        <div class="acc-row">
+                            <span class="acc-label">Nama Penerima</span>
+                            <span class="acc-value">RE-KOST OFFICIAL ADMIN</span>
+                        </div>
+                    </div>
+
+                    <!-- Detail E-Wallet QR Code (GoPay/ShopeePay) -->
+                    <div class="account-details-box" id="walletQRDetails" style="display: none; flex-direction: column; align-items: center; gap: 10px; text-align: center;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #EDF2F7; padding-bottom: 8px; margin-bottom: 8px; width: 100%;">
+                            <span class="acc-label">Metode Pembayaran</span>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <img id="walletLogo" src="" alt="Wallet Logo" style="height: 18px; max-width: 80px; object-fit: contain;">
+                                <span class="acc-value" id="walletName">E-Wallet</span>
+                            </div>
+                        </div>
+                        <span class="acc-label" style="font-weight: 700;">Scan QRIS Escrow RE-KOST</span>
+                        
+                        <!-- Simulated QR Code Container using HSL gradients -->
+                        <div style="width: 160px; height: 160px; border: 4px solid var(--color-primary); border-radius: 12px; padding: 6px; background-color: white; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; margin: 0 auto;">
+                            <div style="background-image: radial-gradient(var(--color-primary) 30%, transparent 30%), radial-gradient(var(--color-secondary) 30%, transparent 30%); background-size: 16px 16px; background-position: 0 0, 8px 8px; width: 140px; height: 140px; border-radius: 6px; opacity: 0.85;"></div>
+                        </div>
+                        <span class="acc-value" style="font-size: 0.8rem; color: var(--text-muted);">Scan QR untuk membayar langsung ke Rekber resmi</span>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Box Panduan Serah Terima COD (Escrowed State) -->
+            <section class="payment-card" id="codDetailsCard" style="display: none;">
+                <div class="card-title">Panduan Serah Terima COD</div>
+                <div style="font-size: 0.9rem; line-height: 1.5; color: var(--text-dark); display: flex; flex-direction: column; gap: 10px;">
+                    <p>
+                        ✓ Dana Anda sebesar <strong class="total-text" id="codAmount">Rp 0</strong> telah <strong>aman ditahan</strong> di rekening bersama (escrow) RE-KOST.
+                    </p>
+                    <p>
+                        ➔ Silakan hubungi penjual <strong><span id="codSellerName">Budi</span></strong> melalui menu Chat untuk menyepakati tempat COD di area kampus.
+                    </p>
+                    <p>
+                        ➔ Temui penjual, periksa fisik barang dengan teliti. 
+                    </p>
+                    <p>
+                        ➔ Setelah barang diterima dengan kondisi baik, klik tombol <strong>"Konfirmasi Barang Diterima"</strong> di bawah untuk mencairkan dana ke rekening penjual.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Box Rincian Bagi Hasil & Distribusi Dana (Released State) -->
+            <section class="distribution-split-card" id="distributionCard" style="display: none;">
+                <h2 class="card-title" style="color: var(--color-primary);">Transaksi Selesai & Dana Didistribusikan</h2>
+                <div class="distribution-items-container">
+                    <p style="font-size: 0.85rem; line-height: 1.5; color: var(--text-muted);">
+                        Barang telah diterima pembeli. Dana di Escrow berhasil dicairkan sesuai dengan rumus bagi hasil platform RE-KOST:
+                    </p>
+                    
+                    <!-- Split Progress Bar -->
+                    <div class="dist-bar-wrapper">
+                        <div class="dist-bar-admin" id="distBarAdmin"></div>
+                        <div class="dist-bar-seller" id="distBarSeller"></div>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="dist-legend">
+                        <div class="legend-item">
+                            <span class="legend-color-box" style="background-color: var(--color-secondary);"></span>
+                            <span>Platform Fee Admin (10%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color-box" style="background-color: var(--color-primary);"></span>
+                            <span>Pendapatan Bersih Penjual (90%)</span>
+                        </div>
+                    </div>
+
+                    <!-- Math Breakdown Details -->
+                    <div class="account-details-box" style="margin-top: 10px; background-color: #F8FAFC;">
+                        <div class="acc-row">
+                            <span class="acc-label">Harga Barang</span>
+                            <span class="acc-value" id="distItemPrice">Rp 0</span>
+                        </div>
+                        <div class="acc-row" style="color: #D97706;">
+                            <span class="acc-label">➔ Potongan Komisi Admin (10%)</span>
+                            <span class="acc-value" id="distAdminCut" style="color: #D97706;">Rp 0</span>
+                        </div>
+                        <div class="acc-row" style="color: var(--color-primary);">
+                            <span class="acc-label">➔ Dana Dicairkan ke Penjual (90%)</span>
+                            <span class="acc-value" id="distSellerNet" style="color: var(--color-primary);">Rp 0</span>
+                        </div>
+                        <div class="acc-row" style="border-top: 1.5px dashed #E2E8F0; padding-top: 8px; margin-top: 4px; font-weight: 800;">
+                            <span class="acc-label" style="color: var(--text-dark);">Total Dana Escrow Terdistribusi</span>
+                            <span class="acc-value" id="distEscrowTotal" style="color: var(--text-dark);">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Button -->
+            <button class="btn-payment-action" id="paymentActionBtn">
+                Saya Sudah Bayar / Transfer
+            </button>
+
+        </main>
+
+    </div>
+
+    <!-- Script Logika & Transisi Pembayaran Escrow -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Ambil detail pembayaran dari localStorage
+            const pendingPaymentStr = localStorage.getItem('pending_payment');
+            if (!pendingPaymentStr) {
+                alert('Tidak ada transaksi pembayaran yang tertunda.');
+                window.location.href = 'marketplace.html';
+                return;
+            }
+
+            const payment = JSON.parse(pendingPaymentStr);
+
+            // Generate transaction ID if not present
+            if (!payment.txId) {
+                const dateNum = new Date().getFullYear();
+                const randNum = Math.floor(1000 + Math.random() * 9000);
+                payment.txId = `TX-${dateNum}-${randNum}`;
+                localStorage.setItem('pending_payment', JSON.stringify(payment));
+            }
+
+            // Render nilai harga
+            const amountValue = document.getElementById('amountValue');
+            if (amountValue) amountValue.textContent = "Rp " + payment.totalAmount.toLocaleString('id-ID');
+            
+            const codAmount = document.getElementById('codAmount');
+            if (codAmount) codAmount.textContent = "Rp " + payment.totalAmount.toLocaleString('id-ID');
+
+            const codSellerName = document.getElementById('codSellerName');
+            if (codSellerName) codSellerName.textContent = payment.sellerName || 'Budi Santoso';
+
+            // Menyesuaikan tampilan instruksi berdasarkan metode pembayaran
+            const bankDetails = document.getElementById('bankTransferDetails');
+            const walletDetails = document.getElementById('walletQRDetails');
+
+            const bankConfigs = {
+                bca: {
+                    name: 'Bank Central Asia (BCA)',
+                    account: '800108372648192',
+                    logo: 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg'
+                },
+                mandiri: {
+                    name: 'Bank Mandiri',
+                    account: '1370098273641',
+                    logo: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg'
+                },
+                bni: {
+                    name: 'Bank Negara Indonesia (BNI)',
+                    account: '827708372648192',
+                    logo: '../../../.gemini/antigravity-ide/brain/98a06393-ec38-47e7-82b4-058e375b68ac/media__1782389749593.png',
+                    fallbackLogo: 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Negara_Indonesia_logo.svg'
+                },
+                bri: {
+                    name: 'Bank Rakyat Indonesia (BRI)',
+                    account: '8077708372648192',
+                    logo: 'https://upload.wikimedia.org/wikipedia/commons/6/68/BANK_BRI_logo.svg'
+                }
+            };
+
+            const isWallet = (payment.paymentMethod === 'gopay' || payment.paymentMethod === 'shopeepay');
+            if (isWallet) {
+                if (bankDetails) bankDetails.style.display = 'none';
+                if (walletDetails) walletDetails.style.display = 'flex';
+
+                const walletLogo = document.getElementById('walletLogo');
+                const walletName = document.getElementById('walletName');
+                if (payment.paymentMethod === 'gopay') {
+                    if (walletLogo) {
+                        walletLogo.src = 'https://gopay.co.id/gopay-logo.svg';
+                        walletLogo.onerror = function() { this.src = 'https://img.icons8.com/color/120/gopay.png'; };
+                    }
+                    if (walletName) walletName.textContent = 'GoPay';
+                } else if (payment.paymentMethod === 'shopeepay') {
+                    if (walletLogo) {
+                        walletLogo.src = '../../../.gemini/antigravity-ide/brain/98a06393-ec38-47e7-82b4-058e375b68ac/media__1782389733914.png';
+                        walletLogo.onerror = function() {
+                            this.src = 'https://img.icons8.com/color/120/shopee-pay.png';
+                        };
+                    }
+                    if (walletName) walletName.textContent = 'ShopeePay';
+                }
+            } else {
+                if (bankDetails) bankDetails.style.display = 'flex';
+                if (walletDetails) walletDetails.style.display = 'none';
+
+                const config = bankConfigs[payment.paymentMethod] || bankConfigs.bca;
+                const paymentMethodLogo = document.getElementById('paymentMethodLogo');
+                const paymentMethodName = document.getElementById('paymentMethodName');
+                const bankPenerima = document.getElementById('bankPenerima');
+                const accNumber = document.getElementById('accNumber');
+                const btnCopyAcc = document.getElementById('btnCopyAcc');
+
+                if (paymentMethodLogo) {
+                    paymentMethodLogo.src = config.logo;
+                    paymentMethodLogo.alt = config.name;
+                    paymentMethodLogo.onerror = function() {
+                        if (config.fallbackLogo && this.src !== config.fallbackLogo) {
+                            this.src = config.fallbackLogo;
+                        } else {
+                            this.style.display = 'none';
+                        }
+                    };
+                }
+                if (paymentMethodName) paymentMethodName.textContent = config.name;
+                if (bankPenerima) bankPenerima.textContent = `RE-KOST ESCROW BANK (${config.name})`;
+                if (accNumber) accNumber.textContent = config.account;
+                if (btnCopyAcc) {
+                    btnCopyAcc.setAttribute('onclick', `copyValue('${config.account}')`);
+                }
+            }
+               // 2. Fungsionalitas Tombol Utama (Transisi Status Escrow)
+            const paymentActionBtn = document.getElementById('paymentActionBtn');
+            const progressBar = document.getElementById('progressBar');
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+            const step3 = document.getElementById('step3');
+            const statusBanner = document.getElementById('statusBanner');
+            
+            const paymentDetailsCard = document.getElementById('paymentDetailsCard');
+            const codDetailsCard = document.getElementById('codDetailsCard');
+            const distributionCard = document.getElementById('distributionCard');
+
+            let currentState = 'waiting_payment'; // waiting_payment -> waiting_verification -> escrowed -> released -> rejected
+
+            // Helper to get display name of payment method
+            function getMethodDisplayName(m) {
+                if (m === 'gopay') return 'GoPay (Instan)';
+                if (m === 'shopeepay') return 'ShopeePay';
+                if (m === 'bca') return 'Bank BCA Virtual Account';
+                if (m === 'mandiri') return 'Bank Mandiri Virtual Account';
+                if (m === 'bni') return 'Bank BNI Virtual Account';
+                if (m === 'bri') return 'Bank BRI Virtual Account';
+                return 'Transfer Bank';
+            }
+
+            // Setup state UI
+            function setWaitingPaymentUI() {
+                currentState = 'waiting_payment';
+                paymentActionBtn.textContent = 'Saya Sudah Bayar / Transfer';
+                paymentActionBtn.classList.remove('disabled');
+                paymentActionBtn.disabled = false;
+
+                if (progressBar) progressBar.style.width = '0%';
+                if (step1) {
+                    step1.className = 'timeline-step active';
+                }
+                if (step2) step2.className = 'timeline-step';
+                if (step3) step3.className = 'timeline-step';
+
+                if (statusBanner) {
+                    statusBanner.className = 'status-banner waiting';
+                    statusBanner.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 20px; height: 20px;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <span>Menunggu Transfer ke Rekening Escrow Admin</span>
+                    `;
+                }
+
+                if (paymentDetailsCard) paymentDetailsCard.style.display = 'block';
+                if (codDetailsCard) codDetailsCard.style.display = 'none';
+                if (distributionCard) distributionCard.style.display = 'none';
+            }
+
+            function setVerificationWaitingUI() {
+                currentState = 'waiting_verification';
+                paymentActionBtn.textContent = 'Menunggu Verifikasi Admin...';
+                paymentActionBtn.classList.add('disabled');
+                paymentActionBtn.disabled = true;
+
+                if (progressBar) progressBar.style.width = '25%';
+                if (step1) {
+                    step1.className = 'timeline-step completed';
+                }
+                if (step2) step2.className = 'timeline-step active';
+                if (step3) step3.className = 'timeline-step';
+
+                if (statusBanner) {
+                    statusBanner.className = 'status-banner waiting'; // Blue/yellow info banner
+                    statusBanner.style.backgroundColor = '#EFF6FF';
+                    statusBanner.style.color = '#1D4ED8';
+                    statusBanner.style.borderColor = '#BFDBFE';
+                    statusBanner.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 20px; height: 20px;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <span>Bukti Pembayaran Terkirim! Menunggu Verifikasi Manual oleh Admin.</span>
+                    `;
+                }
+
+                if (paymentDetailsCard) paymentDetailsCard.style.display = 'block';
+                if (codDetailsCard) codDetailsCard.style.display = 'none';
+                if (distributionCard) distributionCard.style.display = 'none';
+
+                // Append notification/notice inside paymentDetailsCard if not already present
+                let noticeEl = document.getElementById('verificationNotice');
+                if (!noticeEl) {
+                    noticeEl = document.createElement('p');
+                    noticeEl.id = 'verificationNotice';
+                    noticeEl.style.fontSize = '0.8rem';
+                    noticeEl.style.color = 'var(--text-muted)';
+                    noticeEl.style.marginTop = '12px';
+                    noticeEl.style.fontWeight = '600';
+                    noticeEl.textContent = 'Admin sedang memeriksa bukti transfer Anda. Halaman ini akan otomatis diperbarui setelah verifikasi admin berhasil (bisa Anda setujui di Admin Console > Kelola Transaksi).';
+                    paymentDetailsCard.appendChild(noticeEl);
+                }
+            }
+
+            function setEscrowedUI() {
+                currentState = 'escrowed';
+                paymentActionBtn.textContent = 'Konfirmasi Barang Diterima';
+                paymentActionBtn.classList.remove('disabled');
+                paymentActionBtn.disabled = false;
+
+                if (progressBar) progressBar.style.width = '50%';
+                if (step1) {
+                    step1.className = 'timeline-step completed';
+                }
+                if (step2) step2.className = 'timeline-step active';
+                if (step3) step3.className = 'timeline-step';
+
+                if (statusBanner) {
+                    statusBanner.className = 'status-banner escrowed';
+                    statusBanner.style.backgroundColor = ''; // Restore default
+                    statusBanner.style.color = '';
+                    statusBanner.style.borderColor = '';
+                    statusBanner.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 20px; height: 20px;">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        <span>Dana Aman Di-escrow (Ditahan RE-KOST)</span>
+                    `;
+                }
+
+                if (paymentDetailsCard) paymentDetailsCard.style.display = 'none';
+                if (codDetailsCard) codDetailsCard.style.display = 'block';
+                if (distributionCard) distributionCard.style.display = 'none';
+            }
+
+            function setRejectedUI(reason) {
+                currentState = 'rejected';
+                paymentActionBtn.textContent = 'Kirim Ulang Bukti Pembayaran';
+                paymentActionBtn.classList.remove('disabled');
+                paymentActionBtn.disabled = false;
+
+                if (progressBar) progressBar.style.width = '0%';
+                if (step1) {
+                    step1.className = 'timeline-step active';
+                }
+                if (step2) step2.className = 'timeline-step';
+                if (step3) step3.className = 'timeline-step';
+
+                if (statusBanner) {
+                    statusBanner.className = 'status-banner rejected';
+                    statusBanner.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 20px; height: 20px;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                        <span>Pembayaran Ditolak Admin: ${reason || 'Bukti transfer tidak sesuai.'}</span>
+                    `;
+                }
+
+                if (paymentDetailsCard) paymentDetailsCard.style.display = 'block';
+                if (codDetailsCard) codDetailsCard.style.display = 'none';
+                if (distributionCard) distributionCard.style.display = 'none';
+            }
+
+            function setReleasedUI() {
+                currentState = 'released';
+                paymentActionBtn.textContent = 'Kembali ke Beranda';
+                paymentActionBtn.classList.remove('disabled');
+                paymentActionBtn.disabled = false;
+
+                if (progressBar) progressBar.style.width = '100%';
+                if (step1) step1.className = 'timeline-step completed';
+                if (step2) step2.className = 'timeline-step completed';
+                if (step3) step3.className = 'timeline-step completed';
+
+                if (statusBanner) {
+                    statusBanner.className = 'status-banner released';
+                    statusBanner.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 20px; height: 20px;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="16 10 11 15 8 12"></polyline>
+                        </svg>
+                        <span>Transaksi Selesai & Dana Berhasil Cair</span>
+                    `;
+                }
+
+                if (paymentDetailsCard) paymentDetailsCard.style.display = 'none';
+                if (codDetailsCard) codDetailsCard.style.display = 'none';
+                
+                if (distributionCard) {
+                    distributionCard.style.display = 'block';
+                    document.getElementById('distItemPrice').textContent = "Rp " + payment.price.toLocaleString('id-ID');
+                    document.getElementById('distAdminCut').textContent = "Rp " + payment.commissionCut.toLocaleString('id-ID') + " (10%)";
+                    document.getElementById('distSellerNet').textContent = "Rp " + payment.sellerNetEarnings.toLocaleString('id-ID') + " (90%)";
+                    document.getElementById('distEscrowTotal').textContent = "Rp " + payment.price.toLocaleString('id-ID');
+                }
+            }
+
+            // check state in simulated database
+            function checkTransactionStatus() {
+                // Return if transaction is already in released state (local UI final state)
+                if (currentState === 'released') return;
+
+                const transactions = JSON.parse(localStorage.getItem('re_kost_transactions')) || [];
+                const localTx = transactions.find(t => t.txId === payment.txId);
+
+                if (localTx) {
+                    if (localTx.status === 'pending') {
+                        setVerificationWaitingUI();
+                    } else if (localTx.status === 'sukses') {
+                        setEscrowedUI();
+                    } else if (localTx.status === 'gagal') {
+                        setRejectedUI(localTx.rejectReason);
+                    }
+                } else {
+                    setWaitingPaymentUI();
+                }
+            }
+
+            // Run status checker on load
+            checkTransactionStatus();
+
+            // Dynamic polling database every 3 seconds to catch Admin approval
+            const checkInterval = setInterval(checkTransactionStatus, 3000);
+
+            if (paymentActionBtn) {
+                paymentActionBtn.addEventListener('click', function() {
+                    if (currentState === 'waiting_payment' || currentState === 'rejected') {
+                        paymentActionBtn.textContent = 'Mengirim Bukti Transfer...';
+                        paymentActionBtn.classList.add('disabled');
+                        paymentActionBtn.disabled = true;
+
+                        setTimeout(() => {
+                            // Submit to re_kost_transactions
+                            let transactions = JSON.parse(localStorage.getItem('re_kost_transactions')) || [];
+                            const existingTxIndex = transactions.findIndex(t => t.txId === payment.txId);
+                            const dateStr = new Date().toLocaleDateString('id-ID');
+                            const newTx = {
+                                txId: payment.txId,
+                                user: payment.buyerName || localStorage.getItem('current_user') || 'Aditya Pratama',
+                                description: `Escrow: Pembayaran ${payment.productTitle}`,
+                                type: 'pembayaran',
+                                amount: payment.totalAmount,
+                                method: getMethodDisplayName(payment.paymentMethod),
+                                status: 'pending',
+                                date: dateStr
+                            };
+
+                            if (existingTxIndex > -1) {
+                                transactions[existingTxIndex] = newTx;
+                            } else {
+                                transactions.push(newTx);
+                            }
+                            localStorage.setItem('re_kost_transactions', JSON.stringify(transactions));
+
+                            alert('Bukti pembayaran telah berhasil dikirim! Silakan buka panel Admin Console > Kelola Transaksi untuk memverifikasi pembayaran ini agar dana bisa di-escrow.');
+                            checkTransactionStatus();
+                        }, 800);
+
+                    } else if (currentState === 'escrowed') {
+                        if (confirm('Apakah Anda yakin barang sudah diterima dengan baik? Klik OK akan melepaskan dana escrow secara otomatis ke dompet penjual.')) {
+                            // Update local UI
+                            clearInterval(checkInterval);
+                            setReleasedUI();
+
+                            // Optional: Update transaction status in db or log completion
+                            alert('Transaksi Selesai! Pendapatan Bersih (90%) telah dicairkan ke dompet penjual dan komisi layanan (10%) telah disetorkan ke platform RE-KOST.');
+                        }
+                    } else if (currentState === 'released') {
+                        // Bersihkan transaksi pending & arahkan ke dashboard
+                        localStorage.removeItem('pending_payment');
+                        localStorage.removeItem('checkout_product');
+                        window.location.href = 'dashboard.html';
+                    }
+                });
+            }
+        });
+
+        function copyValue(val) {
+            navigator.clipboard.writeText(val);
+            alert('Nomor rekening/virtual account berhasil disalin ke clipboard!');
+        }
+    </script>
+</body>
+</html>

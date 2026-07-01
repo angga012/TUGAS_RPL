@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Admin - RE-KOST</title>
+    <meta name="description" content="Pintu masuk otentikasi administrator sistem RE-KOST. Kelola pengguna, statistik, verifikasi, dan finansial.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Css/main.css">
+    <link rel="stylesheet" href="Css/Admin/admin.css">
+</head>
+<body class="admin-body">
+
+    <!-- Background Blobs -->
+    <div class="admin-blobs" aria-hidden="true">
+        <div class="admin-blob admin-blob-blue"></div>
+        <div class="admin-blob admin-blob-purple"></div>
+    </div>
+
+    <!-- Main Wrapper (centered like auth-wrapper) -->
+    <div class="admin-auth-wrapper">
+
+        <!-- Split-screen Card (like .auth-card) -->
+        <main class="admin-login-card">
+
+            <!-- ========================
+                 LEFT PANEL — Admin Banner
+                 ======================== -->
+            <section class="admin-left-panel" aria-label="Admin RE-KOST">
+
+                <!-- Status Badge -->
+                <div class="admin-status-badge">
+                    <span class="admin-status-dot"></span>
+                    Sistem Aktif
+                </div>
+
+                <!-- Logo -->
+                <div class="admin-logo-container">
+                    <div class="admin-logo-circle">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Handle -->
+                            <path d="M22 23 C22 13, 42 13, 42 23" stroke="#14b8a6" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+                            <!-- Leaf -->
+                            <path d="M32 13 C35 13, 38 10, 37 7 C36 4, 33 6, 32 13 Z" fill="#14b8a6"/>
+                            <!-- House Body -->
+                            <path d="M14 36 L32 20 L50 36 V54 C50 56.2 48.2 58 46 58 H18 C15.8 58 14 56.2 14 54 V36 Z" fill="rgba(255,255,255,0.2)"/>
+                            <!-- Door -->
+                            <path d="M27 58 V44 C27 42.9 27.9 42 29 42 H35 C36.1 42 37 42.9 37 44 V58 H27 Z" fill="rgba(255,255,255,0.1)"/>
+                            <!-- Window -->
+                            <circle cx="32" cy="31" r="3.5" fill="#FF7A30"/>
+                        </svg>
+                    </div>
+
+                    <h2 class="admin-title">RE-KOST</h2>
+                    <span class="admin-subtitle">Admin Control Center</span>
+                    <p class="admin-banner-tagline">
+                        Kelola pengguna, verifikasi data, pantau statistik, dan kelola laporan keuangan platform RE-KOST.
+                    </p>
+                    <p class="admin-banner-welcome">Akses Administrator</p>
+                </div>
+
+            </section>
+
+            <!-- ========================
+                 RIGHT PANEL — Login Form
+                 ======================== -->
+            <section class="admin-right-panel" aria-label="Form Login Admin">
+
+                <div class="admin-form-header">
+                    <h2>Masuk ke Console</h2>
+                    <p>Masukkan kredensial administrator untuk melanjutkan.</p>
+                </div>
+
+                <!-- Login Form -->
+                <form id="adminLoginForm" class="admin-form" onsubmit="handleAdminLogin(event)">
+
+                    <!-- Username -->
+                    <div class="admin-form-group">
+                        <label for="adminUsername" class="admin-label">Username Administrator</label>
+                        <div class="admin-input-wrapper">
+                            <svg class="admin-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <input type="text" id="adminUsername" class="admin-input" placeholder="Masukkan username admin" required autocomplete="username">
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="admin-form-group">
+                        <label for="adminPassword" class="admin-label">Kata Sandi</label>
+                        <div class="admin-input-wrapper">
+                            <svg class="admin-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            <input type="password" id="adminPassword" class="admin-input" placeholder="Masukkan kata sandi aman" required autocomplete="current-password">
+                        </div>
+                    </div>
+
+                    <!-- Security PIN -->
+                    <div class="admin-form-group">
+                        <label for="adminPin" class="admin-label">Security PIN</label>
+                        <div class="admin-input-wrapper">
+                            <svg class="admin-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <line x1="12" y1="16" x2="12" y2="18"></line>
+                                <line x1="12" y1="12" x2="12" y2="12.01"></line>
+                            </svg>
+                            <input type="text" id="adminPin" class="admin-input" placeholder="Masukkan 4-digit PIN keamanan" required pattern="[0-9]{4}" maxlength="4" inputmode="numeric">
+                        </div>
+                    </div>
+
+                    <!-- Error Box -->
+                    <div id="errorBox" class="admin-error-box"></div>
+
+                    <!-- Options -->
+                    <div class="admin-form-options">
+                        <label class="admin-checkbox-label">
+                            <input type="checkbox" class="admin-checkbox" id="rememberAdmin">
+                            <span>Ingat sesi ini</span>
+                        </label>
+                        <a href="#" class="admin-forgot-link" onclick="showPinHint()">Lupa kredensial?</a>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="admin-btn-submit" id="adminSubmitBtn">
+                        Akses Console
+                    </button>
+
+                </form>
+
+                <!-- Back link -->
+                <footer class="admin-footer-links">
+                    <a href="index.html" class="admin-back-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        Kembali ke Beranda Utama
+                    </a>
+                </footer>
+
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const usernameInput = document.getElementById('adminUsername').value.trim();
+            const passwordInput = document.getElementById('adminPassword').value;
+            const pinInput      = document.getElementById('adminPin').value;
+            const errorBox      = document.getElementById('errorBox');
+            const btn           = document.getElementById('adminSubmitBtn');
+
+            if (usernameInput === 'admin' && passwordInput === 'admin123' && pinInput === '9988') {
+                errorBox.style.display = 'none';
+                btn.textContent  = 'Mengalihkan...';
+                btn.style.opacity = '0.75';
+                btn.disabled      = true;
+
+                localStorage.setItem('admin_logged_in', 'true');
+                localStorage.setItem('admin_name', 'Super Admin RE-KOST');
+
+                setTimeout(() => { window.location.href = 'Admin/dashboard.html'; }, 600);
+            } else {
+                errorBox.textContent = '⚠ Kombinasi Username, Password, atau PIN tidak valid.';
+                errorBox.style.display = 'block';
+
+                const card = document.querySelector('.admin-login-card');
+                card.style.animation = 'shake 0.4s ease-in-out';
+                setTimeout(() => { card.style.animation = ''; }, 400);
+            }
+        }
+
+        function showPinHint() {
+            alert("Hint kredensial demo:\nUsername: admin\nPassword: admin123\nPIN: 9988");
+        }
+
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                20%  { transform: translateX(-8px); }
+                40%  { transform: translateX( 8px); }
+                60%  { transform: translateX(-5px); }
+                80%  { transform: translateX( 5px); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    </script>
+
+</body>
+</html>

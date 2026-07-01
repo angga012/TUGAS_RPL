@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Penjual - RE-KOST</title>
+    <meta name="description" content="Profil penjual barang di RE-KOST.">
+    <link rel="stylesheet" href="Css/main.css">
+    <link rel="stylesheet" href="Css/dashboard.css">
+    <link rel="stylesheet" href="Css/profile.css">
+    <style>
+        body {
+            align-items: stretch;
+        }
+
+        .seller-profile-shell {
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+            padding: 1.5rem 1rem 6rem;
+        }
+
+        .seller-profile-card {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #edf2f7;
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .seller-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .seller-back {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            background: #f1f5f9;
+            text-decoration: none;
+        }
+
+        .seller-back svg {
+            width: 21px;
+            height: 21px;
+        }
+
+        .seller-brand {
+            color: var(--color-primary);
+            font-size: 1.15rem;
+            font-weight: 900;
+            letter-spacing: 0.04em;
+        }
+
+        .seller-identity {
+            display: grid;
+            justify-items: center;
+            text-align: center;
+            gap: 0.7rem;
+            padding: 1rem 0 1.5rem;
+        }
+
+        .seller-avatar-large {
+            width: 112px;
+            height: 112px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ffffff;
+            box-shadow: 0 14px 30px rgba(15, 61, 46, 0.16);
+        }
+
+        .seller-name-title {
+            color: var(--text-dark);
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1.15;
+        }
+
+        .seller-badge {
+            display: inline-flex;
+            align-items: center;
+            min-height: 28px;
+            padding: 0 0.7rem;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.12);
+            color: #047857;
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
+
+        .seller-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .seller-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .seller-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.85rem;
+            margin: 1rem 0 1.25rem;
+        }
+
+        .seller-stat {
+            border: 1px solid #edf2f7;
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+            background: #f8fafc;
+        }
+
+        .seller-stat strong {
+            display: block;
+            color: var(--color-primary);
+            font-size: 1.35rem;
+        }
+
+        .seller-stat span {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .seller-product-panel {
+            border-top: 1px solid #edf2f7;
+            padding-top: 1.25rem;
+        }
+
+        .seller-section-title {
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            font-weight: 800;
+            margin-bottom: 0.9rem;
+        }
+
+        .seller-product-card {
+            display: grid;
+            grid-template-columns: 92px 1fr;
+            gap: 0.9rem;
+            align-items: center;
+            border: 1px solid #edf2f7;
+            border-radius: 16px;
+            padding: 0.75rem;
+            color: inherit;
+            text-decoration: none;
+            background: #ffffff;
+        }
+
+        .seller-product-card img {
+            width: 92px;
+            height: 92px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: #f1f5f9;
+        }
+
+        .seller-product-card h2 {
+            color: var(--text-dark);
+            font-size: 0.98rem;
+            line-height: 1.35;
+            margin-bottom: 0.25rem;
+        }
+
+        .seller-product-card p {
+            color: var(--color-primary);
+            font-weight: 800;
+        }
+
+        .seller-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-top: 1.25rem;
+        }
+
+        .seller-actions a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            border-radius: 14px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .seller-chat {
+            background: var(--color-primary);
+            color: #ffffff;
+        }
+
+        .seller-market {
+            border: 1.5px solid var(--color-primary);
+            color: var(--color-primary);
+            background: #ffffff;
+        }
+
+        @media (min-width: 768px) {
+            .seller-profile-shell {
+                margin-left: 240px;
+                width: calc(100% - 240px);
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .seller-profile-card {
+                border-radius: 18px;
+                padding: 1rem;
+            }
+
+            .seller-stats,
+            .seller-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-blobs" aria-hidden="true">
+        <div class="blob blob-teal"></div>
+        <div class="blob blob-orange"></div>
+    </div>
+
+    <main class="seller-profile-shell">
+        <section class="seller-profile-card">
+            <div class="seller-topbar">
+                <a href="product-detail.html" class="seller-back" aria-label="Kembali ke Detail Produk">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </a>
+                <span class="seller-brand">RE-KOST</span>
+            </div>
+
+            <div class="seller-identity">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=220&auto=format&fit=crop" alt="Foto Penjual" class="seller-avatar-large" id="sellerAvatar">
+                <h1 class="seller-name-title" id="sellerName">Penjual RE-KOST</h1>
+                <span class="seller-badge">VERIFIED SELLER</span>
+                <div class="seller-meta">
+                    <span id="sellerCampus">Area kampus</span>
+                    <span id="sellerLocation">Lokasi penjual</span>
+                </div>
+            </div>
+
+            <div class="seller-stats" aria-label="Statistik penjual">
+                <div class="seller-stat">
+                    <strong id="sellerProductCount">1</strong>
+                    <span>Barang Aktif</span>
+                </div>
+                <div class="seller-stat">
+                    <strong>4.8</strong>
+                    <span>Rating</span>
+                </div>
+                <div class="seller-stat">
+                    <strong>98%</strong>
+                    <span>Respons Chat</span>
+                </div>
+            </div>
+
+            <div class="seller-product-panel" id="sellerProductsContainer">
+                <h2 class="seller-section-title">Barang dari penjual ini</h2>
+                <a href="product-detail.html" class="seller-product-card" id="sellerProductCard">
+                    <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=300&auto=format&fit=crop" alt="Barang penjual" id="sellerProductImage">
+                    <div>
+                        <h2 id="sellerProductTitle">Barang RE-KOST</h2>
+                        <p id="sellerProductPrice">Rp 0</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="seller-actions">
+                <a href="chat.html" class="seller-chat" id="sellerChatLink">Chat Penjual</a>
+                <a href="marketplace.html" class="seller-market" id="sellerMarketplaceLink">Lihat Marketplace</a>
+            </div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navigasi Utama">
+        <a href="dashboard.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Home</span>
+        </a>
+        <a href="marketplace.html" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>Category</span>
+        </a>
+        <a href="Page_1/sell-product.html" class="nav-item nav-item-sell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            <span>Sell</span>
+        </a>
+        <a href="chat.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Chat</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>Profile</span>
+        </a>
+        <!-- Logout (Hanya muncul di desktop sidebar) -->
+        <a href="#" class="nav-item nav-item-logout" onclick="logoutUser(event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>Logout</span>
+        </a>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let sellerProfile = {};
+            try {
+                sellerProfile = JSON.parse(localStorage.getItem('selected_seller_profile')) || {};
+            } catch {
+                sellerProfile = {};
+            }
+
+            const selectedProduct = getSelectedProduct();
+            const sellerName = sellerProfile.name || selectedProduct.sellerName || 'Penjual RE-KOST';
+            const sellerLocation = sellerProfile.location || selectedProduct.campus || 'Area kampus';
+
+            document.title = sellerName + ' - Profil Penjual RE-KOST';
+            setText('sellerName', sellerName);
+            setText('sellerCampus', sellerProfile.campus || selectedProduct.campus || 'Area kampus');
+            setText('sellerLocation', sellerLocation);
+            setText('sellerProductTitle', sellerProfile.productTitle || selectedProduct.title || 'Barang RE-KOST');
+            setText('sellerProductPrice', formatRupiah(sellerProfile.productPrice || selectedProduct.price || 0));
+
+            const imageNode = document.getElementById('sellerProductImage');
+            const productImage = sellerProfile.productImage || selectedProduct.image;
+            if (imageNode && productImage) {
+                imageNode.src = productImage;
+            }
+
+            const products = getProducts();
+            const sellerProducts = products.filter((product) => (product.sellerName || '').toLowerCase() === sellerName.toLowerCase() && product.status === 'aktif');
+            setText('sellerProductCount', Math.max(sellerProducts.length, 1));
+
+            // Calculate Seller Rating dynamically based on their products
+            let sellerRating = 4.8; // Default fallback
+            let totalRating = 0;
+            let countWithRating = 0;
+            sellerProducts.forEach(p => {
+                if (p.rating === undefined) {
+                    const ratingMap = { p1: 4.8, p2: 4.5, p3: 4.7, p4: 4.2, p5: 4.6, p6: 4.9, p7: 4.4, p8: 4.3 };
+                    p.rating = ratingMap[p.id] || (4.0 + (Math.abs(p.title.length) % 10) / 10);
+                }
+                totalRating += Number(p.rating);
+                countWithRating++;
+            });
+            if (countWithRating > 0) {
+                sellerRating = (totalRating / countWithRating).toFixed(1);
+            } else {
+                sellerRating = (4.0 + (sellerName.length % 10) / 10).toFixed(1);
+            }
+
+            const ratingStatNode = document.querySelector('.seller-stat:nth-child(2) strong');
+            if (ratingStatNode) {
+                ratingStatNode.textContent = sellerRating;
+            }
+
+            // Render all active products of this seller dynamically
+            const productsContainer = document.getElementById('sellerProductsContainer');
+            if (productsContainer) {
+                let html = '<h2 class="seller-section-title">Barang dari penjual ini</h2>';
+                if (sellerProducts.length === 0) {
+                    html += `
+                        <div style="text-align: center; color: var(--text-muted); padding: 1.5rem; font-size: 0.85rem;">
+                            Tidak ada barang aktif dari penjual ini.
+                        </div>
+                    `;
+                } else {
+                    sellerProducts.forEach(p => {
+                        if (p.rating === undefined) {
+                            const ratingMap = { p1: 4.8, p2: 4.5, p3: 4.7, p4: 4.2, p5: 4.6, p6: 4.9, p7: 4.4, p8: 4.3 };
+                            p.rating = ratingMap[p.id] || (4.0 + (Math.abs(p.title.length) % 10) / 10);
+                        }
+                        
+                        html += `
+                            <a href="product-detail.html" class="seller-product-card" style="margin-bottom: 0.75rem; text-decoration: none;" onclick="localStorage.setItem('selected_product', JSON.stringify(${JSON.stringify(p).replace(/"/g, '&quot;')}))">
+                                <img src="${p.image}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=300&auto=format&fit=crop'">
+                                <div>
+                                    <h2 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 2px;">${p.title}</h2>
+                                    <div style="display: flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 700; color: #f59e0b; margin-bottom: 4px;">
+                                        <span>★</span>
+                                        <span>${p.rating}</span>
+                                    </div>
+                                    <p style="font-weight: 800; color: var(--color-primary); font-size: 0.9rem;">${formatRupiah(p.price)}</p>
+                                </div>
+                            </a>
+                        `;
+                    });
+                }
+                productsContainer.innerHTML = html;
+            }
+
+            const chatLink = document.getElementById('sellerChatLink');
+            if (chatLink) {
+                chatLink.addEventListener('click', () => {
+                    const chatTarget = {
+                        sellerName: sellerName,
+                        sellerLocation: sellerLocation,
+                        productId: sellerProfile.productId || selectedProduct.id || '',
+                        productTitle: sellerProfile.productTitle || selectedProduct.title || 'Barang RE-KOST',
+                        productImage: sellerProfile.productImage || selectedProduct.image || '',
+                        productPrice: sellerProfile.productPrice || selectedProduct.price || 0
+                    };
+                    localStorage.setItem('rekost_pending_chat_seller', JSON.stringify(chatTarget));
+                });
+            }
+
+            const marketplaceLink = document.getElementById('sellerMarketplaceLink');
+            if (marketplaceLink) {
+                marketplaceLink.href = 'marketplace.html?seller=' + encodeURIComponent(sellerName);
+                marketplaceLink.addEventListener('click', () => {
+                    localStorage.setItem('rekost_marketplace_seller_filter', sellerName);
+                });
+            }
+        });
+
+        function getSelectedProduct() {
+            try {
+                return JSON.parse(localStorage.getItem('selected_product')) || {};
+            } catch {
+                return {};
+            }
+        }
+
+        function getProducts() {
+            try {
+                return JSON.parse(localStorage.getItem('re_kost_products')) || [];
+            } catch {
+                return [];
+            }
+        }
+
+        function setText(id, value) {
+            const node = document.getElementById(id);
+            if (node) node.textContent = value;
+        }
+
+        function formatRupiah(value) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                maximumFractionDigits: 0
+            }).format(Number(value) || 0);
+        }
+
+        function logoutUser(event) {
+            if (event) event.preventDefault();
+            if (confirm("Apakah Anda yakin ingin keluar dari akun RE-KOST?")) {
+                localStorage.removeItem('user_logged_in');
+                localStorage.removeItem('current_user');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

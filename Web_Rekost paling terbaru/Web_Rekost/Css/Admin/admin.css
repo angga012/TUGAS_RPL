@@ -1,0 +1,512 @@
+/* admin.css - Stylesheet for Admin Login (Matched to auth.css layout style) */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --admin-color-primary: #0F3D2E;
+    --admin-color-primary-glow: rgba(15, 61, 46, 0.1);
+    --admin-color-secondary: #FF7A30;
+    --admin-color-accent: #14b8a6;
+    --admin-text-main: #2D3748;
+    --admin-text-muted: #718096;
+    --admin-text-light: #A0AEC0;
+    --admin-input-bg: #F8FAFC;
+    --admin-input-border: #E2E8F0;
+    --admin-bg-base: #FFFFFF;
+    --admin-shadow: 0 20px 50px rgba(15, 61, 46, 0.08);
+}
+
+/* ============================
+   RESET & BASE
+   ============================ */
+body.admin-body {
+    background-color: var(--admin-bg-base);
+    color: var(--admin-text-main);
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ============================
+   BACKGROUND BLOBS
+   ============================ */
+.admin-blobs {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.admin-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+    animation: adminPulse 12s infinite alternate ease-in-out;
+}
+
+.admin-blob-blue {
+    top: -10%; left: -10%;
+    width: 50vw; height: 50vw;
+    max-width: 500px;
+    background: radial-gradient(circle, rgba(20, 184, 166, 0.25) 0%, rgba(20, 184, 166, 0.05) 70%, transparent 100%);
+}
+
+.admin-blob-purple {
+    bottom: -10%; right: -10%;
+    width: 55vw; height: 55vw;
+    max-width: 550px;
+    background: radial-gradient(circle, rgba(251, 146, 60, 0.22) 0%, rgba(251, 146, 60, 0.04) 70%, transparent 100%);
+    animation-delay: -6s;
+}
+
+@keyframes adminPulse {
+    0%   { transform: scale(1) translate(0, 0); }
+    50%  { transform: scale(1.15) translate(3%, 2%); }
+    100% { transform: scale(0.95) translate(-2%, -3%); }
+}
+
+/* ============================
+   WRAPPER — same as .auth-wrapper
+   ============================ */
+.admin-auth-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    z-index: 2;
+    position: relative;
+}
+
+/* ============================
+   CARD — same proportions as .auth-card (max-width: 860px)
+   ============================ */
+.admin-login-card {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 900px;
+    min-height: 580px;
+    background-color: #FFFFFF;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: var(--admin-shadow);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    z-index: 3;
+}
+
+/* ============================
+   LEFT BANNER — dark admin theme
+   ============================ */
+.admin-left-panel {
+    flex: 1;
+    background: linear-gradient(145deg, #0a1f14 0%, #0F3D2E 60%, #0d2e21 100%);
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative accent circle */
+.admin-left-panel::before {
+    content: '';
+    position: absolute;
+    top: -20%; left: -20%;
+    width: 140%; height: 140%;
+    background: radial-gradient(circle, rgba(20, 184, 166, 0.12) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+/* Floating logo animation */
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-6px); }
+}
+
+.admin-logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.admin-logo-circle {
+    width: 120px;
+    height: 120px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: floatLogo 4s infinite ease-in-out;
+    backdrop-filter: blur(8px);
+}
+
+.admin-logo-circle svg {
+    width: 66px;
+    height: 66px;
+}
+
+.admin-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.2rem;
+}
+
+.admin-subtitle {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #14b8a6;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.admin-banner-tagline {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 240px;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.admin-banner-welcome {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    opacity: 0.9;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 0.75rem;
+    width: 80%;
+    max-width: 200px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Status badge */
+.admin-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(20, 184, 166, 0.15);
+    border: 1px solid rgba(20, 184, 166, 0.25);
+    border-radius: 100px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #14b8a6;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.admin-status-dot {
+    width: 6px;
+    height: 6px;
+    background: #14b8a6;
+    border-radius: 50%;
+    animation: dotPulse 2s infinite;
+}
+
+@keyframes dotPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ============================
+   RIGHT PANEL — form section
+   ============================ */
+.admin-right-panel {
+    flex: 1.25;
+    background-color: #FFFFFF;
+    padding: 2.2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Form header */
+.admin-form-header {
+    margin-bottom: 1.2rem;
+}
+
+.admin-form-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--admin-text-main);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.2rem;
+}
+
+.admin-form-header p {
+    font-size: 0.875rem;
+    color: var(--admin-text-muted);
+}
+
+/* Credential Info Box */
+.admin-credential-info {
+    margin-bottom: 1.2rem;
+    padding: 0.8rem 1rem;
+    background: rgba(15, 61, 46, 0.04);
+    border: 1px solid rgba(15, 61, 46, 0.1);
+    border-radius: 12px;
+    font-size: 0.82rem;
+    color: var(--admin-text-main);
+    text-align: left;
+    line-height: 1.6;
+}
+
+.admin-credential-info .cred-title {
+    font-weight: 700;
+    color: var(--admin-color-primary);
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+}
+
+.admin-credential-info .cred-body {
+    font-size: 0.8rem;
+    color: var(--admin-text-muted);
+}
+
+.admin-credential-info code {
+    background: rgba(15, 61, 46, 0.07);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    color: var(--admin-color-primary);
+    font-weight: 600;
+}
+
+/* ============================
+   FORM STYLES
+   ============================ */
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    text-align: left;
+}
+
+.admin-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.admin-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4A5568;
+    letter-spacing: 0.02em;
+}
+
+.admin-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.admin-input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: var(--admin-text-light);
+    pointer-events: none;
+    transition: color 0.3s ease;
+}
+
+.admin-input-wrapper:focus-within .admin-input-icon {
+    color: var(--admin-color-primary);
+}
+
+.admin-input {
+    width: 100%;
+    background-color: var(--admin-input-bg);
+    border: 1.5px solid var(--admin-input-border);
+    border-radius: 12px;
+    padding: 0.85rem 1rem 0.85rem 3rem;
+    font-size: 0.95rem;
+    font-family: 'Outfit', inherit;
+    color: var(--admin-text-main);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.admin-input::placeholder {
+    color: var(--admin-text-light);
+}
+
+.admin-input:focus {
+    border-color: var(--admin-color-primary);
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(15, 61, 46, 0.08);
+}
+
+/* Error Box */
+.admin-error-box {
+    padding: 0.7rem 0.9rem;
+    background-color: rgba(239, 68, 68, 0.07);
+    border: 1.5px solid rgba(239, 68, 68, 0.2);
+    border-radius: 10px;
+    color: #dc2626;
+    font-size: 0.83rem;
+    font-weight: 500;
+    display: none;
+}
+
+/* Form Options */
+.admin-form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+}
+
+.admin-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    color: var(--admin-text-muted);
+}
+
+.admin-checkbox {
+    accent-color: var(--admin-color-primary);
+    width: 14px;
+    height: 14px;
+}
+
+.admin-forgot-link {
+    color: var(--admin-color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+}
+
+.admin-forgot-link:hover {
+    opacity: 0.75;
+    text-decoration: underline;
+}
+
+/* Submit Button */
+.admin-btn-submit {
+    margin-top: 0.4rem;
+    padding: 0.95rem 1.5rem;
+    background: linear-gradient(135deg, var(--admin-color-primary), #1b5b46);
+    color: #ffffff;
+    border: none;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Outfit', inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(15, 61, 46, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.admin-btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(15, 61, 46, 0.3);
+    background: linear-gradient(135deg, #1b5b46, #0F3D2E);
+}
+
+.admin-btn-submit:active {
+    transform: translateY(1px);
+}
+
+/* Footer back link */
+.admin-footer-links {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    font-size: 0.85rem;
+}
+
+.admin-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--admin-text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.25s ease;
+}
+
+.admin-back-btn svg {
+    width: 15px;
+    height: 15px;
+    transition: transform 0.25s ease;
+}
+
+.admin-back-btn:hover {
+    color: var(--admin-color-primary);
+}
+
+.admin-back-btn:hover svg {
+    transform: translateX(-3px);
+}
+
+/* ============================
+   RESPONSIVE — Mobile stack
+   ============================ */
+@media (max-width: 768px) {
+    .admin-login-card {
+        flex-direction: column;
+        max-width: 480px;
+        min-height: auto;
+        border-radius: 24px;
+    }
+
+    .admin-left-panel {
+        padding: 2.5rem 1.5rem;
+        min-height: 200px;
+    }
+
+    .admin-logo-circle {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1rem;
+    }
+
+    .admin-logo-circle svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .admin-right-panel {
+        padding: 2rem 1.5rem;
+    }
+}

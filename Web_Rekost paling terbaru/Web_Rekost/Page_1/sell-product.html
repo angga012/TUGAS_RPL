@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Barang - RE-KOST</title>
+    <meta name="description" content="Jual barang kos bekas kamu yang sudah tidak terpakai ke sesama mahasiswa di RE-KOST. Proses cepat, mudah, dan terpercaya.">
+    <!-- Link CSS Global, CSS Dashboard (untuk nav sidebar), dan CSS khusus Product -->
+    <link rel="stylesheet" href="../Css/main.css">
+    <link rel="stylesheet" href="../Css/dashboard.css">
+    <link rel="stylesheet" href="../Css/product.css">
+</head>
+<body>
+
+    <!-- Background Blurry Pastel Blobs (Consistent across pages) -->
+    <div class="background-blobs" aria-hidden="true">
+        <div class="blob blob-teal"></div>
+        <div class="blob blob-orange"></div>
+    </div>
+
+    <!-- Main Wrapper with Left Sidebar on Desktop / Scrollable Body -->
+    <div class="sell-wrapper">
+        
+        <!-- 1. Bagian Header & Navigasi Atas -->
+        <header class="sell-header">
+            <div class="header-title-group">
+                <a href="../dashboard.html" class="btn-back" id="back-to-home" aria-label="Kembali ke Beranda">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </a>
+                <div class="title-sub-group">
+                    <h1 class="sell-title">Upload Barang</h1>
+                    <p class="sell-subtitle">Bantu sesama mahasiswa dengan menjual barangmu yang sudah tidak terpakai.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 2. Formulir Input & Konten Utama -->
+        <main class="sell-content-container">
+            
+            <form id="upload-product-form">
+                
+                <!-- Section Foto Produk -->
+                <section class="form-card photo-upload-section">
+                    <h2 class="section-label">FOTO PRODUK (MAKS. 5)</h2>
+                    
+                    <div class="photo-boxes-container">
+                        <!-- Utama Box (Kotak Pertama Lebih Besar) -->
+                        <div class="photo-box-wrapper main-photo-wrapper">
+                            <label class="photo-box main-photo-box" for="photo-main">
+                                <input type="file" id="photo-main" accept="image/*" class="photo-input">
+                                <div class="photo-box-content">
+                                    <svg class="camera-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                        <circle cx="12" cy="13" r="4"></circle>
+                                        <line x1="12" y1="10" x2="12" y2="16"></line>
+                                        <line x1="9" y1="13" x2="15" y2="13"></line>
+                                    </svg>
+                                    <span class="badge-utama">UTAMA</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Kotak 2 -->
+                        <div class="photo-box-wrapper small-photo-wrapper">
+                            <label class="photo-box" for="photo-2">
+                                <input type="file" id="photo-2" accept="image/*" class="photo-input">
+                                <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </label>
+                        </div>
+                        
+                        <!-- Kotak 3 -->
+                        <div class="photo-box-wrapper small-photo-wrapper">
+                            <label class="photo-box" for="photo-3">
+                                <input type="file" id="photo-3" accept="image/*" class="photo-input">
+                                <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </label>
+                        </div>
+
+                        <!-- Kotak 4 -->
+                        <div class="photo-box-wrapper small-photo-wrapper">
+                            <label class="photo-box" for="photo-4">
+                                <input type="file" id="photo-4" accept="image/*" class="photo-input">
+                                <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </label>
+                        </div>
+
+                        <!-- Kotak 5 -->
+                        <div class="photo-box-wrapper small-photo-wrapper">
+                            <label class="photo-box" for="photo-5">
+                                <input type="file" id="photo-5" accept="image/*" class="photo-input">
+                                <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="photo-instruction-row">
+                        <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <span>Gunakan foto asli agar pembeli lebih percaya.</span>
+                    </div>
+                </section>
+
+                <!-- Section Input Data Barang -->
+                <section class="form-card input-fields-section">
+                    <!-- Nama Barang -->
+                    <div class="input-group">
+                        <label for="product-name" class="input-label">Nama Barang</label>
+                        <input type="text" id="product-name" class="form-input" placeholder="Contoh: Meja Belajar Lipat Minimalis" required>
+                    </div>
+                    
+                    <!-- Kategori & Harga (Berjejer) -->
+                    <div class="form-row">
+                        <!-- Kategori -->
+                        <div class="input-group flex-1">
+                            <label for="product-category" class="input-label">Kategori</label>
+                            <div class="select-wrapper">
+                                <select id="product-category" class="form-select" required>
+                                    <option value="" disabled selected>Pilih Kategori</option>
+                                    <option value="elektronik">Elektronik</option>
+                                    <option value="perabotan">Perabotan</option>
+                                    <option value="buku">Buku & ATK</option>
+                                    <option value="dapur">Dapur</option>
+                                    <option value="pakaian">Pakaian</option>
+                                    <option value="lainnya">Lainnya</option>
+                                </select>
+                                <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Harga -->
+                        <div class="input-group flex-1">
+                            <label for="product-price" class="input-label">Harga (Rp)</label>
+                            <div class="price-input-wrapper">
+                                <span class="price-prefix">Rp</span>
+                                <input type="number" id="product-price" class="form-input price-input" placeholder="0" min="0" required>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section Deskripsi Barang -->
+                <section class="form-card description-section">
+                    <div class="input-group">
+                        <label for="product-description" class="input-label">Deskripsi Barang</label>
+                        <textarea id="product-description" class="form-textarea" placeholder="Jelaskan kondisi barang, kelengkapan, dan alasan dijual..." rows="5" minlength="20" maxlength="2000" required oninput="document.getElementById('char-count').innerText = this.value.length + '/2000'"></textarea>
+                        <div class="textarea-helper-row">
+                            <span class="helper-text">Minimum 20 karakter</span>
+                            <span class="char-counter" id="char-count">0/2000</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section Lokasi & Verifikasi -->
+                <section class="form-card location-verification-section">
+                    <!-- Lokasi -->
+                    <div class="input-group">
+                        <label for="product-location" class="input-label">Lokasi Boarding / Kampus</label>
+                        <div class="location-input-wrapper">
+                            <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <input type="text" id="product-location" class="form-input location-input" placeholder="Masukkan area kos atau kampus terdekat" required>
+                        </div>
+                    </div>
+
+                    <!-- Trust Badge Card -->
+                    <div class="trust-badge-card">
+                        <div class="trust-icon-box">
+                            <svg class="shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                <path d="M9 11l2 2 4-4"></path>
+                            </svg>
+                        </div>
+                        <div class="trust-text-box">
+                            <h3 class="trust-title">Trust Badge</h3>
+                            <p class="trust-desc">Identitas mahasiswa Anda akan diverifikasi secara otomatis untuk meningkatkan kepercayaan pembeli.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tombol Submit Utama -->
+                <div class="submit-action-row">
+                    <button type="submit" class="btn-upload-submit" id="btn-upload-submit">
+                        <svg class="upload-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 16 12 12 8 16"></polyline>
+                            <line x1="12" y1="12" x2="12" y2="21"></line>
+                            <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+                        </svg>
+                        <span>Upload Barang Sekarang</span>
+                    </button>
+                    
+                    <p class="legal-note-text">
+                        Dengan menekan tombol di atas, Anda menyetujui <a href="#" id="terms-link">Syarat & Ketentuan</a> komunitas RE-KOST.
+                    </p>
+                </div>
+
+            </form>
+
+        </main>
+
+        <!-- Fixed Left Sidebar on Desktop / Fixed Bottom Navigation on Mobile -->
+        <nav class="bottom-nav" aria-label="Navigasi Utama">
+            
+            <!-- Home -->
+            <a href="../dashboard.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Home</span>
+            </a>
+
+            <!-- Category -->
+            <a href="../marketplace.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Category</span>
+            </a>
+
+            <!-- Sell (Special Center Accent - Active) -->
+            <a href="sell-product.html" class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <span>Sell</span>
+            </a>
+
+            <!-- Chat -->
+            <a href="../chat.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Chat</span>
+            </a>
+
+            <!-- Profile -->
+            <a href="../profile.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Profile</span>
+            </a>
+
+            <!-- Logout (Hanya muncul di desktop sidebar) -->
+            <a href="#" class="nav-item nav-item-logout" onclick="logoutUser(event)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                <span>Logout</span>
+            </a>
+
+        </nav>
+
+    </div>
+
+    <!-- Script to save product details to localStorage in pending state -->
+    <script>
+        // Helper to compress image to max width 600px using Canvas to prevent localStorage quota exhaustion
+        function compressImage(file, callback) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    const max_size = 600; // max width or height
+
+                    if (width > height) {
+                        if (width > max_size) {
+                            height *= max_size / width;
+                            width = max_size;
+                        }
+                    } else {
+                        if (height > max_size) {
+                            width *= max_size / height;
+                            height = max_size;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Get compressed Base64
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.7); // 0.7 quality
+                    callback(dataUrl);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('upload-product-form');
+            let uploadedMainImage = '';
+
+            // Handle main photo input change event
+            const photoMain = document.getElementById('photo-main');
+            if (photoMain) {
+                photoMain.addEventListener('change', function() {
+                    const label = this.parentElement;
+                    const file = this.files[0];
+                    if (file) {
+                        compressImage(file, function(compressedBase64) {
+                            uploadedMainImage = compressedBase64;
+                            
+                            // Set background
+                            label.style.backgroundImage = `url(${compressedBase64})`;
+                            label.style.backgroundSize = 'cover';
+                            label.style.backgroundPosition = 'center';
+                            
+                            const innerContent = label.querySelector('.photo-box-content');
+                            if (innerContent) innerContent.style.display = 'none';
+                        });
+                    }
+                });
+            }
+
+            // Preview logic for other smaller photo boxes (2 to 5)
+            for (let i = 2; i <= 5; i++) {
+                const photoInput = document.getElementById(`photo-${i}`);
+                if (photoInput) {
+                    photoInput.addEventListener('change', function() {
+                        const label = this.parentElement;
+                        const file = this.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                label.style.backgroundImage = `url(${e.target.result})`;
+                                label.style.backgroundSize = 'cover';
+                                label.style.backgroundPosition = 'center';
+                                
+                                const plusIcon = label.querySelector('.plus-icon');
+                                if (plusIcon) plusIcon.style.display = 'none';
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                }
+            }
+
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    const name = document.getElementById('product-name').value.trim();
+                    const category = document.getElementById('product-category').value;
+                    const categoryLabels = {
+                        elektronik: 'ELEKTRONIK',
+                        perabotan: 'PERABOTAN',
+                        buku: 'BUKU & ATK',
+                        dapur: 'DAPUR',
+                        pakaian: 'PAKAIAN',
+                        lainnya: 'LAINNYA'
+                    };
+                    const categoryLabel = categoryLabels[category] || 'LAINNYA';
+                    const price = parseInt(document.getElementById('product-price').value);
+                    const description = document.getElementById('product-description').value.trim();
+                    const location = document.getElementById('product-location').value.trim();
+                    
+                    // Get current logged-in user name
+                    let sellerName = "Mahasiswa RE-KOST";
+                    const currentUserStr = localStorage.getItem('current_user');
+                    if (currentUserStr) {
+                        const currentUser = JSON.parse(currentUserStr);
+                        sellerName = currentUser.name;
+                    }
+                    
+                    // Retrieve or initialize products database
+                    let products = JSON.parse(localStorage.getItem('re_kost_products')) || [];
+                    
+                    // Create new product object (status: pending)
+                    const newProductId = "p" + (Date.now());
+                    const newProduct = {
+                        id: newProductId,
+                        title: name,
+                        sellerName: sellerName,
+                        campus: location,
+                        price: price,
+                        status: "pending", // Pending admin verification
+                        category: category,
+                        categoryLabel: categoryLabel,
+                        facilities: [categoryLabel, "Verified Student"],
+                        description: description,
+                        image: uploadedMainImage || "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500&auto=format&fit=crop", // use uploaded image or fallback
+                        rating: 4.8,
+                        reviewsCount: 0
+                    };
+                    
+                    products.push(newProduct);
+                    localStorage.setItem('re_kost_products', JSON.stringify(products));
+                    
+                    // Redirect to success screen
+                    window.location.href = 'upload-success.html';
+                });
+            }
+        });
+
+        function logoutUser(event) {
+            if (event) event.preventDefault();
+            if (confirm("Apakah Anda yakin ingin keluar dari akun RE-KOST?")) {
+                localStorage.removeItem('user_logged_in');
+                localStorage.removeItem('current_user');
+                window.location.href = '../index.html';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,665 @@
+/* Stylesheet for Halaman Kategori Produk (Categories Screen) */
+
+.marketplace-page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 90px; /* Space for bottom nav on mobile */
+}
+
+@media (min-width: 768px) {
+    .marketplace-page-wrapper {
+        margin-left: 240px; /* Shift content right to clear the sidebar width */
+        padding-bottom: 3rem;
+    }
+}
+
+
+/* 1. Header Navigation Bar (Top Header) */
+.marketplace-header {
+    background-color: #FFFFFF;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid #EDF2F7;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-primary); /* Forest Green #0F3D2E */
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    background-color: #F1F5F9;
+    color: #0b2e22;
+}
+
+.back-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.brand-logo {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--color-primary);
+    letter-spacing: 0.04em;
+    transform: translateY(-1px); /* Slight vertical alignment correction next to back button */
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-dark);
+    padding: 8px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.action-btn:hover {
+    background-color: #F1F5F9;
+    color: var(--color-primary);
+}
+
+.action-btn svg {
+    width: 22px;
+    height: 22px;
+}
+
+.profile-avatar-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary);
+    padding: 1px;
+    transition: transform 0.2s ease;
+}
+
+.profile-avatar-link:hover {
+    transform: scale(1.05);
+}
+
+.profile-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* 2. Search Bar Section (Baris Kedua) */
+.search-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 1.25rem auto 0 auto;
+    padding: 0 1.5rem;
+}
+
+.search-bar-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+#categorySearchInput {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 3rem;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    background-color: #FFFFFF;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+#categorySearchInput:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(15, 61, 46, 0.06);
+}
+
+#categorySearchInput::placeholder {
+    color: #A0AEC0;
+    font-weight: 400;
+}
+
+/* 3. Filter Kapsul (Baris Ketiga) */
+.filter-capsules-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 1rem auto 0 auto;
+    padding: 0 1.5rem;
+    overflow: hidden;
+}
+
+.filter-scroll-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.filter-scroll-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-pill {
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    white-space: nowrap;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Default: pale orange background, dark brown text */
+    background-color: #FEF3C7; /* Pale orange/peach */
+    color: #92400E; /* Dark brown/orange text */
+}
+
+.filter-pill:hover {
+    transform: translateY(-1px);
+    background-color: #FDE68A;
+}
+
+/* Active State: Forest Green background, white text */
+.filter-pill.active {
+    background-color: var(--color-primary) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 12px rgba(15, 61, 46, 0.15);
+}
+
+/* 4. Main Content Area & Info Bar */
+.marketplace-content {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.info-text {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.count-highlight {
+    color: var(--color-primary);
+    font-weight: 800;
+}
+
+.sort-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.sort-btn:hover {
+    background-color: rgba(15, 61, 46, 0.05);
+}
+
+.sort-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* 5. Konten Utama (Grid Produk 4 Kolom) */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    margin-bottom: 2.5rem;
+}
+
+.product-card {
+    background-color: #FFFFFF;
+    border: 1px solid #EDF2F7;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+    border-color: rgba(15, 61, 46, 0.1);
+}
+
+.card-image-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.1 / 1;
+    overflow: hidden;
+    background-color: #F7FAFC;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.03);
+}
+
+/* Badge Tags (Verified & BARU) */
+.badge-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tag-verified {
+    background-color: rgba(16, 185, 129, 0.85); /* Semi-transparent Green */
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tag-baru {
+    background-color: var(--color-secondary); /* Orange */
+    color: #FFFFFF;
+}
+
+/* Card Info */
+.card-info {
+    padding: 1rem 1.15rem 1.15rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.product-category {
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: #C05621; /* Dark orange/brown */
+    letter-spacing: 0.06em;
+    margin-bottom: 5px;
+}
+
+.product-name {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.35;
+    margin-bottom: 6px;
+    /* Limit to two lines for layout consistency */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 2.7em;
+}
+
+.product-price {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+}
+
+.product-location {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-top: auto; /* Push location to bottom of info box */
+}
+
+.pin-icon {
+    width: 14px;
+    height: 14px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+/* 6. Muat Lebih Banyak Button */
+.load-more-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.load-more-btn {
+    padding: 0.8rem 2.5rem;
+    background-color: transparent;
+    border: 1.5px solid var(--color-primary);
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.load-more-btn:hover {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    box-shadow: 0 6px 16px rgba(15, 61, 46, 0.12);
+}
+
+.load-more-btn:active {
+    transform: translateY(1px);
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    .brand-logo {
+        font-size: 1.2rem;
+    }
+    .search-container, .filter-capsules-container, .marketplace-content {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    .card-info {
+        padding: 0.75rem;
+    }
+    .product-name {
+        font-size: 0.85rem;
+        height: 2.7em;
+    }
+    .product-price {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+    .product-location {
+        font-size: 0.7rem;
+    }
+    .load-more-btn {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+    }
+}
+
+/* Align header & content paddings on desktop */
+@media (min-width: 768px) {
+    .marketplace-header {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .search-container, .filter-capsules-container, .marketplace-content {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+}
+@media (min-width: 1200px) {
+    .marketplace-header {
+        padding-left: max(4rem, calc((100% - 240px - 1200px) / 2)) !important;
+        padding-right: max(4rem, calc((100% - 240px - 1200px) / 2)) !important;
+    }
+    .search-container, .filter-capsules-container, .marketplace-content {
+        padding-left: max(4rem, calc((100% - 240px - 1200px) / 2)) !important;
+        padding-right: max(4rem, calc((100% - 240px - 1200px) / 2)) !important;
+    }
+}
+
+/* Bottom Navigation Bar / Desktop Left Sidebar Nav */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 72px;
+    background-color: var(--color-primary);
+    box-shadow: 0 -5px 20px rgba(15, 61, 46, 0.15);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 100;
+    padding: 0 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.65rem;
+    font-weight: 600;
+    gap: 4px;
+    flex: 1;
+    height: 100%;
+    transition: all 0.2s ease;
+    border-radius: 12px;
+}
+
+.nav-item svg {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.2s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: #FFFFFF;
+}
+
+.nav-item.active svg {
+    transform: translateY(-2px);
+}
+
+.nav-item-sell svg {
+    color: var(--color-secondary);
+}
+
+/* Mobile active button wrap background green toska (screen.png style) */
+.bottom-nav .nav-item.active {
+    background-color: #10B981 !important; /* Toska Green */
+    color: #000000 !important; /* Black text */
+    max-height: 48px;
+    padding: 6px 12px;
+    border-radius: 12px;
+    align-self: center;
+}
+
+.bottom-nav .nav-item.active svg {
+    color: #000000 !important;
+}
+
+/* Desktop Left Sidebar transition (min-width: 768px) */
+@media (min-width: 768px) {
+    .bottom-nav {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: auto;
+        width: 240px;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 3.5rem 1.25rem 2rem 1.25rem;
+        gap: 10px;
+        box-shadow: 4px 0 25px rgba(15, 61, 46, 0.06);
+        border: none;
+        border-radius: 0;
+    }
+
+    /* Sidebar Logo Header */
+    .bottom-nav::before {
+        content: 'RE-KOST';
+        display: block;
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #FFFFFF;
+        margin-bottom: 2.5rem;
+        padding-left: 14px;
+        letter-spacing: 0.05em;
+    }
+
+    .nav-item {
+        flex: none;
+        width: 100%;
+        height: auto;
+        flex-direction: row; /* Stacks horizontal (icon + text) inside sidebar list */
+        justify-content: flex-start;
+        padding: 12px 16px;
+        gap: 16px;
+        font-size: 0.95rem; /* Larger font size for web dashboard sidebar */
+        color: rgba(255, 255, 255, 0.75);
+        border-radius: 12px;
+    }
+
+    .nav-item svg {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+    }
+
+    .nav-item:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+        color: #FFFFFF;
+    }
+
+    /* Desktop active button matching sidebar design */
+    .nav-item.active {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        color: #FFFFFF !important;
+        font-weight: 700;
+        max-height: none !important;
+        padding: 12px 16px !important;
+        align-self: stretch !important;
+        border-radius: 12px !important;
+    }
+
+    .nav-item.active svg {
+        color: #FFFFFF !important;
+        transform: scale(1.05) !important;
+    }
+
+    .nav-item-sell svg {
+        color: var(--color-secondary-light);
+    }
+
+    /* Desktop Sidebar Logout Button */
+    .nav-item-logout {
+        display: flex !important;
+        margin-top: auto !important; /* Push to bottom of sidebar */
+        color: rgba(254, 226, 226, 0.85) !important;
+    }
+    .nav-item-logout:hover {
+        background-color: rgba(239, 68, 68, 0.1) !important;
+        color: #EF4444 !important;
+    }
+}
+
+/* Header Logout Button Hover Style */
+.action-btn.logout-btn:hover {
+    background-color: #FEF2F2 !important;
+    color: #EF4444 !important;
+}
+
+/* Mobile Sidebar Logout Button Hide */
+.nav-item-logout {
+    display: none !important;
+}
+

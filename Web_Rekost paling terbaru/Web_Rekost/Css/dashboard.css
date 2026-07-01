@@ -1,0 +1,635 @@
+/* Stylesheet for Halaman Utama / Beranda (Home Dashboard) */
+
+.dashboard-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent; /* Transparent so radial blobs show on laptop screens */
+    padding-bottom: 30px; /* No large bottom padding needed on desktop */
+    position: relative;
+    z-index: 2;
+}
+
+@media (min-width: 768px) {
+    .dashboard-wrapper {
+        margin-left: 240px; /* Shift content right to clear the sidebar width */
+        padding-bottom: 3rem;
+    }
+    .dashboard-header {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .banners-wrapper {
+        padding-left: 4rem;  /* Shift banners right to align with profile */
+        padding-right: 4rem;
+    }
+    .content-section {
+        padding-left: 4rem;  /* Shift titles and products right to align with profile */
+        padding-right: 4rem;
+    }
+}
+
+/* Center and constrain content alignment columns on wide laptop screens, taking sidebar width (240px) into account */
+@media (min-width: 1200px) {
+    .dashboard-header, .banners-wrapper, .content-section {
+        padding-left: max(4rem, calc((100% - 240px - 1200px) / 2)) !important;
+        padding-right: max(4rem, calc((100% - 240px - 1200px) / 2)) !important;
+    }
+}
+
+/* 1. Header Section */
+.dashboard-header {
+    background-color: #FFFFFF;
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid #EDF2F7;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Sisi Kiri: Profil & Sambutan */
+.header-profile-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: margin-left 0.3s ease;
+}
+
+
+
+.profile-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 4px 10px rgba(15, 61, 46, 0.1);
+}
+
+.greeting-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.greeting-user {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.app-brand-name {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    letter-spacing: -0.01em;
+}
+
+/* Sisi Tengah: Search Bar */
+.header-search-container {
+    flex: 1;
+    max-width: 500px;
+    margin: 0 2rem;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    background-color: #F1F5F9;
+    border: 1.5px solid transparent;
+    border-radius: 14px;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    font-size: 0.9rem;
+    font-family: var(--font-sans);
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.search-input:focus {
+    background-color: #FFFFFF;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(15, 61, 46, 0.06);
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+/* Sisi Kanan: Icons */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-dark);
+    padding: 8px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.action-btn:hover {
+    background-color: #F1F5F9;
+    color: var(--color-primary);
+}
+
+.action-btn svg {
+    width: 22px;
+    height: 22px;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-secondary);
+    border-radius: 50%;
+    border: 1.5px solid #FFFFFF;
+}
+
+/* 2. Banner Section */
+.banners-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 2rem 1rem 2rem;
+}
+
+.banners-container {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.banner-card {
+    border-radius: 20px;
+    padding: 1.75rem 2rem;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.banner-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Banner Kiri (Promo Green) */
+.banner-promo {
+    background-color: var(--color-primary);
+}
+
+
+
+/* Silhouette overlay icon */
+.banner-silhouette {
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    width: 100px;
+    height: 100px;
+    color: rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+}
+
+/* Banner Kanan (Verified Orange) */
+.banner-verified {
+    background-color: var(--color-secondary);
+}
+
+.banner-verified-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.banner-verified-header svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.banner-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.banner-subtext {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 4px;
+    max-width: 85%;
+    line-height: 1.4;
+}
+
+.banner-link-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.75rem;
+    padding-right: 0.5rem;
+}
+
+.btn-link-green {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.btn-link-green:hover {
+    color: #10B981;
+}
+
+/* 3. Main Content Section */
+.content-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem 3rem 2rem;
+}
+
+.section-header {
+    margin-bottom: 1.25rem;
+}
+
+.section-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -0.02em;
+}
+
+
+
+/* Product Card Grid */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.product-card {
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    border: 1px solid #EDF2F7;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+    border-color: rgba(15, 61, 46, 0.1);
+}
+
+.product-img-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio square */
+    background-color: #F1F5F9;
+    overflow: hidden;
+}
+
+.product-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.06);
+}
+
+/* Trusted Label */
+.label-trusted {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    padding: 4px 8px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+}
+
+/* Product Card Info */
+.product-info {
+    padding: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-category {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #10B981;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+}
+
+.product-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.4;
+    margin-bottom: 6px;
+    height: 40px; /* Double-line height cap */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.product-price {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #C05621; /* Dark orange/brown price */
+    margin-bottom: 1rem;
+}
+
+.product-location {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    border-top: 1px solid #F7FAFC;
+    padding-top: 8px;
+    margin-top: auto;
+}
+
+.product-location svg {
+    width: 12px;
+    height: 12px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+/* 4. Bottom Navigation Bar / Desktop Left Sidebar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 72px;
+    background-color: var(--color-primary);
+    box-shadow: 0 -5px 20px rgba(15, 61, 46, 0.15);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 100;
+    padding: 0 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.65rem;
+    font-weight: 600;
+    gap: 4px;
+    flex: 1;
+    height: 100%;
+    transition: all 0.2s ease;
+    border-radius: 12px;
+}
+
+.nav-item svg {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.2s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: #FFFFFF;
+}
+
+.nav-item.active svg {
+    transform: translateY(-2px);
+}
+
+/* Mobile active button wrap background green toska (screen.png style) */
+.bottom-nav .nav-item.active {
+    background-color: #10B981 !important; /* Toska Green */
+    color: #000000 !important; /* Black text */
+    max-height: 48px;
+    padding: 6px 12px;
+    border-radius: 12px;
+    align-self: center;
+}
+
+.bottom-nav .nav-item.active svg {
+    color: #000000 !important;
+}
+
+.nav-item-sell svg {
+    color: var(--color-secondary);
+}
+
+/* Left Sidebar Navigation for Desktop (Laptop) screens */
+@media (min-width: 768px) {
+    .bottom-nav {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: auto;
+        width: 240px;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 3.5rem 1.25rem 2rem 1.25rem;
+        gap: 10px;
+        box-shadow: 4px 0 25px rgba(15, 61, 46, 0.06);
+        border: none;
+        border-radius: 0;
+    }
+
+    /* Sidebar Logo Header */
+    .bottom-nav::before {
+        content: 'RE-KOST';
+        display: block;
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #FFFFFF;
+        margin-bottom: 2.5rem;
+        padding-left: 14px;
+        letter-spacing: 0.05em;
+    }
+
+    .nav-item {
+        flex: none;
+        width: 100%;
+        height: auto;
+        flex-direction: row; /* Stacks horizontal (icon + text) inside sidebar list */
+        justify-content: flex-start;
+        padding: 12px 16px;
+        gap: 16px;
+        font-size: 0.95rem; /* Larger font size for web dashboard sidebar */
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    .nav-item svg {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+    }
+
+    .nav-item:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+        color: #FFFFFF;
+    }
+
+    /* Desktop active button matching sidebar design */
+    .nav-item.active {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        color: #FFFFFF !important;
+        font-weight: 700;
+        max-height: none !important;
+        padding: 12px 16px !important;
+        align-self: stretch !important;
+        border-radius: 12px !important;
+    }
+
+    .nav-item.active svg {
+        color: #FFFFFF !important;
+        transform: scale(1.05) !important;
+    }
+
+    .nav-item-sell svg {
+        color: var(--color-secondary-light);
+    }
+
+    /* Desktop Sidebar Logout Button */
+    .nav-item-logout {
+        display: flex !important;
+        margin-top: auto !important; /* Push to bottom of sidebar */
+        color: rgba(254, 226, 226, 0.85) !important;
+    }
+    .nav-item-logout:hover {
+        background-color: rgba(239, 68, 68, 0.1) !important;
+        color: #EF4444 !important;
+    }
+}
+
+/* Header Logout Button Hover Style */
+.action-btn.logout-btn:hover {
+    background-color: #FEF2F2 !important;
+    color: #EF4444 !important;
+}
+
+/* Mobile Sidebar Logout Button Hide */
+.nav-item-logout {
+    display: none !important;
+}@media (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+    }
+}
+
+
+/* Responsive Rules for Small Devices */
+@media (max-width: 640px) {
+    .dashboard-header {
+        padding: 1rem;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+    
+    .header-search-container {
+        order: 3;
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin: 0.25rem 0 0 0;
+    }
+    
+    .banners-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .banners-wrapper {
+        padding: 1.25rem 1rem 0.5rem 1rem;
+    }
+    
+    .content-section {
+        padding: 1rem 1rem 5rem 1rem;
+    }
+    
+    .products-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+    
+    .product-card {
+        border-radius: 16px;
+    }
+    
+    .product-info {
+        padding: 0.75rem;
+    }
+    
+    .product-name {
+        font-size: 0.85rem;
+        height: 36px;
+    }
+    
+    .product-price {
+        font-size: 0.95rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .product-location {
+        font-size: 0.7rem;
+    }
+}

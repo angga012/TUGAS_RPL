@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifikasi - RE-KOST</title>
+    <meta name="description" content="Tinjau semua notifikasi aktivitas belanja, pesan pembeli, dan status barang jualan kamu di RE-KOST.">
+    <!-- Link CSS Global & CSS khusus Notifikasi -->
+    <link rel="stylesheet" href="Css/main.css">
+    <link rel="stylesheet" href="Css/dashboard.css">
+    <link rel="stylesheet" href="Css/notifications.css">
+</head>
+<body>
+
+    <!-- Background Blurry Pastel Blobs (Consistent with homepage) -->
+    <div class="background-blobs" aria-hidden="true">
+        <div class="blob blob-teal"></div>
+        <div class="blob blob-orange"></div>
+    </div>
+
+    <!-- Main Wrapper with Left Sidebar on Desktop -->
+    <div class="notifications-wrapper">
+        
+        <!-- 1. Bagian Atas / Header -->
+        <header class="notifications-header">
+            <!-- Back button & Page title -->
+            <div class="header-title-group">
+                <a href="dashboard.html" class="btn-back" aria-label="Kembali ke Beranda">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </a>
+                <h1 class="notifications-title">Notifikasi</h1>
+            </div>
+            
+            <!-- Settings button & Logout button container -->
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <!-- Settings button -->
+                <button class="action-btn" aria-label="Pengaturan Notifikasi">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </button>
+                
+                <!-- Tombol Logout -->
+                <button class="action-btn logout-btn" onclick="logoutUser(event)" aria-label="Keluar dari Akun" title="Keluar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- 2. Bagian Tombol Filter Kategori (Horizontal Badges) -->
+        <nav class="filter-bar" aria-label="Filter Notifikasi">
+            <button class="filter-pill active">Semua</button>
+            <button class="filter-pill">Belum Dibaca</button>
+            <button class="filter-pill">Transaksi</button>
+            <button class="filter-pill">Pesan</button>
+        </nav>
+
+        <!-- 3. Daftar Notifikasi Hari Ini -->
+        <main class="notifications-list-container">
+            
+            <!-- Kartu 1: Barang Berhasil Diupload -->
+            <article class="notification-card" data-id="n1" data-type="transaksi" data-status="unread" data-link="Page_1/my-products.html">
+                <!-- Icon Circle Green with Check-Circle SVG -->
+                <div class="notif-icon-circle notif-green">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="16 10 11 15 8 12"></polyline>
+                    </svg>
+                </div>
+                <!-- Card Content -->
+                <div class="notif-content-wrapper">
+                    <div class="notif-title-row">
+                        <h2 class="notif-title">Barang berhasil diupload</h2>
+                        <span class="notif-badge-new">BARU</span>
+                    </div>
+                    <p class="notif-message">Meja lipat belajar kamu sudah live dan dapat dilihat oleh calon pembeli lainnya.</p>
+                    <span class="notif-time">2 menit yang lalu</span>
+                </div>
+            </article>
+
+            <!-- Kartu 2: Ada Pesan Baru -->
+            <article class="notification-card" data-id="n2" data-type="pesan" data-status="unread" data-link="chat.html">
+                <!-- Icon Circle Orange with Chat Bubble with Lines SVG -->
+                <div class="notif-icon-circle notif-orange">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        <path d="M8 7h8M8 11h8"></path>
+                    </svg>
+                </div>
+                <!-- Card Content -->
+                <div class="notif-content-wrapper">
+                    <div class="notif-title-row">
+                        <h2 class="notif-title">Ada pesan baru dari pembeli</h2>
+                        <!-- Unread Brown Dot -->
+                        <span class="unread-indicator" aria-label="Belum dibaca"></span>
+                    </div>
+                    <p class="notif-message notif-message-chat">"Halo kak, apakah lemari bajunya masih tersedia? Boleh nego tipis?"</p>
+                    <span class="notif-time">15 menit yang lalu</span>
+                </div>
+            </article>
+
+            <!-- Kartu 3: Barang Berhasil Terjual -->
+            <article class="notification-card" data-id="n3" data-type="transaksi" data-status="read" data-link="Page_1/my-products.html">
+                <!-- Icon Circle Blue with Shopping Bag SVG -->
+                <div class="notif-icon-circle notif-blue">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                </div>
+                <!-- Card Content -->
+                <div class="notif-content-wrapper">
+                    <div class="notif-title-row">
+                        <h2 class="notif-title">Barang berhasil terjual</h2>
+                    </div>
+                    <p class="notif-message">Selamat! Rice Cooker Philips kamu telah terjual. Segera hubungi pembeli untuk serah terima.</p>
+                    <span class="notif-time">1 jam yang lalu</span>
+                </div>
+            </article>
+
+            <!-- 4. Bagian Notifikasi Kemarin (Divider & Kartu) -->
+            <div class="divider-yesterday" role="separator">
+                <span>KEMARIN</span>
+            </div>
+
+            <!-- Kartu 4: Tips RE-KOST -->
+            <article class="notification-card yesterday-notif" data-id="n4" data-type="info" data-status="read" data-link="dashboard.html">
+                <!-- Icon Circle Teal with Megaphone Flipped SVG -->
+                <div class="notif-icon-circle notif-teal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: scaleX(-1);">
+                        <path d="M4 18h4.5l5.5 3V3L8.5 6H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2z"></path>
+                        <path d="M18 8.5c1 1.5 1 4.5 0 6"></path>
+                    </svg>
+                </div>
+                <!-- Card Content -->
+                <div class="notif-content-wrapper">
+                    <div class="notif-title-row">
+                        <h2 class="notif-title">Tips RE-KOST Minggu Ini</h2>
+                    </div>
+                    <p class="notif-message">Cara packing barang pecah belah agar aman sampai ke tangan pembeli sesama penghuni kost.</p>
+                    <span class="notif-time">1 hari yang lalu</span>
+                </div>
+            </article>
+
+            <!-- 5. Bagian Paling Bawah (Footer All Seen) -->
+            <section class="all-seen-container" aria-label="Semua notifikasi sudah dibaca" id="allSeenSection">
+                <!-- Bell off circle icon -->
+                <div class="all-seen-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        <path d="M18.63 13A17.89 17.89 0 0 1 18 8"></path>
+                        <path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"></path>
+                        <path d="M18 8a6 6 0 0 0-9.33-5"></path>
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                </div>
+                <p class="all-seen-text">Kamu sudah melihat semua notifikasi terbaru. Tetap pantau untuk update barang favoritmu!</p>
+            </section>
+
+            <!-- Empty State untuk Filter -->
+            <section class="all-seen-container" id="filterEmptySection" style="display: none; padding-top: 4rem;">
+                <div class="all-seen-circle" style="background-color: rgba(224, 242, 254, 0.4); color: rgba(2, 132, 199, 0.4);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                </div>
+                <p class="all-seen-text">Tidak ada notifikasi dalam kategori ini.</p>
+            </section>
+
+        </main>
+
+        <!-- Fixed Left Sidebar on Desktop / Fixed Bottom Navigation on Mobile -->
+        <nav class="bottom-nav" aria-label="Navigasi Utama">
+            
+            <!-- Home -->
+            <a href="dashboard.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Home</span>
+            </a>
+
+            <!-- Category -->
+            <a href="marketplace.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Category</span>
+            </a>
+
+            <!-- Sell (Special Center Accent) -->
+            <a href="Page_1/sell-product.html" class="nav-item nav-item-sell">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <span>Sell</span>
+            </a>
+
+            <!-- Chat -->
+            <a href="chat.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Chat</span>
+            </a>
+
+            <!-- Profile -->
+            <a href="profile.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Profile</span>
+            </a>
+
+            <!-- Logout (Hanya muncul di desktop sidebar) -->
+            <a href="#" class="nav-item nav-item-logout" onclick="logoutUser(event)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                <span>Logout</span>
+            </a>
+
+        </nav>
+
+    </div>
+
+    <!-- Script Interaktif untuk Filter & Navigasi Notifikasi -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterPills = document.querySelectorAll('.filter-pill');
+            const cards = document.querySelectorAll('.notification-card');
+            const dividerYesterday = document.querySelector('.divider-yesterday');
+            const allSeenSection = document.getElementById('allSeenSection');
+            const filterEmptySection = document.getElementById('filterEmptySection');
+
+            // Handle tab filtering
+            filterPills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    // Hapus kelas aktif dari semua pill
+                    filterPills.forEach(p => p.classList.remove('active'));
+                    // Tambahkan kelas aktif ke pill yang diklik
+                    this.classList.add('active');
+
+                    const filter = this.textContent.trim().toLowerCase();
+                    let visibleCardsCount = 0;
+                    let hasVisibleYesterday = false;
+
+                    cards.forEach(card => {
+                        const type = card.getAttribute('data-type');
+                        const status = card.getAttribute('data-status');
+                        const isYesterday = card.classList.contains('yesterday-notif');
+
+                        let show = false;
+                        if (filter === 'semua') {
+                           show = true;
+                        } else if (filter === 'belum dibaca') {
+                           show = (status === 'unread');
+                        } else if (filter === 'transaksi') {
+                           show = (type === 'transaksi');
+                        } else if (filter === 'pesan') {
+                           show = (type === 'pesan');
+                        }
+
+                        if (show) {
+                           card.style.display = 'flex';
+                           visibleCardsCount++;
+                           if (isYesterday) {
+                               hasVisibleYesterday = true;
+                           }
+                        } else {
+                           card.style.display = 'none';
+                        }
+                    });
+
+                    // Atur visibilitas pemisah pembatas KEMARIN
+                    if (dividerYesterday) {
+                        dividerYesterday.style.display = hasVisibleYesterday ? 'flex' : 'none';
+                    }
+
+                    // Atur tampilan empty state jika tidak ada data yang cocok dengan filter
+                    if (visibleCardsCount === 0) {
+                        if (allSeenSection) allSeenSection.style.display = 'none';
+                        if (filterEmptySection) filterEmptySection.style.display = 'flex';
+                    } else {
+                        if (allSeenSection && filter === 'semua') {
+                            allSeenSection.style.display = 'flex';
+                        } else if (allSeenSection) {
+                            allSeenSection.style.display = 'none';
+                        }
+                        if (filterEmptySection) filterEmptySection.style.display = 'none';
+                    }
+                });
+            });
+
+            // Handle klik kartu notifikasi untuk navigasi & tandai telah dibaca
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const notifId = this.getAttribute('data-id');
+                    
+                    // Tandai dibaca secara dinamis
+                    if (this.getAttribute('data-status') === 'unread') {
+                        this.setAttribute('data-status', 'read');
+                        
+                        // Hapus lencana BARU
+                        const newBadge = this.querySelector('.notif-badge-new');
+                        if (newBadge) newBadge.remove();
+                        
+                        // Hapus dot unread
+                        const unreadIndicator = this.querySelector('.unread-indicator');
+                        if (unreadIndicator) unreadIndicator.remove();
+                        
+                        // Simpan status baca di localStorage agar persisten
+                        if (notifId) {
+                            let readNotifs = [];
+                            try {
+                                readNotifs = JSON.parse(localStorage.getItem('re_kost_read_notifs')) || [];
+                            } catch(e){}
+                            if (!readNotifs.includes(notifId)) {
+                                readNotifs.push(notifId);
+                                localStorage.setItem('re_kost_read_notifs', JSON.stringify(readNotifs));
+                            }
+                        }
+                    }
+
+                    // Arahkan ke link tujuan
+                    const targetLink = this.getAttribute('data-link');
+                    if (targetLink) {
+                        setTimeout(() => {
+                            window.location.href = targetLink;
+                        }, 150); // Delay singkat untuk feedback visual klik
+                    }
+                });
+            });
+
+            // Memuat status notifikasi yang sudah dibaca sebelumnya dari localStorage
+            let readNotifs = [];
+            try {
+                readNotifs = JSON.parse(localStorage.getItem('re_kost_read_notifs')) || [];
+            } catch(e){}
+
+            readNotifs.forEach(notifId => {
+                const card = document.querySelector(`.notification-card[data-id="${notifId}"]`);
+                if (card) {
+                    card.setAttribute('data-status', 'read');
+                    const newBadge = card.querySelector('.notif-badge-new');
+                    if (newBadge) newBadge.remove();
+                    const unreadIndicator = card.querySelector('.unread-indicator');
+                    if (unreadIndicator) unreadIndicator.remove();
+                }
+            });
+        });
+
+        function logoutUser(event) {
+            if (event) event.preventDefault();
+            if (confirm("Apakah Anda yakin ingin keluar dari akun RE-KOST?")) {
+                localStorage.removeItem('user_logged_in');
+                localStorage.removeItem('current_user');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+
+</body>
+</html>

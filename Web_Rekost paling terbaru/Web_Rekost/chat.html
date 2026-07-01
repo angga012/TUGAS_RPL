@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat / Pesan - RE-KOST</title>
+    <meta name="description" content="Hubungi sesama mahasiswa dan pemilik kost di RE-KOST. Hubungan komunikasi instan yang aman dan terpercaya.">
+    <!-- Link CSS Global & CSS khusus Chat -->
+    <link rel="stylesheet" href="Css/main.css">
+    <link rel="stylesheet" href="Css/chat.css">
+</head>
+<body>
+
+    <!-- Background Blurry Pastel Blobs (Consistent across screens) -->
+    <div class="background-blobs" aria-hidden="true">
+        <div class="blob blob-teal"></div>
+        <div class="blob blob-orange"></div>
+    </div>
+
+    <!-- Main Outer Wrapper -->
+    <div class="chat-page-wrapper">
+        
+        <!-- 1. Bagian Navbar / Header Atas -->
+        <nav class="chat-navbar" aria-label="Navigasi Utama">
+            <div class="navbar-left">
+                <a href="dashboard.html" class="brand-logo">RE-KOST</a>
+            </div>
+            <div class="navbar-right">
+                <div class="nav-links">
+                    <a href="dashboard.html" class="nav-link">Home</a>
+                    <a href="marketplace.html" class="nav-link">Categories</a>
+                    <a href="chat.html" class="nav-link active">Chat</a>
+                    <a href="profile.html" class="nav-link">Profile</a>
+                </div>
+                <div class="nav-actions">
+                    <!-- Ikon Notifikasi (Lonceng) -->
+                    <a href="notifications.html" class="nav-action-btn" aria-label="Notifikasi">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                    </a>
+                    <!-- Foto Profil Avatar -->
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop" alt="Foto Profil" class="nav-profile-img">
+                    
+                    <!-- Tombol Logout -->
+                    <a href="#" class="nav-action-btn logout-btn" onclick="logoutUser(event)" aria-label="Keluar dari Akun" title="Keluar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 3. Bagian Tata Letak Dua Kolom (Split-Pane Penuh) -->
+        <main class="chat-main-container sidebar-active" id="chatMainContainer">
+            
+            <!-- Kolom Sebelah Kiri (Daftar Percakapan / Chat List) -->
+            <section class="chat-sidebar" id="chatSidebar" aria-label="Daftar Chat">
+                <!-- Sidebar Header (Messages & Subtitle) -->
+                <div class="sidebar-header">
+                    <h1 class="chat-main-title">Messages</h1>
+                    <p class="chat-sub-title">Connect with fellow students and hosts</p>
+                </div>
+
+                <!-- Sidebar Search Container -->
+                <div class="sidebar-search-container">
+                    <div class="chat-search-bar">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" placeholder="Search conversations..." id="searchContacts" aria-label="Cari percakapan">
+                    </div>
+                </div>
+
+                <!-- Tombol Kapsul Filter Kategori -->
+                <div class="chat-filters">
+                    <button class="filter-pill active" id="filter-all">All Chats</button>
+                    <button class="filter-pill" id="filter-unread">Unread</button>
+                    <button class="filter-pill" id="filter-favorites">Favorites</button>
+                </div>
+
+                <!-- Daftar Kontak (Chat Cards) -->
+                <div class="chat-list-cards" id="contactListCards">
+                    <!-- Cards will be rendered dynamically by JavaScript from localStorage -->
+                </div>
+            </section>
+
+            <!-- Kolom Sebelah Kanan (Detail Percakapan Aktif / Empty State) -->
+            <section class="chat-detail-pane" id="chatDetailPane" aria-label="Detail Percakapan">
+                
+                <!-- DEFAULT EMPTY STATE -->
+                <div class="empty-state-content" id="chat-pane-empty">
+                    <!-- Overlapping Speech Bubbles in Circle -->
+                    <div class="empty-state-icon-circle">
+                        <svg class="empty-chat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" opacity="0.55"></path>
+                            <path d="M18 8a6 6 0 0 0-9.33-5c-2.8 1-4.67 3.5-4.67 6.5 0 1.5.5 3 1.5 4L3 18l4.5-1.5a5.9 5.9 0 0 0 6-1 5.9 5.9 0 0 0 4.5-5.5z"></path>
+                        </svg>
+                    </div>
+
+                    <!-- Text Info -->
+                    <h2 class="empty-title">Select a Conversation</h2>
+                    <p class="empty-description">Pick a chat from the list on the left to start messaging your community.</p>
+
+                    <!-- Info Badges -->
+                    <div class="empty-badges-row">
+                        <span class="empty-badge">
+                            <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            <span>Secure Messaging</span>
+                        </span>
+                        <span class="empty-badge">
+                            <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                            <span>Instant Replies</span>
+                        </span>
+                    </div>
+
+                    <!-- Verified Bottom Community Badge -->
+                    <div class="verified-community-badge">
+                        <svg class="shield-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <path d="M9 11l2 2 4-4"></path>
+                        </svg>
+                        <span>VERIFIED STUDENT COMMUNITY</span>
+                    </div>
+                </div>
+
+                <!-- SINGLE ACTIVE CHAT ROOM CONTAINER -->
+                <div class="chat-room-wrapper" id="activeChatPane" style="display: none;">
+                    <header class="room-header">
+                        <div class="room-header-left">
+                            <button class="btn-back-chat" id="activeBackBtn" aria-label="Kembali ke Messages">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                                    <polyline points="12 19 5 12 12 5"></polyline>
+                                </svg>
+                            </button>
+                            <div class="room-contact-box">
+                                <div class="room-avatar-wrapper">
+                                    <img src="" alt="" class="room-avatar" id="activeAvatar">
+                                    <span class="room-online-indicator" id="activeOnlineIndicator"></span>
+                                </div>
+                                <div class="room-contact-info">
+                                    <h2 class="room-contact-name" id="activeContactName"></h2>
+                                    <span class="room-contact-status" id="activeContactStatus"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="room-header-right">
+                            <button class="room-action-btn" aria-label="Telepon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72-12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                            </button>
+                            <button class="room-action-btn" aria-label="Menu Lainnya">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="1"></circle>
+                                    <circle cx="12" cy="5" r="1"></circle>
+                                    <circle cx="12" cy="19" r="1"></circle>
+                                </svg>
+                            </button>
+                        </div>
+                    </header>
+
+                    <main class="room-chat-area" id="activeChatArea">
+                        <!-- Product Banner -->
+                        <section class="room-product-banner" aria-label="Produk yang ditanyakan" id="activeProductBanner">
+                            <div class="banner-product-box">
+                                <img src="" alt="" class="banner-product-img" id="activeProductImg">
+                                <div class="banner-product-info">
+                                    <span class="banner-product-label">Menanyakan tentang:</span>
+                                    <h3 class="banner-product-name" id="activeProductName"></h3>
+                                    <p class="banner-product-price" id="activeProductPrice"></p>
+                                </div>
+                            </div>
+                            <div class="banner-product-arrow">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </div>
+                        </section>
+
+                        <div class="room-time-divider">
+                            <span class="time-pill">Hari Ini</span>
+                        </div>
+
+                        <!-- Messages Stream -->
+                        <div class="bubble-stream-container" id="activeMsgStream">
+                            <!-- Messages rendered dynamically -->
+                        </div>
+                    </main>
+
+                    <footer class="room-chat-controller">
+                        <div class="controller-inner">
+                            <div class="controller-actions-left">
+                                <button class="controller-btn" aria-label="Tambah Lampiran">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                                    </svg>
+                                </button>
+                                <button class="controller-btn" aria-label="Lampirkan Gambar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                        <polyline points="21 15 16 10 5 21"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="controller-input-box">
+                                <input type="text" id="activeInputField" placeholder="Ketik pesan..." aria-label="Ketik pesan yang ingin dikirim">
+                            </div>
+                            <div class="controller-actions-right">
+                                <button class="btn-send-chat" id="activeSendBtn" aria-label="Kirim Pesan">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Script Logic untuk WhatsApp Web Style Chat & LocalStorage Persistence -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial Default Data (Mock Database)
+            const defaultChats = {
+                "1": {
+                    name: "Budi Utomo",
+                    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop",
+                    online: true,
+                    unread: true,
+                    favorite: false,
+                    time: "14:20",
+                    preview: "Halo, apakah kamar kost masih tersedia...",
+                    product: {
+                        name: "Meja Belajar Minimalis",
+                        price: "Rp 150.000",
+                        image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=100&auto=format&fit=crop"
+                    },
+                    messages: [
+                        { sender: "them", text: "Halo! Apakah meja belajarnya masih tersedia? Saya tertarik untuk beli buat di kost-an.", time: "10:45" },
+                        { sender: "me", text: "Masih ada kak! Kondisinya masih bagus banget, baru dipakai 1 semester aja.", time: "10:47" },
+                        { sender: "them", text: "Bisa nego sedikit kak? Dan apakah bisa diantar ke area Gang Kober?", time: "10:50", verified: true },
+                        { sender: "me", text: "Kalau ke Kober bisa saya anterin kak pakai motor temen. Harganya nett ya kak, udah murah banget itu buat kondisi kayak baru.", time: "10:55" }
+                    ]
+                },
+                "2": {
+                    name: "Siti Aminah",
+                    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop",
+                    online: false,
+                    unread: false,
+                    favorite: true,
+                    time: "12:05",
+                    preview: "Terima kasih infonya, nanti saya kabari la...",
+                    product: {
+                        name: "Rice Cooker Cosmos",
+                        price: "Rp 120.000",
+                        image: "https://images.unsplash.com/photo-1544237515-ae83b990a6e2?w=100&auto=format&fit=crop"
+                    },
+                    messages: [
+                        { sender: "them", text: "Permisi kak, rice cooker-nya masih berfungsi normal kan? Enggak ada kendala nasi cepat basi?", time: "11:00" },
+                        { sender: "me", text: "Normal banget kak, jarang dipakai karena sering makan di luar. Nasi matang sempurna.", time: "11:05" },
+                        { sender: "them", text: "Terima kasih infonya, nanti saya kabari lagi ya kak setelah tanya teman sekamar.", time: "12:05" }
+                    ]
+                },
+                "3": {
+                    name: "Andi Wijaya",
+                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop",
+                    online: true,
+                    unread: false,
+                    favorite: true,
+                    time: "Kemarin",
+                    preview: "Lokasinya dekat dengan halte buswa...",
+                    product: {
+                        name: "Lemari Pakaian Plastik 3 Susun",
+                        price: "Rp 100.000",
+                        image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=100&auto=format&fit=crop"
+                    },
+                    messages: [
+                        { sender: "me", text: "Halo kak, lemarinya masih mau diambil? Kemarin katanya mau cod di depan gerbang kampus.", time: "14:00" },
+                        { sender: "them", text: "Eh iya kak maaf baru balas, kemarin ada kelas tambahan dadakan.", time: "15:30" },
+                        { sender: "them", text: "Lokasinya dekat dengan halte busway kan ya? Sore ini jam 5 saya meluncur ke sana.", time: "16:05" },
+                        { sender: "me", text: "Iya betul dekat halte busway. Oke siap, kabari aja kalau udah sampai ya.", time: "16:10" }
+                    ]
+                },
+                "4": {
+                    name: "Maria Ulfa",
+                    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop",
+                    online: false,
+                    unread: false,
+                    favorite: false,
+                    time: "08/10",
+                    preview: "Boleh minta foto detail kipasnya?",
+                    product: {
+                        name: "Kipas Angin Miyako",
+                        price: "Rp 80.000",
+                        image: "https://images.unsplash.com/photo-1618945097451-4033b006f155?w=100&auto=format&fit=crop"
+                    },
+                    messages: [
+                        { sender: "them", text: "Halo kak, kipas anginnya berisik enggak putarannya? Boleh minta foto detail kipasnya?", time: "08:00" },
+                        { sender: "me", text: "Enggak berisik sama sekali kak, suaranya halus. Ini fotonya ya kak.", time: "08:15" },
+                        { sender: "them", text: "Wah oke juga. Bisa COD daerah Margonda besok siang?", time: "08:30" },
+                        { sender: "me", text: "Bisa kak, di depan Margo City ya jam 12 siang.", time: "08:35" }
+                    ]
+                },
+                "5": {
+                    name: "Doni Setiawan",
+                    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop",
+                    online: true,
+                    unread: false,
+                    favorite: false,
+                    time: "05/10",
+                    preview: "Siap, nanti jam 4 saya ke sana untuk lihat.",
+                    product: {
+                        name: "Kasur Busa Single",
+                        price: "Rp 200.000",
+                        image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=100&auto=format&fit=crop"
+                    },
+                    messages: [
+                        { sender: "them", text: "Misi kak, kasurnya ada noda ompol atau robek enggak? Terus tebalnya berapa cm ya?", time: "18:00" },
+                        { sender: "me", text: "Bersih kak, selalu pakai sprei tebal. Ketebalan 15cm masih sangat empuk dan tidak kempes.", time: "18:30" },
+                        { sender: "them", text: "Siap, nanti jam 4 sore saya ke sana untuk lihat langsung barangnya.", time: "10:15" },
+                        { sender: "me", text: "Oke ditunggu, nanti alamat lengkapnya saya share.", time: "10:20" }
+                    ]
+                }
+            };
+
+            const defaultOrder = ["1", "2", "3", "4", "5"];
+
+            // Load database from localStorage or initialize defaults
+            let chats = JSON.parse(localStorage.getItem('rekost_chats'));
+            let chatOrder = JSON.parse(localStorage.getItem('rekost_chat_order'));
+
+            if (!chats) {
+                chats = defaultChats;
+                localStorage.setItem('rekost_chats', JSON.stringify(chats));
+            }
+            if (!chatOrder) {
+                chatOrder = defaultOrder;
+                localStorage.setItem('rekost_chat_order', JSON.stringify(chatOrder));
+            }
+
+            // DOM Elements
+            const chatMainContainer = document.getElementById('chatMainContainer');
+            const contactListContainer = document.getElementById('contactListCards');
+            const emptyPane = document.getElementById('chat-pane-empty');
+            
+            // Active pane components
+            const activeChatPane = document.getElementById('activeChatPane');
+            const activeAvatar = document.getElementById('activeAvatar');
+            const activeOnlineIndicator = document.getElementById('activeOnlineIndicator');
+            const activeContactName = document.getElementById('activeContactName');
+            const activeContactStatus = document.getElementById('activeContactStatus');
+            const activeProductBanner = document.getElementById('activeProductBanner');
+            const activeProductImg = document.getElementById('activeProductImg');
+            const activeProductName = document.getElementById('activeProductName');
+            const activeProductPrice = document.getElementById('activeProductPrice');
+            const activeMsgStream = document.getElementById('activeMsgStream');
+            const activeInputField = document.getElementById('activeInputField');
+            const activeSendBtn = document.getElementById('activeSendBtn');
+            const activeBackBtn = document.getElementById('activeBackBtn');
+            
+            // Filter and Search elements
+            const searchInput = document.getElementById('searchContacts');
+            const filterPills = document.querySelectorAll('.filter-pill');
+
+            // Set state from sessionStorage to persist the active chat across reload (optional, but premium UX!)
+            let activeChatId = sessionStorage.getItem('rekost_active_chat_id') || null;
+
+            const pendingSellerChat = getPendingSellerChat();
+            if (pendingSellerChat && pendingSellerChat.sellerName) {
+                activeChatId = ensureSellerChat(pendingSellerChat);
+                sessionStorage.setItem('rekost_active_chat_id', activeChatId);
+                localStorage.removeItem('rekost_pending_chat_seller');
+            }
+
+            // Helper to escape HTML to prevent XSS injection
+            function escapeHTML(str) {
+                return str.replace(/[&<>'"]/g, 
+                    tag => ({
+                        '&': '&amp;',
+                        '<': '&lt;',
+                        '>': '&gt;',
+                        "'": '&#39;',
+                        '"': '&quot;'
+                    }[tag] || tag)
+                );
+            }
+
+            // Helper to get formatted current time (HH:MM)
+            function getCurrentTimeStr() {
+                const now = new Date();
+                return now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            }
+
+            function getPendingSellerChat() {
+                try {
+                    return JSON.parse(localStorage.getItem('rekost_pending_chat_seller')) || null;
+                } catch {
+                    return null;
+                }
+            }
+
+            function ensureSellerChat(target) {
+                const sellerName = target.sellerName || 'Penjual RE-KOST';
+                const existingId = Object.keys(chats).find((chatId) => chats[chatId].name === sellerName);
+                const productPrice = Number(target.productPrice) || 0;
+                const product = {
+                    name: target.productTitle || 'Barang RE-KOST',
+                    price: productPrice > 0 ? 'Rp ' + productPrice.toLocaleString('id-ID') : 'Rp 0',
+                    image: target.productImage || 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=100&auto=format&fit=crop'
+                };
+
+                if (existingId) {
+                    chats[existingId].product = product;
+                    chats[existingId].preview = 'Saya tertarik dengan barang ini.';
+                    chats[existingId].time = getCurrentTimeStr();
+                    chats[existingId].unread = false;
+                    chatOrder = chatOrder.filter((id) => id !== existingId);
+                    chatOrder.unshift(existingId);
+                    localStorage.setItem('rekost_chats', JSON.stringify(chats));
+                    localStorage.setItem('rekost_chat_order', JSON.stringify(chatOrder));
+                    return existingId;
+                }
+
+                const newChatId = 'seller-' + sellerName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '-' + Date.now();
+                chats[newChatId] = {
+                    name: sellerName,
+                    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop',
+                    online: true,
+                    unread: false,
+                    favorite: false,
+                    time: getCurrentTimeStr(),
+                    preview: 'Saya tertarik dengan barang ini.',
+                    product: product,
+                    messages: [
+                        {
+                            sender: 'me',
+                            text: 'Halo, saya tertarik dengan ' + product.name + '. Apakah barangnya masih tersedia?',
+                            time: getCurrentTimeStr()
+                        }
+                    ]
+                };
+                chatOrder.unshift(newChatId);
+                localStorage.setItem('rekost_chats', JSON.stringify(chats));
+                localStorage.setItem('rekost_chat_order', JSON.stringify(chatOrder));
+                return newChatId;
+            }
+
+            // 1. RENDER CONTACT SIDEBAR CARDS
+            function renderContactList() {
+                contactListContainer.innerHTML = '';
+                
+                chatOrder.forEach(chatId => {
+                    const chat = chats[chatId];
+                    if (!chat) return;
+
+                    const isSelected = activeChatId === chatId;
+                    const cardDiv = document.createElement('div');
+                    cardDiv.className = `chat-contact-card${isSelected ? ' selected' : ''}`;
+                    cardDiv.id = `chat-contact-${chatId}`;
+                    cardDiv.setAttribute('data-chat-id', chatId);
+                    cardDiv.setAttribute('data-unread', chat.unread ? 'true' : 'false');
+                    cardDiv.setAttribute('data-favorite', chat.favorite ? 'true' : 'false');
+
+                    // Set online indicator if active
+                    const onlineIndicatorHtml = chat.online ? '<span class="online-indicator"></span>' : '';
+                    
+                    // Set unread badge HTML
+                    const unreadBadgeHtml = chat.unread 
+                        ? `<span class="unread-badge" style="background-color: #10B981; color: #FFFFFF; font-size: 0.7rem; font-weight: 700; padding: 2px 6px; border-radius: 50%; min-width: 18px; height: 18px; display: flex; align-items: center; justify-content: center;">1</span>`
+                        : '';
+
+                    const previewClass = chat.unread ? 'chat-preview italic-preview' : 'chat-preview';
+
+                    cardDiv.innerHTML = `
+                        <div class="avatar-wrapper">
+                            <img src="${chat.avatar}" alt="${chat.name}" class="contact-avatar">
+                            ${onlineIndicatorHtml}
+                        </div>
+                        <div class="contact-info">
+                            <div class="contact-header-row">
+                                <h3 class="contact-name">${chat.name}</h3>
+                                <span class="chat-time">${chat.time}</span>
+                            </div>
+                            <div class="contact-meta-row" style="display: flex; justify-content: space-between; align-items: center; margin-top: 3px;">
+                                <p class="${previewClass}" style="margin: 0; max-width: 80%;">${chat.preview}</p>
+                                ${unreadBadgeHtml}
+                            </div>
+                        </div>
+                    `;
+
+                    // Add click listener
+                    cardDiv.addEventListener('click', () => {
+                        selectContact(chatId);
+                    });
+
+                    contactListContainer.appendChild(cardDiv);
+                });
+            }
+
+            // 2. SELECT CONTACT AND LOAD CHAT AREA
+            function selectContact(chatId) {
+                activeChatId = chatId;
+                sessionStorage.setItem('rekost_active_chat_id', chatId);
+                
+                // Mark as read in data
+                chats[chatId].unread = false;
+                localStorage.setItem('rekost_chats', JSON.stringify(chats));
+
+                // Re-render contact list to update styling (unread badge, selected background)
+                renderContactList();
+
+                const chat = chats[chatId];
+                if (!chat) return;
+
+                // Populate header details
+                activeAvatar.src = chat.avatar;
+                activeAvatar.alt = chat.name;
+                activeContactName.textContent = chat.name;
+                activeContactStatus.textContent = chat.online ? 'Online' : 'Offline';
+                activeContactStatus.style.color = chat.online ? '#10B981' : 'var(--text-muted)';
+                
+                if (chat.online) {
+                    activeOnlineIndicator.style.display = 'block';
+                } else {
+                    activeOnlineIndicator.style.display = 'none';
+                }
+
+                // Populate product banner
+                if (chat.product) {
+                    activeProductBanner.style.display = 'flex';
+                    activeProductImg.src = chat.product.image;
+                    activeProductImg.alt = chat.product.name;
+                    activeProductName.textContent = chat.product.name;
+                    activeProductPrice.textContent = chat.product.price;
+                } else {
+                    activeProductBanner.style.display = 'none';
+                }
+
+                // Populate message stream
+                renderMessages(chatId);
+
+                // Show active chat pane, hide empty state
+                emptyPane.style.display = 'none';
+                activeChatPane.style.display = 'flex';
+
+                // Scroll to bottom
+                const activeChatArea = document.getElementById('activeChatArea');
+                setTimeout(() => {
+                    activeChatArea.scrollTop = activeChatArea.scrollHeight;
+                }, 20);
+
+                // Mobile toggles
+                chatMainContainer.classList.remove('sidebar-active');
+                chatMainContainer.classList.add('chat-active');
+            }
+
+            // 3. RENDER MESSAGES LOGIC
+            function renderMessages(chatId) {
+                const chat = chats[chatId];
+                if (!chat) return;
+
+                activeMsgStream.innerHTML = '';
+                
+                chat.messages.forEach(msg => {
+                    const bubbleRow = document.createElement('div');
+                    
+                    if (msg.sender === 'me') {
+                        bubbleRow.className = 'chat-bubble-row right-row';
+                        bubbleRow.innerHTML = `
+                            <div class="chat-bubble right-bubble">
+                                <p class="bubble-text">${escapeHTML(msg.text)}</p>
+                                <div class="bubble-meta-row">
+                                    <span class="bubble-time">${msg.time}</span>
+                                    <svg class="double-check-icon-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17 5L8 14l-4-4" opacity="0.6"></path>
+                                        <path d="M22 5L13 14l-2.5-2.5"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        bubbleRow.className = 'chat-bubble-row left-row';
+                        
+                        // If verified student badge is active
+                        const verificationTagHtml = msg.verified
+                            ? `<div class="bubble-verification-tag">
+                                <svg class="verification-shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <path d="M9 11l2 2 4-4"></path>
+                                </svg>
+                                <span>Identitas Mahasiswa Terverifikasi</span>
+                               </div>`
+                            : '';
+
+                        bubbleRow.innerHTML = msg.verified 
+                            ? `<div class="chat-bubble-group">
+                                <div class="chat-bubble left-bubble">
+                                    <p class="bubble-text">${escapeHTML(msg.text)}</p>
+                                    <span class="bubble-time">${msg.time}</span>
+                                </div>
+                                ${verificationTagHtml}
+                               </div>`
+                            : `<div class="chat-bubble left-bubble">
+                                <p class="bubble-text">${escapeHTML(msg.text)}</p>
+                                <span class="bubble-time">${msg.time}</span>
+                               </div>`;
+                    }
+
+                    activeMsgStream.appendChild(bubbleRow);
+                });
+            }
+
+            // 4. SEND MESSAGE FUNCTION
+            function submitNewMessage() {
+                if (!activeChatId) return;
+
+                const messageText = activeInputField.value.trim();
+                if (!messageText) return;
+
+                const timeStr = getCurrentTimeStr();
+
+                // 1. Update data in object
+                chats[activeChatId].messages.push({
+                    sender: "me",
+                    text: messageText,
+                    time: timeStr
+                });
+                
+                // Update preview and time
+                chats[activeChatId].preview = `
+                    <svg class="double-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px; height:15px; color:#10B981; margin-right:2px; vertical-align:middle; display:inline-block;">
+                        <path d="M17 5L8 14l-4-4" opacity="0.6"></path>
+                        <path d="M22 5L13 14l-2.5-2.5"></path>
+                    </svg><span>${escapeHTML(messageText)}</span>
+                `;
+                chats[activeChatId].time = timeStr;
+
+                // Move to top of chatOrder list
+                chatOrder = chatOrder.filter(id => id !== activeChatId);
+                chatOrder.unshift(activeChatId);
+
+                // Save to localStorage
+                localStorage.setItem('rekost_chats', JSON.stringify(chats));
+                localStorage.setItem('rekost_chat_order', JSON.stringify(chatOrder));
+
+                // 2. Append new bubble in active area directly
+                const bubbleRow = document.createElement('div');
+                bubbleRow.className = 'chat-bubble-row right-row';
+                bubbleRow.innerHTML = `
+                    <div class="chat-bubble right-bubble">
+                        <p class="bubble-text">${escapeHTML(messageText)}</p>
+                        <div class="bubble-meta-row">
+                            <span class="bubble-time">${timeStr}</span>
+                            <svg class="double-check-icon-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 5L8 14l-4-4" opacity="0.6"></path>
+                                <path d="M22 5L13 14l-2.5-2.5"></path>
+                            </svg>
+                        </div>
+                    </div>
+                `;
+                activeMsgStream.appendChild(bubbleRow);
+
+                // Clear and scroll
+                activeInputField.value = '';
+                const activeChatArea = document.getElementById('activeChatArea');
+                activeChatArea.scrollTop = activeChatArea.scrollHeight;
+
+                // 3. Re-render list
+                renderContactList();
+            }
+
+            // Send Button Click listener
+            if (activeSendBtn) {
+                activeSendBtn.addEventListener('click', submitNewMessage);
+            }
+
+            // Input Field keydown listener
+            if (activeInputField) {
+                activeInputField.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        submitNewMessage();
+                    }
+                });
+            }
+
+            // 5. MOBILE BACK BUTTON HANDLE
+            if (activeBackBtn) {
+                activeBackBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+
+                    activeChatId = null;
+                    sessionStorage.removeItem('rekost_active_chat_id');
+                    
+                    // Close room, show empty state
+                    activeChatPane.style.display = 'none';
+                    emptyPane.style.display = 'flex';
+
+                    // Deselect card in sidebar
+                    renderContactList();
+
+                    // Mobile toggle
+                    chatMainContainer.classList.remove('chat-active');
+                    chatMainContainer.classList.add('sidebar-active');
+                });
+            }
+
+            // 6. CONTACT SEARCH
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase().trim();
+                    const cards = document.querySelectorAll('.chat-contact-card');
+                    
+                    cards.forEach(card => {
+                        const name = card.querySelector('.contact-name').textContent.toLowerCase();
+                        const preview = card.querySelector('.chat-preview').textContent.toLowerCase();
+                        
+                        if (name.includes(query) || preview.includes(query)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            }
+
+            // 7. TAB FILTERS
+            filterPills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    filterPills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filterId = this.id;
+                    const cards = document.querySelectorAll('.chat-contact-card');
+
+                    cards.forEach(card => {
+                        const isUnread = card.getAttribute('data-unread') === 'true';
+                        const isFavorite = card.getAttribute('data-favorite') === 'true';
+
+                        if (filterId === 'filter-all') {
+                            card.style.display = 'flex';
+                        } else if (filterId === 'filter-unread') {
+                            card.style.display = isUnread ? 'flex' : 'none';
+                        } else if (filterId === 'filter-favorites') {
+                            card.style.display = isFavorite ? 'flex' : 'none';
+                        }
+                    });
+                });
+            });
+
+            // Initialize List Cards on page load
+            renderContactList();
+            
+            // Re-open active chat after page reload if it was active
+            if (activeChatId) {
+                selectContact(activeChatId);
+            }
+        });
+
+        function logoutUser(event) {
+            if (event) event.preventDefault();
+            if (confirm("Apakah Anda yakin ingin keluar dari akun RE-KOST?")) {
+                localStorage.removeItem('user_logged_in');
+                localStorage.removeItem('current_user');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

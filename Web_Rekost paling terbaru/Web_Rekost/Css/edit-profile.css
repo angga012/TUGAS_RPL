@@ -1,0 +1,333 @@
+/* Stylesheet for Halaman Edit Profil (edit-profile.html) */
+
+.edit-profile-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5rem;
+    position: relative;
+    z-index: 2;
+}
+
+@media (min-width: 768px) {
+    .edit-profile-wrapper {
+        margin-left: 240px; /* shift right for desktop sidebar */
+        width: calc(100% - 240px);
+        padding: 2rem 4rem 5rem 4rem;
+    }
+}
+
+/* Header Section */
+.edit-profile-header {
+    background-color: #FFFFFF;
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid #EDF2F7;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .edit-profile-header {
+        border-radius: 20px;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    }
+}
+
+.header-title-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-primary);
+    padding: 8px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    background-color: #F1F5F9;
+}
+
+.btn-back:hover {
+    background-color: #E2E8F0;
+    transform: translateX(-3px);
+}
+
+.btn-back svg {
+    width: 20px;
+    height: 20px;
+}
+
+.edit-profile-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -0.02em;
+}
+
+/* Form Container Card */
+.edit-profile-container {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border-radius: 24px;
+    border: 1px solid #EDF2F7;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    padding: 2rem;
+}
+
+/* Form Layout */
+.edit-profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Avatar Selection Section */
+.avatar-selection-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #EDF2F7;
+}
+
+.current-avatar-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.current-avatar-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #FFFFFF;
+    box-shadow: 0 10px 25px rgba(15, 61, 46, 0.15);
+}
+
+/* Preset Avatars Grid */
+.avatar-presets-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.avatar-presets-container {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    width: 100%;
+    padding: 8px 4px;
+    justify-content: center;
+    scrollbar-width: none; /* Firefox */
+}
+
+.avatar-presets-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.preset-avatar-option {
+    position: relative;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+}
+
+.preset-avatar-option img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.preset-avatar-option.selected {
+    border-color: var(--color-primary);
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(15, 61, 46, 0.15);
+}
+
+/* Check icon overlay for selected preset */
+.preset-avatar-option.selected::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 18px;
+    height: 18px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    border: 2px solid #FFFFFF;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Custom File Upload */
+.custom-upload-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.btn-upload-avatar {
+    background-color: #F1F5F9;
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 1px solid #E2E8F0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-upload-avatar:hover {
+    background-color: #E2E8F0;
+}
+
+/* Form Fields */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-label {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.form-input {
+    width: 100%;
+    background-color: #F8FAFC;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 0.8rem 1rem 0.8rem 2.75rem;
+    font-size: 0.92rem;
+    font-family: var(--font-sans);
+    color: var(--text-dark);
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+.form-input:focus {
+    background-color: #FFFFFF;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(15, 61, 46, 0.06);
+}
+
+/* Action Button Row */
+.action-buttons-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 1rem;
+}
+
+.btn-save-profile {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    font-size: 0.95rem;
+    font-weight: 800;
+    padding: 0.9rem;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(15, 61, 46, 0.15);
+}
+
+.btn-save-profile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 61, 46, 0.25);
+    background-color: #0d3528;
+}
+
+.btn-cancel-profile {
+    background-color: #F1F5F9;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 800;
+    padding: 0.9rem;
+    border-radius: 14px;
+    border: 1px solid #E2E8F0;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel-profile:hover {
+    background-color: #E2E8F0;
+    color: var(--text-dark);
+}
+
+/* Small Screens Responsive styling */
+@media (max-width: 640px) {
+    .edit-profile-header {
+        padding: 1rem;
+    }
+    
+    .edit-profile-container {
+        border-radius: 20px;
+        padding: 1.25rem;
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+    }
+    
+    .action-buttons-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .btn-cancel-profile {
+        order: 2; /* Batal button shown at bottom on mobile stack */
+    }
+}

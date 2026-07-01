@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Pengguna - RE-KOST Admin</title>
+    <!-- Link Google Fonts & CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Css/main.css">
+    <link rel="stylesheet" href="../Css/Admin/admin-dashboard.css">
+</head>
+<body>
+
+    <!-- Access Validation Script -->
+    <script>
+        if (localStorage.getItem('admin_logged_in') !== 'true') {
+            window.location.href = '../admin-login.html';
+        }
+    </script>
+
+    <!-- Background Blurry Pastel Blobs (Consistent with User/Seller) -->
+    <div class="background-blobs" aria-hidden="true">
+        <div class="blob blob-teal"></div>
+        <div class="blob blob-orange"></div>
+    </div>
+
+    <div class="db-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="db-sidebar" id="sidebar">
+            <div class="db-logo-section">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 23 C22 13, 42 13, 42 23" stroke="#3b82f6" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+                    <path d="M32 13 C35 13, 38 10, 37 7 C36 4, 33 6, 32 13 Z" fill="#3b82f6" />
+                    <path d="M14 36 L32 20 L50 36 V54 C50 56.2 48.2 58 46 58 H18 C15.8 58 14 56.2 14 54 V36 Z" fill="#6366f1" />
+                    <path d="M27 58 V44 C27 42.9 27.9 42 29 42 H35 C36.1 42 37 42.9 37 44 V58 H27 Z" fill="#0e131f" />
+                    <circle cx="32" cy="31" r="3.5" fill="#3b82f6" />
+                </svg>
+                <div>
+                    <h1 class="db-logo-title">RE-KOST</h1>
+                    <span class="db-logo-subtitle">ADMIN CONSOLE</span>
+                </div>
+            </div>
+
+            <nav style="flex: 1; display: flex; flex-direction: column;">
+                <ul class="db-nav-menu">
+                    <!-- Dashboard -->
+                    <li class="db-nav-item">
+                        <a href="dashboard.html">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="9"></rect>
+                                <rect x="14" y="3" width="7" height="5"></rect>
+                                <rect x="14" y="12" width="7" height="9"></rect>
+                                <rect x="3" y="16" width="7" height="5"></rect>
+                            </svg>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <!-- Kelola User Active -->
+                    <li class="db-nav-item active">
+                        <a href="users.html">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            <span>Kelola User</span>
+                        </a>
+                    </li>
+                    <!-- Kelola Produk -->
+                    <li class="db-nav-item">
+                        <a href="products.html">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <span>Kelola Produk</span>
+                        </a>
+                    </li>
+                    <!-- Kelola Laporan -->
+                    <li class="db-nav-item">
+                        <a href="reports.html">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                            <span>Kelola Laporan</span>
+                        </a>
+                    </li>
+                    <!-- Kelola Transaksi -->
+                    <li class="db-nav-item">
+                        <a href="transactions.html">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                            <span>Kelola Transaksi</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="db-sidebar-footer">
+                <button class="btn-logout" onclick="logoutAdmin()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Logout Admin
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="db-main">
+            <!-- Header Navbar -->
+            <header class="db-header">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="db-hamburger" onclick="toggleSidebar()" aria-label="Buka Menu">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <h2 class="db-header-title">Kelola Pengguna</h2>
+                </div>
+
+                <div class="db-header-right">
+                    <a href="notifications.html" class="db-bell-btn" aria-label="Notifikasi">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="db-bell-badge"></span>
+                    </a>
+
+                    <div class="db-admin-profile">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop" alt="Avatar Admin" class="db-admin-avatar">
+                        <div class="db-admin-info">
+                            <span class="db-admin-name" id="adminName">Super Admin</span>
+                            <span class="db-admin-role">System Root</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Scrollable Content -->
+            <div class="db-content">
+                
+                <!-- Controls Row (Search and filter) -->
+                <section class="db-panel db-controls-row" aria-label="Kontrol Tabel">
+                    <div class="db-search-box">
+                        <svg class="db-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="searchUser" class="db-search-input" placeholder="Cari nama, email, atau kampus..." oninput="filterUsers()">
+                    </div>
+
+                    <div class="db-filter-group">
+                        <select id="roleFilter" class="db-select-filter" onchange="filterUsers()">
+                            <option value="all">Semua Peran</option>
+                            <option value="pembeli">Pembeli (Mahasiswa)</option>
+                            <option value="penjual">Penjual (Kost/Layanan)</option>
+                        </select>
+
+                        <select id="statusFilter" class="db-select-filter" onchange="filterUsers()">
+                            <option value="all">Semua Status</option>
+                            <option value="aktif">Aktif</option>
+                            <option value="ditangguhkan">Ditangguhkan</option>
+                            <option value="pending">Menunggu Verifikasi</option>
+                        </select>
+
+                        <button class="btn-primary-action" onclick="addNewUser()">+ Tambah Akun</button>
+                    </div>
+                    <div class="user-status-summary" id="userStatusSummary">
+                        <span class="user-stat">Total: <strong id="userTotalCount">0</strong></span>
+                        <span class="user-stat">Aktif: <strong id="userActiveCount">0</strong></span>
+                        <span class="user-stat">Pending: <strong id="userPendingCount">0</strong></span>
+                        <span class="user-stat">Ditangguhkan: <strong id="userSuspendedCount">0</strong></span>
+                    </div>
+                </section>
+
+                <!-- Users List Panel -->
+                <section class="db-panel" aria-label="Daftar Pengguna">
+                    <div class="db-table-container">
+                        <table class="db-table" id="usersTable">
+                            <thead>
+                                <tr>
+                                    <th>Nama Pengguna</th>
+                                    <th>Peran</th>
+                                    <th>Kampus</th>
+                                    <th>No. WhatsApp</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <!-- Rendered dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <div id="editUserModal" class="user-edit-modal" aria-hidden="true">
+        <div class="user-edit-card" role="dialog" aria-modal="true" aria-labelledby="editUserModalTitle">
+            <header class="user-edit-header">
+                <div>
+                    <h3 id="editUserModalTitle">Edit Pengguna</h3>
+                    <p class="user-edit-subtitle">Ubah detail pengguna dan simpan perubahan.</p>
+                </div>
+                <button type="button" class="btn-action-icon" aria-label="Tutup" onclick="closeEditModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </header>
+            <form id="editUserForm" class="user-edit-form" onsubmit="saveEditUser(event)">
+                <label class="form-label" for="editUserName">Nama Lengkap</label>
+                <input type="text" id="editUserName" class="form-input" required autocomplete="name">
+
+                <label class="form-label" for="editUserPhone">No. WhatsApp</label>
+                <input type="tel" id="editUserPhone" class="form-input" required autocomplete="tel">
+
+                <label class="form-label" for="editUserCampus">Kampus</label>
+                <input type="text" id="editUserCampus" class="form-input" required>
+
+                <label class="form-label" for="editUserLocation">Lokasi</label>
+                <input type="text" id="editUserLocation" class="form-input">
+
+                <label class="form-label" for="editUserRole">Peran</label>
+                <select id="editUserRole" class="form-select" required>
+                    <option value="pembeli">Pembeli</option>
+                    <option value="penjual">Penjual</option>
+                </select>
+
+                <div class="user-edit-status">
+                    <span>Status saat ini:</span>
+                    <strong id="editUserStatus"></strong>
+                </div>
+
+                <div class="user-edit-actions">
+                    <button type="button" class="btn-action-icon suspend" onclick="closeEditModal()">Batal</button>
+                    <button type="submit" class="btn-primary-action">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const adminName = localStorage.getItem('admin_name') || 'Super Admin';
+            document.getElementById('adminName').textContent = adminName;
+            
+            renderUsers();
+        });
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function logoutAdmin() {
+            if(confirm("Apakah Anda yakin ingin keluar dari Admin Control Center?")) {
+                localStorage.removeItem('admin_logged_in');
+                window.location.href = '../admin-login.html';
+            }
+        }
+
+        // Render users dynamically from localStorage
+        function renderUsers() {
+            const users = JSON.parse(localStorage.getItem('re_kost_users')) || [];
+            const tbody = document.getElementById('usersTableBody');
+            
+            tbody.innerHTML = '';
+            
+            if (users.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: var(--admin-db-text-muted); padding: 2rem;">
+                            Tidak ada data pengguna terdaftar.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            users.forEach((user, index) => {
+                const tr = document.createElement('tr');
+                tr.setAttribute('data-role', user.role);
+                tr.setAttribute('data-status', user.status);
+                
+                // Set badges based on status
+                let badgeClass = 'db-badge-success';
+                if (user.status === 'pending') badgeClass = 'db-badge-warning';
+                if (user.status === 'ditangguhkan') badgeClass = 'db-badge-danger';
+                
+                // Actions rendering based on status
+                let actionsHtml = '';
+                if (user.status === 'ditangguhkan') {
+                    actionsHtml = `
+                        <button class="btn-action-icon verify" title="Aktifkan Kembali" onclick="activateUser(${index}, '${user.name}')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                        </button>
+                        <button class="btn-action-icon" title="Hapus Permanen" onclick="deleteUserPermanently(${index}, '${user.name}')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        </button>
+                    `;
+                } else if (user.status === 'pending') {
+                    actionsHtml = `
+                        <button class="btn-action-icon verify" title="Verifikasi Penjual" onclick="approveSeller(${index}, '${user.name}')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </button>
+                        <button class="btn-action-icon suspend" title="Tolak / Tangguhkan" onclick="suspendUser(${index}, '${user.name}')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
+                        </button>
+                    `;
+                } else {
+                    actionsHtml = `
+                        <button class="btn-action-icon" title="Edit Pengguna" onclick="openEditModal(${index})">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        </button>
+                        <button class="btn-action-icon suspend" title="Tangguhkan" onclick="suspendUser(${index}, '${user.name}')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
+                        </button>
+                    `;
+                }
+
+                // Generates random avatars for variety
+                const avatarHash = Math.abs(user.name.split("").reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0));
+                const avatarUrl = `https://picsum.photos/id/${avatarHash % 70}/100/100`;
+
+                tr.innerHTML = `
+                    <td>
+                        <div class="user-cell">
+                            <img src="${avatarUrl}" alt="Avatar" class="user-avatar" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop'">
+                            <div class="user-info">
+                                <span class="user-name">${user.name}</span>
+                                <span class="user-mail">${user.phone.replace(/(\d{4})(\d{4})(\d+)/, '$1-$2-$3')}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="text-transform: capitalize;">${user.role}</td>
+                    <td>${user.campus}</td>
+                    <td>${user.phone}</td>
+                    <td><span class="db-badge ${badgeClass}">${user.status}</span></td>
+                    <td class="table-actions">${actionsHtml}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // Re-apply current active filters
+            filterUsers();
+            updateBellBadge();
+        }
+
+        function updateBellBadge() {
+            const users = JSON.parse(localStorage.getItem('re_kost_users')) || [];
+            const products = JSON.parse(localStorage.getItem('re_kost_products')) || [];
+            const transactions = JSON.parse(localStorage.getItem('re_kost_transactions')) || [];
+
+            const pendingUsers = users.filter(u => u.status === 'pending').length;
+            const pendingProducts = products.filter(p => p.status === 'pending').length;
+            const pendingTransactions = transactions.filter(t => t.status === 'pending').length;
+
+            const totalPending = pendingUsers + pendingProducts + pendingTransactions;
+            const bellBadge = document.querySelector('.db-bell-badge');
+            if (bellBadge) {
+                if (totalPending > 0) {
+                    bellBadge.textContent = totalPending;
+                    bellBadge.style.display = 'flex';
+                } else {
+                    bellBadge.style.display = 'none';
+                }
+            }
+        }
+
+        // Actions: Suspend
+        function suspendUser(index, userName) {
+            if(confirm(`Apakah Anda yakin ingin menangguhkan (suspend) akun ${userName}?`)) {
+                let users = JSON.parse(localStorage.getItem('re_kost_users')) || [];
+                users[index].status = 'ditangguhkan';
+                localStorage.setItem('re_kost_users', JSON.stringify(users));
+                
+                alert(`Akun ${userName} berhasil ditangguhkan.`);
+                renderUsers();
+            }
+        }
+
+        // Actions: Activate
+        function activateUser(index, userName) {
+            if(confirm(`Aktifkan kembali akun ${userName}?`)) {
+                let users = JSON.parse(localStorage.getItem('re_kost_users')) || [];
+                users[index].status = 'aktif';
+                localStorage.setItem('re_kost_users', JSON.stringify(users));
+                
+                alert(`Akun ${userName} aktif kembali.`);
+                renderUsers();
+            }
+        }
+
+        // Actions: Verify Seller
+        function approveSeller(index, userName) {
+            if(confirm(`Verifikasi akun penjual ${userName}?`)) {
+                let users = JSON.parse(localStorage.getItem('re_kost_users')) || [];
+                users[index].status = 'aktif';
+                localStorage.setItem('re_kost_users', JSON.stringify(users));
+                
+                alert(`Penjual ${userName} telah diverifikasi.`);
+                renderUsers();
+            }
+        }
+
+        // Actions: Permanent Delete
+        function deleteUserPermanently(index, userName) {
+            if(confirm(`PERINGATAN: Apakah Anda yakin ingin menghapus akun ${userName} secara permanen?`)) {
+                let users = JSON.parse(localStorage.getItem('re_kost_users')) || [];
+                users.splice(index, 1);
+                localStorage.setItem('re_kost_users', JSON.stringify(users));
+                
+                alert(`Akun ${userName} telah dihapus dari sistem.`);
+                renderUsers();
+            }
+        }
+
+        // Actions: Edit Role
+        let currentEditUserIndex = null;
+
+        function openEditModal(index) {
+            const users = JSON.parse(localStorage.getItem('re_kost_users')) || [];
+            const user = users[index];
+            if (!user) return;
+
+            currentEditUserIndex = index;
+            const modal = document.getElementById('editUserModal');
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+
+            document.getElementById('editUserName').value = user.name || '';
+            document.getElementById('editUserPhone').value = user.phone || '';
+            document.getElementById('editUserCampus').value = user.campus || '';
+            document.getElementById('editUserLocation').value = user.location || '';
+            document.getElementById('editUserRole').value = user.role || 'pembeli';
+            document.getElementById('editUserStatus').textContent = user.status || '-';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('editUserModal');
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+            currentEditUserIndex = null;
+            document.body.style.overflow = '';
+        }
+
+        function saveEditUser(event) {
+            event.preventDefault();
+            if (currentEditUserIndex === null) return;
+
+            let users = JSON.parse(localStorage.getItem('re_kost_users')) || [];
+            const user = users[currentEditUserIndex];
+            if (!user) return;
+
+            const updatedName = document.getElementById('editUserName').value.trim();
+            const updatedPhone = document.getElementById('editUserPhone').value.trim();
+            const updatedCampus = document.getElementById('editUserCampus').value.trim();
+            const updatedLocation = document.getElementById('editUserLocation').value.trim();
+            const updatedRole = document.getElementById('editUserRole').value;
+
+            users[currentEditUserIndex] = {
+                ...user,
+                name: updatedName || user.name,
+                phone: updatedPhone || user.phone,
+                campus: updatedCampus || user.campus,
+                location: updatedLocation || user.location,
+                role: updatedRole
+            };
+
+            localStorage.setItem('re_kost_users', JSON.stringify(users));
+            closeEditModal();
+            renderUsers();
+            alert(`Perubahan untuk ${updatedName || user.name} berhasil disimpan.`);
+        }
+
+        function addNewUser() {
+            const name = prompt("Masukkan nama lengkap:");
+            if (!name) return;
+            const email = prompt("Masukkan alamat email/nomor WA:");
+            if (!email) return;
+            const role = prompt("Peran (Pembeli/Penjual):");
+            if (!role) return;
+            const cleanRole = role.trim().toLowerCase();
+            if (cleanRole !== 'pembeli' && cleanRole !== 'penjual') {
+                alert("Peran salah. Gunakan Pembeli atau Penjual.");
+                return;
+            }
+            const campus = prompt("Nama Kampus:") || "-";
+            const whatsapp = prompt("Nomor WhatsApp:") || "-";
+
+            let users = JSON.parse(localStorage.getItem('re_kost_users')) || [];
+            users.push({
+                name: name,
+                phone: whatsapp !== "-" ? whatsapp : email,
+                campus: campus,
+                location: "-",
+                password: "password123",
+                role: cleanRole,
+                status: "aktif",
+                registeredAt: new Date().toLocaleDateString('id-ID')
+            });
+            localStorage.setItem('re_kost_users', JSON.stringify(users));
+            alert(`Akun ${name} berhasil ditambahkan!`);
+            renderUsers();
+        }
+
+        // Live Filter function
+        function filterUsers() {
+            const query = document.getElementById('searchUser').value.toLowerCase();
+            const selectedRole = document.getElementById('roleFilter').value;
+            const selectedStatus = document.getElementById('statusFilter').value;
+            
+            const rows = document.querySelectorAll('#usersTable tbody tr');
+            
+            rows.forEach(row => {
+                const name = row.querySelector('.user-name').textContent.toLowerCase();
+                const mail = row.querySelector('.user-mail').textContent.toLowerCase();
+                const campus = row.cells[2].textContent.toLowerCase();
+                
+                const role = row.getAttribute('data-role');
+                const status = row.getAttribute('data-status');
+                
+                const matchesQuery = name.includes(query) || mail.includes(query) || campus.includes(query);
+                const matchesRole = selectedRole === 'all' || role === selectedRole;
+                const matchesStatus = selectedStatus === 'all' || status === selectedStatus;
+                
+                if (matchesQuery && matchesRole && matchesStatus) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

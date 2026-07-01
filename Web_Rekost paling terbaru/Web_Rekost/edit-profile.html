@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profil - RE-KOST</title>
+    <meta name="description" content="Ubah informasi profil RE-KOST Anda untuk meningkatkan keandalan transaksi kos.">
+    <!-- Link CSS Global, CSS Dashboard (untuk nav sidebar), dan CSS khusus Edit Profil -->
+    <link rel="stylesheet" href="Css/main.css">
+    <link rel="stylesheet" href="Css/dashboard.css">
+    <link rel="stylesheet" href="Css/edit-profile.css">
+</head>
+<body>
+
+    <!-- Background Blurry Pastel Blobs (Consistent across screens) -->
+    <div class="background-blobs" aria-hidden="true">
+        <div class="blob blob-teal"></div>
+        <div class="blob blob-orange"></div>
+    </div>
+
+    <!-- Main Wrapper -->
+    <div class="edit-profile-wrapper">
+        
+        <!-- 1. Header Bagian Atas -->
+        <header class="edit-profile-header">
+            <div class="header-title-group">
+                <a href="profile.html" class="btn-back" aria-label="Kembali ke Profil">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </a>
+                <h1 class="edit-profile-title">Edit Profil</h1>
+            </div>
+            <span class="brand-logo" style="color: var(--color-primary); font-weight: 900; font-size: 1.2rem; display: block;">RE-KOST</span>
+        </header>
+
+        <!-- 2. Form Edit Profil Klien -->
+        <main class="edit-profile-container">
+            <form id="editProfileForm" class="edit-profile-form" onsubmit="saveProfile(event)">
+                
+                <!-- Area Pilih Avatar -->
+                <section class="avatar-selection-section" aria-label="Ubah Foto Profil">
+                    <div class="current-avatar-wrapper">
+                        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&auto=format&fit=crop" alt="Foto Profil Saat Ini" class="current-avatar-img" id="currentAvatarPreview">
+                    </div>
+                    
+                    <span class="avatar-presets-label">Pilih Preset Avatar Mahasiswa</span>
+                    
+                    <div class="avatar-presets-container" id="presetsContainer">
+                        <!-- Preset Option 1 -->
+                        <div class="preset-avatar-option selected" data-url="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop">
+                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop" alt="Preset 1">
+                        </div>
+                        <!-- Preset Option 2 -->
+                        <div class="preset-avatar-option" data-url="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop" alt="Preset 2">
+                        </div>
+                        <!-- Preset Option 3 -->
+                        <div class="preset-avatar-option" data-url="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop" alt="Preset 3">
+                        </div>
+                        <!-- Preset Option 4 -->
+                        <div class="preset-avatar-option" data-url="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop" alt="Preset 4">
+                        </div>
+                        <!-- Preset Option 5 -->
+                        <div class="preset-avatar-option" data-url="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop" alt="Preset 5">
+                        </div>
+                    </div>
+                    
+                    <div class="custom-upload-row">
+                        <label class="btn-upload-avatar" for="customAvatarFile">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <span>Unggah Foto Kustom</span>
+                        </label>
+                        <input type="file" id="customAvatarFile" accept="image/*" style="display: none;">
+                    </div>
+                </section>
+
+                <!-- Input Data Profil -->
+                
+                <!-- Nama Lengkap -->
+                <div class="form-group">
+                    <label for="profileName" class="form-label">Nama Lengkap</label>
+                    <div class="input-container">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <input type="text" id="profileName" class="form-input" placeholder="Masukkan nama lengkap Anda" required>
+                    </div>
+                </div>
+
+                <!-- Nomor HP/WhatsApp -->
+                <div class="form-group">
+                    <label for="profilePhone" class="form-label">Nomor HP / WhatsApp</label>
+                    <div class="input-container">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <input type="tel" id="profilePhone" class="form-input" placeholder="Masukkan nomor HP aktif Anda" required>
+                    </div>
+                </div>
+
+                <!-- Nama Kampus -->
+                <div class="form-group">
+                    <label for="profileCampus" class="form-label">Nama Kampus</label>
+                    <div class="input-container">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                            <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                        </svg>
+                        <input type="text" id="profileCampus" class="form-input" placeholder="Masukkan universitas aktif Anda" required>
+                    </div>
+                </div>
+
+                <!-- Lokasi Kost -->
+                <div class="form-group">
+                    <label for="profileLocation" class="form-label">Lokasi Kost</label>
+                    <div class="input-container">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <input type="text" id="profileLocation" class="form-input" placeholder="Masukkan alamat area kost" required>
+                    </div>
+                </div>
+
+                <!-- Ubah Kata Sandi (Opsional) -->
+                <div class="form-group">
+                    <label for="profilePassword" class="form-label">Kata Sandi Baru (Opsional)</label>
+                    <div class="input-container">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        <input type="password" id="profilePassword" class="form-input" placeholder="Isi hanya jika ingin mengganti kata sandi">
+                    </div>
+                </div>
+
+                <!-- Row Tombol Aksi -->
+                <div class="action-buttons-row">
+                    <a href="profile.html" class="btn-cancel-profile">Batal</a>
+                    <button type="submit" class="btn-save-profile">Simpan Perubahan</button>
+                </div>
+
+            </form>
+        </main>
+
+        <!-- Fixed Left Sidebar on Desktop / Fixed Bottom Navigation on Mobile -->
+        <nav class="bottom-nav" aria-label="Navigasi Utama">
+            <!-- Home -->
+            <a href="dashboard.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Home</span>
+            </a>
+
+            <!-- Category -->
+            <a href="marketplace.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Category</span>
+            </a>
+
+            <!-- Sell -->
+            <a href="Page_1/sell-product.html" class="nav-item nav-item-sell">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <span>Sell</span>
+            </a>
+
+            <!-- Chat -->
+            <a href="chat.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Chat</span>
+            </a>
+
+            <!-- Profile (Status Aktif) -->
+            <a href="profile.html" class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Profile</span>
+            </a>
+
+            <!-- Logout (Hanya muncul di desktop sidebar) -->
+            <a href="#" class="nav-item nav-item-logout" onclick="logoutUser(event)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                <span>Logout</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Script Fungsionalitas Edit Profil & LocalStorage Sync -->
+    <script>
+        let currentUser = null;
+        let selectedAvatarUrl = "";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Ambil data user yang sedang login
+            const currentUserStr = localStorage.getItem('current_user');
+            if (!currentUserStr) {
+                alert("Sesi Anda telah habis. Silakan masuk kembali.");
+                window.location.href = 'login.html';
+                return;
+            }
+
+            currentUser = JSON.parse(currentUserStr);
+            selectedAvatarUrl = currentUser.avatar || "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&auto=format&fit=crop";
+
+            // 2. Isi kolom input form dengan data user saat ini
+            document.getElementById('profileName').value = currentUser.name || "";
+            document.getElementById('profilePhone').value = currentUser.phone || "";
+            document.getElementById('profileCampus').value = currentUser.campus || "";
+            document.getElementById('profileLocation').value = currentUser.location || "";
+            
+            // Set foto profil pratinjau
+            const previewImg = document.getElementById('currentAvatarPreview');
+            previewImg.src = selectedAvatarUrl;
+
+            // Highlight preset jika url cocok
+            const presets = document.querySelectorAll('.preset-avatar-option');
+            let matchedPreset = false;
+            presets.forEach(preset => {
+                preset.classList.remove('selected');
+                if (preset.getAttribute('data-url') === selectedAvatarUrl) {
+                    preset.classList.add('selected');
+                    matchedPreset = true;
+                }
+            });
+
+            // 3. Tambahkan click listener untuk presets
+            presets.forEach(preset => {
+                preset.addEventListener('click', function() {
+                    presets.forEach(p => p.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedAvatarUrl = this.getAttribute('data-url');
+                    previewImg.src = selectedAvatarUrl;
+                });
+            });
+
+            // 4. Tambahkan custom file upload listener (Base64 converter)
+            const fileInput = document.getElementById('customAvatarFile');
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    // Validasi ukuran (Maks 1MB untuk localStorage)
+                    if (file.size > 1024 * 1024) {
+                        alert("Ukuran gambar terlalu besar! Maksimal ukuran adalah 1MB.");
+                        this.value = "";
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        presets.forEach(p => p.classList.remove('selected'));
+                        selectedAvatarUrl = evt.target.result; // base64 URL
+                        previewImg.src = selectedAvatarUrl;
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        });
+
+        // 5. Simpan Perubahan Form
+        function saveProfile(event) {
+            event.preventDefault();
+
+            const newName = document.getElementById('profileName').value.trim();
+            const newPhone = document.getElementById('profilePhone').value.trim();
+            const newCampus = document.getElementById('profileCampus').value.trim();
+            const newLocation = document.getElementById('profileLocation').value.trim();
+            const newPassword = document.getElementById('profilePassword').value;
+
+            // Ambil seluruh user terdaftar
+            let users = JSON.parse(localStorage.getItem('re_kost_users')) || [];
+
+            // Validasi apakah nomor HP baru bertabrakan dengan pengguna lain
+            const originalPhone = currentUser.phone;
+            if (newPhone !== originalPhone) {
+                const isPhoneTaken = users.some(u => u.phone === newPhone);
+                if (isPhoneTaken) {
+                    alert("Nomor HP / WhatsApp baru ini sudah terdaftar oleh pengguna lain.");
+                    return;
+                }
+            }
+
+            // Temukan index user di re_kost_users
+            const userIndex = users.findIndex(u => u.phone === originalPhone);
+            if (userIndex === -1) {
+                alert("Pengguna tidak ditemukan dalam basis data.");
+                return;
+            }
+
+            // Update user di array list
+            users[userIndex].name = newName;
+            users[userIndex].phone = newPhone;
+            users[userIndex].campus = newCampus;
+            users[userIndex].location = newLocation;
+            users[userIndex].avatar = selectedAvatarUrl;
+            
+            if (newPassword && newPassword.trim().length > 0) {
+                if (newPassword.length < 8) {
+                    alert("Kata sandi baru minimal harus terdiri dari 8 karakter.");
+                    return;
+                }
+                users[userIndex].password = newPassword;
+            }
+
+            // Simpan kembali re_kost_users ke localStorage
+            localStorage.setItem('re_kost_users', JSON.stringify(users));
+
+            // Update objek session current_user
+            currentUser.name = newName;
+            currentUser.phone = newPhone;
+            currentUser.campus = newCampus;
+            currentUser.location = newLocation;
+            currentUser.avatar = selectedAvatarUrl;
+            if (newPassword && newPassword.trim().length > 0) {
+                currentUser.password = newPassword;
+            }
+
+            localStorage.setItem('current_user', JSON.stringify(currentUser));
+
+            // Simulasikan juga update detail nama penjual di re_kost_products jika nama diubah
+            let products = JSON.parse(localStorage.getItem('re_kost_products')) || [];
+            let productsUpdated = false;
+            products.forEach(p => {
+                if (p.sellerName === currentUser.name || (userIndex !== -1 && p.sellerName === users[userIndex].name)) {
+                    p.sellerName = newName;
+                    productsUpdated = true;
+                }
+            });
+            if (productsUpdated) {
+                localStorage.setItem('re_kost_products', JSON.stringify(products));
+            }
+
+            alert("Profil Anda berhasil diperbarui!");
+            window.location.href = 'profile.html';
+        }
+
+        // 6. Fungsi Logout Navigasi Sidebar
+        function logoutUser(event) {
+            if (event) event.preventDefault();
+            if (confirm("Apakah Anda yakin ingin keluar dari akun RE-KOST?")) {
+                localStorage.removeItem('user_logged_in');
+                localStorage.removeItem('current_user');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

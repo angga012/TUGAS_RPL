@@ -1,0 +1,376 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    /* Color Palette */
+    --color-primary: #0F3D2E;      /* Forest Green / Hijau Hutan */
+    --color-secondary: #FF7A30;    /* Warm Orange / Oranye Hangat */
+    --color-secondary-light: #FF9F64;
+    --text-dark: #2D3748;          /* Charcoal Gray */
+    --text-muted: #718096;         /* Medium Gray */
+    --bg-base: #FFFFFF;            /* Pure White */
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.04);
+    --shadow-medium: 0 20px 40px rgba(15, 61, 46, 0.08);
+    
+    /* Fonts */
+    --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: #FFFFFF; /* White background for full web layout */
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Background Blurry Pastel Blobs */
+.background-blobs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+    mix-blend-mode: multiply;
+    animation: pulse 12s infinite alternate ease-in-out;
+}
+
+/* Top Left Blob: Green / Teal */
+.blob-teal {
+    top: -10%;
+    left: -10%;
+    width: 50vw;
+    height: 50vw;
+    max-width: 500px;
+    max-height: 500px;
+    background: radial-gradient(circle, rgba(20, 184, 166, 0.25) 0%, rgba(20, 184, 166, 0.05) 70%, rgba(20, 184, 166, 0) 100%);
+}
+
+/* Bottom Right Blob: Orange / Yellow */
+.blob-orange {
+    bottom: -10%;
+    right: -10%;
+    width: 55vw;
+    height: 55vw;
+    max-width: 550px;
+    max-height: 550px;
+    background: radial-gradient(circle, rgba(251, 146, 60, 0.22) 0%, rgba(251, 146, 60, 0.04) 70%, rgba(251, 146, 60, 0) 100%);
+    animation-delay: -6s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1) translate(0, 0);
+    }
+    50% {
+        transform: scale(1.15) translate(3%, 2%);
+    }
+    100% {
+        transform: scale(0.95) translate(-2%, -3%);
+    }
+}
+
+/* Screen Wrapper (Responsive Full-Width Web Layout) */
+.app-container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: transparent; /* Transparent to show soft radial background blobs */
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3.5rem 2rem 3rem 2rem;
+}
+
+@media (min-width: 768px) {
+    .content-center {
+        max-width: 550px; /* Constrain elements in the middle of the laptop screen */
+        width: 100%;
+    }
+}
+
+/* Main Content Area */
+.content-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/* Logo Box Card (Kotak Putih Logo - ANDA BISA MENYESUAIKAN UKURAN DI SINI) */
+.logo-box {
+    background-color: var(--bg-base);
+    /* UBAH DUA VALUE DI BAWAH INI UNTUK MEMPERBESAR/MEMPERKECIL KOTAK LOGO */
+    width: 120px;          /* Ukuran lebar kotak logo (sebelumnya 96px) */
+    height: 120px;         /* Ukuran tinggi kotak logo (sebelumnya 96px) */
+    border-radius: 30px;   /* Kelengkungan sudut kotak logo */
+    box-shadow: var(--shadow-medium);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 12px;
+    border: 1px solid rgba(15, 61, 46, 0.04);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+.logo-box:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 25px 50px rgba(15, 61, 46, 0.12);
+}
+
+/* Ikon Rumah SVG di Dalam Kotak (ANDA BISA MENYESUAIKAN UKURAN DI SINI) */
+.logo-icon {
+    /* UBAH DUA VALUE DI BAWAH INI UNTUK MEMPERBESAR/MEMPERKECIL IKON RUMAH */
+    width: 60px;          /* Ukuran lebar ikon rumah SVG (sebelumnya 46px) */
+    height: 60px;         /* Ukuran tinggi ikon rumah SVG (sebelumnya 46px) */
+    margin-bottom: 6px;
+}
+
+/* Teks Kecil "RE-KOST" di bawah Ikon Rumah (ANDA BISA MENYESUAIKAN UKURAN DI SINI) */
+.logo-text-small {
+    /* UBAH VALUE DI BAWAH INI UNTUK MEMPERBESAR/MEMPERKECIL TEKS DI BAWAH IKON */
+    font-size: 0.75rem;    /* Ukuran teks RE-KOST kecil (sebelumnya 0.65rem) */
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+}
+
+/* Main Title & Subtitle */
+.main-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+}
+
+.sub-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+/* Description Text */
+.description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    font-weight: 400;
+    max-width: 310px;
+    margin-bottom: 2.5rem;
+}
+
+/* Main Action Button */
+.btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 290px;
+    background-color: var(--color-primary);
+    color: var(--bg-base);
+    border: none;
+    border-radius: 18px;
+    padding: 1.05rem 1.75rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(15, 61, 46, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    outline: none;
+}
+
+.btn-primary span {
+    margin-right: 8px;
+}
+
+.btn-primary svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0b2e22;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(15, 61, 46, 0.3);
+}
+
+.btn-primary:hover svg {
+    transform: translateX(4px);
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 15px rgba(15, 61, 46, 0.2);
+}
+
+/* Bottom Badges Section */
+.badges-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Wraps badges nicely on smaller screens */
+    gap: 12px;
+    width: 100%;
+    max-width: 650px;
+    margin-top: auto;
+    padding-top: 2rem;
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border: 1.5px solid rgba(226, 232, 240, 0.7);
+    border-radius: 50px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.badge:hover {
+    transform: translateY(-2px);
+    border-color: rgba(15, 61, 46, 0.15);
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+}
+
+.badge svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+/* Badge specific icon colors */
+.badge-green svg {
+    color: #10B981; /* Green */
+}
+
+.badge-orange svg {
+    color: #F59E0B; /* Orange/Yellow */
+}
+
+.badge-blue svg {
+    color: #3B82F6; /* Blue */
+}
+
+/* Specific Badge Border Adjustments */
+.badge-green {
+    border-color: rgba(16, 185, 129, 0.12);
+}
+.badge-orange {
+    border-color: rgba(245, 158, 11, 0.12);
+}
+.badge-blue {
+    border-color: rgba(59, 130, 246, 0.12);
+}
+
+/* Welcome Page Action Buttons Group */
+.welcome-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    width: 100%;
+    max-width: 290px;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.welcome-actions .btn-primary,
+.welcome-actions .btn-admin-outline {
+    max-width: 100%;
+}
+
+.btn-admin-outline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: transparent;
+    color: #1e293b;
+    border: 2px solid #3b82f6;
+    border-radius: 18px;
+    padding: 0.95rem 1.75rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    outline: none;
+}
+
+.btn-admin-outline span {
+    margin-right: 8px;
+}
+
+.btn-admin-outline svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.3s ease;
+}
+
+.btn-admin-outline:hover {
+    background-color: rgba(59, 130, 246, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.18);
+}
+
+.btn-admin-outline:hover svg {
+    transform: translateX(4px);
+}
+
+.btn-admin-outline:active {
+    transform: translateY(1px);
+}

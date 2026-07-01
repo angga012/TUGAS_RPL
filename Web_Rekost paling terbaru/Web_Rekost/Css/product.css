@@ -1,0 +1,715 @@
+/* Stylesheet for Halaman Upload Barang (sell-product.html) */
+
+.sell-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #F8FAFC; /* Clean off-white background matching design */
+    padding-bottom: 90px; /* Space for fixed/floating navigation on mobile */
+    position: relative;
+    z-index: 2;
+}
+
+@media (min-width: 768px) {
+    .sell-wrapper {
+        margin-left: 240px; /* Shift content right to clear the sidebar width */
+        padding-bottom: 3rem;
+    }
+}
+
+/* Align contents to central 800px column on wide screens, matching desktop layout specifications */
+@media (min-width: 1200px) {
+    .sell-header, .sell-content-container {
+        padding-left: calc((100% - 240px - 800px) / 2 + 2rem) !important;
+        padding-right: calc((100% - 240px - 800px) / 2 + 2rem) !important;
+    }
+}
+
+/* 1. Header Section */
+.sell-header {
+    background-color: #FFFFFF;
+    padding: 1.25rem 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid #EDF2F7;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header-title-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-primary); /* Forest Green */
+    padding: 6px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    margin-top: 4px; /* Align with first line of title */
+}
+
+.btn-back:hover {
+    background-color: #F1F5F9;
+    transform: translateX(-2px);
+}
+
+.btn-back svg {
+    width: 24px;
+    height: 24px;
+}
+
+.title-sub-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sell-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.sell-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* 2. Main Container */
+.sell-content-container {
+    padding: 1.5rem 2rem 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#upload-product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+/* 3. Form Cards */
+.form-card {
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    padding: 1.75rem 2rem;
+    border: 1px solid #EDF2F7;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.015);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.section-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* 4. Photo Upload Layout */
+.photo-boxes-container {
+    display: flex;
+    align-items: flex-end; /* Align bottoms of all upload boxes */
+    gap: 12px;
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 8px;
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+}
+
+.photo-boxes-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+.photo-box-wrapper {
+    flex-shrink: 0;
+}
+
+.photo-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2.2px dashed #CBD5E1;
+    border-radius: 16px;
+    cursor: pointer;
+    background-color: #FFFFFF;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.photo-box:hover {
+    border-color: var(--color-primary);
+    background-color: #F8FAFC;
+    transform: translateY(-1px);
+}
+
+.photo-input {
+    display: none;
+}
+
+/* Utama Photo Box (Kotak Pertama Lebih Besar) */
+.main-photo-box {
+    width: 104px;
+    height: 104px;
+    background-color: #EFF6FF; /* Pale blue base */
+    border-color: #BFDBFE; /* Soft blue dashed border */
+}
+
+.main-photo-box:hover {
+    background-color: #DBEAFE;
+    border-color: #3B82F6;
+}
+
+.photo-box-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.camera-icon {
+    width: 26px;
+    height: 26px;
+    color: #059669; /* Green camera icon */
+}
+
+.badge-utama {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #059669;
+    letter-spacing: 0.06em;
+}
+
+/* Smaller Photo Boxes */
+.small-photo-wrapper .photo-box {
+    width: 82px;
+    height: 82px;
+}
+
+.plus-icon {
+    width: 22px;
+    height: 22px;
+    color: #94A3B8;
+    transition: color 0.2s ease;
+}
+
+.photo-box:hover .plus-icon {
+    color: var(--color-primary);
+}
+
+.photo-instruction-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+.info-icon {
+    width: 14px;
+    height: 14px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+/* 5. Inputs & Labels Layout */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.input-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.form-input, .form-textarea, .form-select {
+    width: 100%;
+    background-color: #F8FAFC;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
+    font-family: var(--font-sans);
+    color: var(--text-dark);
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.form-input::placeholder, .form-textarea::placeholder {
+    color: #A0AEC0;
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+    background-color: #FFFFFF;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(15, 61, 46, 0.06);
+}
+
+.form-row {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+/* Custom Dropdown Selector */
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.form-select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    padding-right: 2.5rem;
+}
+
+.chevron-icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+/* Custom Price Prefix "Rp" */
+.price-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.price-prefix {
+    position: absolute;
+    left: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.price-input {
+    padding-left: 2.5rem !important;
+}
+
+/* Custom Location Pin Input */
+.location-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.location-icon {
+    position: absolute;
+    left: 14px;
+    width: 20px;
+    height: 20px;
+    color: #10B981; /* Green color map pin icon matching design */
+    flex-shrink: 0;
+}
+
+.location-input {
+    padding-left: 2.75rem !important;
+}
+
+/* Textarea counter helper */
+.form-textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+.textarea-helper-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* 6. Trust Badge Box */
+.trust-badge-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background-color: #FFF7ED; /* Light orange pudar background */
+    border: 1.5px solid #FFEDD5;
+    border-radius: 16px;
+    padding: 1.15rem;
+    margin-top: 0.5rem;
+}
+
+.trust-icon-box {
+    color: #EA580C; /* Orange shield color */
+    flex-shrink: 0;
+}
+
+.shield-icon {
+    width: 24px;
+    height: 24px;
+    margin-top: 2px;
+}
+
+.trust-text-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.trust-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #7C2D12; /* Deep orange-brown text */
+}
+
+.trust-desc {
+    font-size: 0.82rem;
+    color: #9A3412; /* Faded orange-brown description text */
+    line-height: 1.5;
+}
+
+/* 7. Action Button & Footer Legal */
+.submit-action-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.btn-upload-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: linear-gradient(90deg, #3B82F6 0%, #10B981 100%); /* Blue to green gradient */
+    color: #FFFFFF;
+    border: none;
+    border-radius: 18px;
+    padding: 1.05rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+}
+
+.btn-upload-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(59, 130, 246, 0.25);
+    filter: brightness(1.04);
+}
+
+.btn-upload-submit:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.15);
+}
+
+.upload-btn-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.legal-note-text {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.legal-note-text a {
+    color: #10B981; /* Brand green */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.legal-note-text a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Rules for Small Devices */
+@media (max-width: 640px) {
+    .sell-header {
+        padding: 1rem;
+    }
+    
+    .sell-content-container {
+        padding: 1rem 1rem 5rem 1rem;
+    }
+    
+    .form-card {
+        padding: 1.25rem;
+        border-radius: 16px;
+        gap: 1.15rem;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 1.15rem;
+    }
+    
+    .photo-boxes-container {
+        gap: 8px;
+    }
+    
+    .main-photo-box {
+        width: 86px;
+        height: 86px;
+    }
+    
+    .small-photo-wrapper .photo-box {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .camera-icon {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .badge-utama {
+        font-size: 0.65rem;
+    }
+    
+    .btn-upload-submit {
+        padding: 0.95rem;
+        border-radius: 16px;
+        font-size: 0.98rem;
+    }
+    
+    .trust-badge-card {
+        padding: 0.95rem;
+        border-radius: 12px;
+    }
+    
+    .trust-desc {
+        font-size: 0.78rem;
+    }
+}
+
+/* 8. Halaman Konfirmasi Berhasil Upload (upload-success.html) */
+.success-body {
+    background-color: #F8FAFC;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.success-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    gap: 2.5rem;
+    width: 100%;
+    z-index: 2;
+    position: relative;
+}
+
+.success-card {
+    background-color: #FFFFFF;
+    border-radius: 24px;
+    padding: 3.5rem 2.5rem 2.5rem 2.5rem;
+    border: 1px solid #EDF2F7;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+    width: 100%;
+    max-width: 460px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.success-icon-glow {
+    filter: drop-shadow(0 10px 20px rgba(16, 185, 129, 0.3));
+    margin-bottom: 1.5rem;
+}
+
+.success-check-circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-color: #10B981; /* Success Green */
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success-check-circle svg {
+    width: 44px;
+    height: 44px;
+}
+
+.success-title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+}
+
+.success-description {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 340px;
+}
+
+.success-buttons-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.btn-success-primary {
+    background-color: #0F3D2E; /* Forest green to match RE-KOST */
+    color: #FFFFFF;
+    border: none;
+    border-radius: 16px;
+    padding: 1.05rem;
+    font-size: 0.98rem;
+    font-weight: 700;
+    font-family: var(--font-sans);
+    text-decoration: none;
+    transition: all 0.25s ease;
+    display: block;
+    width: 100%;
+    box-shadow: 0 6px 15px rgba(15, 61, 46, 0.15);
+}
+
+.btn-success-primary:hover {
+    background-color: #0b2e22;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(15, 61, 46, 0.25);
+}
+
+.btn-success-secondary {
+    background-color: #FFFFFF;
+    color: #0F3D2E;
+    border: 1.5px solid #0F3D2E;
+    border-radius: 16px;
+    padding: 0.95rem;
+    font-size: 0.98rem;
+    font-weight: 700;
+    font-family: var(--font-sans);
+    text-decoration: none;
+    transition: all 0.25s ease;
+    display: block;
+    width: 100%;
+}
+
+.btn-success-secondary:hover {
+    background-color: #F0FDF4;
+    transform: translateY(-2px);
+}
+
+.success-card-divider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #EDF2F7;
+    margin-bottom: 1.5rem;
+}
+
+.success-trust-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.success-trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #FFF7ED; /* Pale orange badge */
+    border: 1px solid #FFEDD5;
+    color: #C2410C;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.trust-badge-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.success-trust-text {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+
+
+@media (max-width: 640px) {
+    .success-page-wrapper {
+        padding: 2rem 1rem;
+        gap: 1.5rem;
+    }
+    
+    .success-card {
+        padding: 2.5rem 1.5rem 2rem 1.5rem;
+        border-radius: 20px;
+    }
+    
+    .success-check-circle {
+        width: 76px;
+        height: 76px;
+    }
+    
+    .success-check-circle svg {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .success-title {
+        font-size: 1.25rem;
+    }
+    
+
+}

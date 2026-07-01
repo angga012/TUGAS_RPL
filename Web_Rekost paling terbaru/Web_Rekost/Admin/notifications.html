@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifikasi Sistem - RE-KOST Admin</title>
+    <!-- Link Google Fonts & CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Css/main.css">
+    <link rel="stylesheet" href="../Css/Admin/admin-dashboard.css">
+    <style>
+        .notif-filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .notif-filter-pill {
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid var(--admin-db-border);
+            background-color: var(--admin-db-card);
+            color: var(--admin-db-text-muted);
+            transition: all 0.25s ease;
+        }
+        .notif-filter-pill:hover {
+            border-color: var(--admin-db-primary);
+            color: var(--admin-db-text-primary);
+        }
+        .notif-filter-pill.active {
+            background-color: var(--admin-db-primary);
+            color: #ffffff;
+            border-color: var(--admin-db-primary);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        .notif-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .notif-item {
+            background-color: var(--admin-db-card);
+            border: 1px solid var(--admin-db-border);
+            border-radius: 14px;
+            padding: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .notif-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--admin-db-primary);
+        }
+        .notif-item-left {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            flex: 1;
+        }
+        .notif-icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .notif-icon-box.user {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--admin-db-primary);
+        }
+        .notif-icon-box.product {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--admin-db-warning);
+        }
+        .notif-icon-box.transaction {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--admin-db-success);
+        }
+        .notif-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .notif-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--admin-db-text-primary);
+            line-height: 1.4;
+        }
+        .notif-description {
+            font-size: 0.85rem;
+            color: var(--admin-db-text-muted);
+            line-height: 1.4;
+        }
+        .notif-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: var(--admin-db-text-muted);
+            margin-top: 0.25rem;
+        }
+        .notif-badge-type {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .notif-badge-type.user {
+            background-color: rgba(59, 130, 246, 0.12);
+            color: var(--admin-db-primary);
+        }
+        .notif-badge-type.product {
+            background-color: rgba(255, 122, 48, 0.12);
+            color: var(--admin-db-warning);
+        }
+        .notif-badge-type.transaction {
+            background-color: rgba(16, 185, 129, 0.12);
+            color: var(--admin-db-success);
+        }
+        .notif-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+        .btn-notif-approve {
+            background-color: var(--admin-db-success);
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn-notif-reject {
+            background-color: transparent;
+            color: var(--admin-db-danger);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 7px 15px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-notif-approve:hover {
+            opacity: 0.9;
+        }
+        .btn-notif-reject:hover {
+            background-color: var(--admin-db-danger);
+            color: #ffffff;
+        }
+        .btn-notif-detail {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--admin-db-text-primary);
+            border: 1px solid var(--admin-db-border);
+            padding: 7px 15px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-notif-detail:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .empty-notif {
+            text-align: center;
+            padding: 4rem 2rem;
+            background-color: var(--admin-db-card);
+            border: 1px solid var(--admin-db-border);
+            border-radius: 16px;
+            color: var(--admin-db-text-muted);
+        }
+        .empty-notif svg {
+            margin-bottom: 1rem;
+            opacity: 0.5;
+            color: var(--admin-db-text-primary);
+            display: inline-block;
+        }
+        @media (max-width: 768px) {
+            .notif-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .notif-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Access Validation Script -->
+    <script>
+        if (localStorage.getItem('admin_logged_in') !== 'true') {
+            window.location.href = '../admin-login.html';
+        }
+    </script>
+
+    <!-- Background Blurry Pastel Blobs -->
+    <div class="background-blobs" aria-hidden="true">
+        <div class="blob blob-teal"></div>
+        <div class="blob blob-orange"></div>
+    </div>
+
+    <div class="db-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="db-sidebar" id="sidebar">
+            <div class="db-logo-section">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 23 C22 13, 42 13, 42 23" stroke="#3b82f6" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+                    <path d="M32 13 C35 13, 38 10, 37 7 C36 4, 33 6, 32 13 Z" fill="#3b82f6" />
+                    <path d="M14 36 L32 20 L50 36 V54 C50 56.2 48.2 58 46 58 H18 C15.8 58 14 56.2 14 54 V36 Z" fill="#6366f1" />
+                    <path d="M27 58 V44 C27 42.9 27.9 42 29 42 H35 C36.1 42 37 42.9 37 44 V58 H27 Z" fill="#0e131f" />
+                    <circle cx="32" cy="31" r="3.5" fill="#3b82f6" />
+                </svg>
+                <div>
+                    <h1 class="db-logo-title">RE-KOST</h1>
+                    <span class="db-logo-subtitle">ADMIN CONSOLE</span>
+                </div>
+            </div>
+
+            <nav style="flex: 1; display: flex; flex-direction: column;">
+                <ul class="db-nav-menu">
+                    <li class="db-nav-item">
+                        <a href="dashboard.html">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="9"></rect>
+                                <rect x="14" y="3" width="7" height="5"></rect>
+                                <rect x="14" y="12" width="7" height="9"></rect>
+                                <rect x="3" y="16" width="7" height="5"></rect>
+                            </svg>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="db-nav-item">
+                        <a href="users.html">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            <span>Kelola User</span>
+                        </a>
+                    </li>
+                    <li class="db-nav-item">
+                        <a href="products.html">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <span>Kelola Produk</span>
+                        </a>
+                    </li>
+                    <li class="db-nav-item">
+                        <a href="reports.html">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                            <span>Kelola Laporan</span>
+                        </a>
+                    </li>
+                    <li class="db-nav-item">
+                        <a href="transactions.html">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                            <span>Kelola Transaksi</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="db-sidebar-footer">
+                <button class="btn-logout" onclick="logoutAdmin()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Logout Admin
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="db-main">
+            <!-- Header Navbar -->
+            <header class="db-header">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="db-hamburger" onclick="toggleSidebar()" aria-label="Buka Menu">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <h2 class="db-header-title">Notifikasi Sistem</h2>
+                </div>
+
+                <div class="db-header-right">
+                    <a href="notifications.html" class="db-bell-btn" aria-label="Notifikasi">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="db-bell-badge"></span>
+                    </a>
+
+                    <div class="db-admin-profile">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop" alt="Avatar Admin" class="db-admin-avatar">
+                        <div class="db-admin-info">
+                            <span class="db-admin-name" id="adminName">Super Admin</span>
+                            <span class="db-admin-role">System Root</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Scrollable Content -->
+            <div class="db-content">
+                
+                <!-- Metrics Summary cards for notifications -->
+                <section class="db-metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));" aria-label="Metrik Notifikasi">
+                    <div class="metric-card">
+                        <div class="metric-icon-box blue">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                        </div>
+                        <div class="metric-data">
+                            <span class="metric-title">Menunggu Verifikasi User</span>
+                            <span class="metric-value" id="countPendingUsers">0</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon-box warning">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                        </div>
+                        <div class="metric-data">
+                            <span class="metric-title">Menunggu Review Kos</span>
+                            <span class="metric-value" id="countPendingProducts">0</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon-box green">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        </div>
+                        <div class="metric-data">
+                            <span class="metric-title">Menunggu Payout</span>
+                            <span class="metric-value" id="countPendingTransactions">0</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Filter Bar -->
+                <div class="notif-filter-bar">
+                    <button class="notif-filter-pill active" onclick="setFilter('all')">Semua</button>
+                    <button class="notif-filter-pill" onclick="setFilter('user')">Pengguna Baru</button>
+                    <button class="notif-filter-pill" onclick="setFilter('product')">Iklan Baru</button>
+                    <button class="notif-filter-pill" onclick="setFilter('transaction')">Penarikan Saldo</button>
+                </div>
+
+                <!-- Notifications List -->
+                <div class="notif-list" id="notifListContainer">
+                    <!-- Notifications rendered dynamically -->
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let currentFilter = 'all';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const adminName = localStorage.getItem('admin_name') || 'Super Admin';
+            document.getElementById('adminName').textContent = adminName;
+            
+            initDatabase();
+            renderNotifications();
+        });
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function logoutAdmin() {
+            if(confirm("Apakah Anda yakin ingin keluar dari Admin Control Center?")) {
+                localStorage.removeItem('admin_logged_in');
+                window.location.href = '../admin-login.html';
+            }
+        }
+
+        // Initialize database if missing (copied structures from dashboard.html)
+        function initDatabase() {
+            if (!localStorage.getItem('re_kost_users')) {
+                const initialUsers = [
+                    { name: "Aditya Pratama", phone: "081234567890", campus: "Universitas Indonesia", location: "Depok, Margonda", password: "password123", role: "pembeli", status: "aktif", registeredAt: "20/06/2026" },
+                    { name: "Budi Santoso", phone: "085799881122", campus: "UI & PNJ Depok", location: "Depok, Kukusan", password: "password123", role: "penjual", status: "aktif", registeredAt: "21/06/2026" },
+                    { name: "Dewi Lestari", phone: "089912123434", campus: "Politeknik Negeri Jakarta", location: "Depok, Beji", password: "password123", role: "penjual", status: "pending", registeredAt: "22/06/2026" },
+                    { name: "Rian Hidayat", phone: "085277884433", campus: "Universitas Gunadarma", location: "Depok, Kelapa Dua", password: "password123", role: "pembeli", status: "ditangguhkan", registeredAt: "19/06/2026" }
+                ];
+                localStorage.setItem('re_kost_users', JSON.stringify(initialUsers));
+            }
+
+            if (!localStorage.getItem('re_kost_products')) {
+                const initialProducts = [
+                    { id: "p1", title: "Kost Singgah Sini UI", sellerName: "Ahmad Faisal", campus: "Universitas Indonesia", price: 1500000, status: "pending", facilities: ["Free WiFi", "AC", "Kasur & Lemari"], image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500&auto=format&fit=crop" },
+                    { id: "p2", title: "Kost Muslimah Cantik Depok", sellerName: "Siti Rahmawati", campus: "PNJ (Politeknik Negeri Jakarta)", price: 950000, status: "pending", facilities: ["Kamar Mandi Dalam", "Dapur Bersama", "Parkir Motor"], image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=500&auto=format&fit=crop" },
+                    { id: "p3", title: "Kost Exclusive Pondok Cina", sellerName: "Dicky Setiawan", campus: "Universitas Indonesia", price: 2100000, status: "pending", facilities: ["Water Heater", "Smart Lock", "Rooftop Lounge"], image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=500&auto=format&fit=crop" },
+                    { id: "p4", title: "Kost Putri Melati Depok", sellerName: "Rina Sari", campus: "Universitas Indonesia", price: 1200000, status: "aktif", facilities: ["WiFi", "Kamar Mandi Dalam", "Lemari"], image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500&auto=format&fit=crop" }
+                ];
+                localStorage.setItem('re_kost_products', JSON.stringify(initialProducts));
+            }
+
+            // 3. Initial Transactions (Start completely empty for clean testing)
+            if (!localStorage.getItem('re_kost_transactions_cleared_v2')) {
+                localStorage.setItem('re_kost_transactions', JSON.stringify([]));
+                localStorage.setItem('re_kost_transactions_cleared_v2', 'true');
+            }
+        }
+
+        // Set active filter
+        function setFilter(filterType) {
+            currentFilter = filterType;
+            const pills = document.querySelectorAll('.notif-filter-pill');
+            pills.forEach(pill => {
+                if (pill.textContent.toLowerCase().includes(filterType === 'all' ? 'semua' : filterType === 'user' ? 'pengguna' : filterType === 'product' ? 'iklan' : 'penarikan')) {
+                    pill.classList.add('active');
+                } else {
+                    pill.classList.remove('active');
+                }
+            });
+            renderNotifications();
+        }
+
+        // Render notification list dynamically
+        function renderNotifications() {
+            const users = JSON.parse(localStorage.getItem('re_kost_users')) || [];
+            const products = JSON.parse(localStorage.getItem('re_kost_products')) || [];
+            const transactions = JSON.parse(localStorage.getItem('re_kost_transactions')) || [];
+
+            // Filter pending items
+            const pendingUsers = users.map((u, index) => ({ ...u, originalIndex: index })).filter(u => u.status === 'pending');
+            const pendingProducts = products.filter(p => p.status === 'pending');
+            const pendingTransactions = transactions.filter(t => t.status === 'pending');
+
+            // Update stats cards
+            document.getElementById('countPendingUsers').textContent = `${pendingUsers.length} User`;
+            document.getElementById('countPendingProducts').textContent = `${pendingProducts.length} Iklan`;
+            document.getElementById('countPendingTransactions').textContent = `${pendingTransactions.length} Transaksi`;
+
+            // Update bell badge
+            const totalPending = pendingUsers.length + pendingProducts.length + pendingTransactions.length;
+            const bellBadge = document.querySelector('.db-bell-badge');
+            if (bellBadge) {
+                if (totalPending > 0) {
+                    bellBadge.textContent = totalPending;
+                    bellBadge.style.display = 'flex';
+                } else {
+                    bellBadge.style.display = 'none';
+                }
+            }
+
+            // Merge into unified notification list
+            let notifs = [];
+
+            // Add users requests
+            pendingUsers.forEach(u => {
+                notifs.push({
+                    id: `user-${u.originalIndex}`,
+                    type: 'user',
+                    title: 'Verifikasi Akun Baru',
+                    description: `Pendaftaran akun ${u.role === 'penjual' ? 'Penjual' : 'Pembeli'} baru oleh <strong>${u.name}</strong> (${u.campus}). Perlu verifikasi KTM.`,
+                    meta: `Terdaftar: ${u.registeredAt || 'Baru Saja'}`,
+                    actionApprove: () => approveUser(u.originalIndex, u.name),
+                    actionReject: () => rejectUser(u.originalIndex, u.name),
+                    actionLink: 'users.html'
+                });
+            });
+
+            // Add product review requests
+            pendingProducts.forEach(p => {
+                notifs.push({
+                    id: `product-${p.id}`,
+                    type: 'product',
+                    title: 'Verifikasi Iklan Kos Baru',
+                    description: `Iklan <strong>${p.title}</strong> oleh penjual <strong>${p.sellerName}</strong> seharga Rp${p.price.toLocaleString('id-ID')}/bln sedang menunggu review persetujuan iklan.`,
+                    meta: `Kampus terdekat: ${p.campus}`,
+                    actionApprove: () => approveProduct(p.id, p.title),
+                    actionReject: () => rejectProduct(p.id, p.title),
+                    actionLink: 'products.html'
+                });
+            });
+
+            // Add transaction payouts and payments
+            pendingTransactions.forEach(t => {
+                if (t.type === 'penarikan') {
+                    notifs.push({
+                        id: `transaction-${t.txId}`,
+                        type: 'transaction',
+                        title: 'Permintaan Penarikan Saldo (Payout)',
+                        description: `Penjual <strong>${t.user}</strong> mengajukan pencairan saldo sebesar <strong>Rp${t.amount.toLocaleString('id-ID')}</strong> via <strong>${t.method}</strong>.`,
+                        meta: `Tanggal transaksi: ${t.date || 'Hari ini'}`,
+                        actionApprove: () => approveTransaction(t.txId, t.user, t.type),
+                        actionReject: () => rejectTransaction(t.txId, t.user, t.type),
+                        actionLink: 'transactions.html'
+                    });
+                } else {
+                    notifs.push({
+                        id: `transaction-${t.txId}`,
+                        type: 'transaction',
+                        title: 'Verifikasi Pembayaran Sewa (Escrow)',
+                        description: `Pembeli <strong>${t.user}</strong> membayar sebesar <strong>Rp${t.amount.toLocaleString('id-ID')}</strong> via <strong>${t.method}</strong>. Perlu verifikasi transfer.`,
+                        meta: `Deskripsi: ${t.description} | Tanggal: ${t.date || 'Hari ini'}`,
+                        actionApprove: () => approveTransaction(t.txId, t.user, t.type),
+                        actionReject: () => rejectTransaction(t.txId, t.user, t.type),
+                        actionLink: 'transactions.html'
+                    });
+                }
+            });
+
+            // Apply category filter
+            if (currentFilter !== 'all') {
+                notifs = notifs.filter(n => n.type === currentFilter);
+            }
+
+            const container = document.getElementById('notifListContainer');
+            container.innerHTML = '';
+
+            if (notifs.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-notif">
+                        <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <h3>Tidak ada notifikasi baru</h3>
+                        <p style="font-size:0.85rem; margin-top:0.25rem; color:var(--admin-db-text-muted);">
+                            Semua pengajuan verifikasi user, iklan kos, dan transaksi dana sudah diselesaikan.
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            notifs.forEach(n => {
+                const item = document.createElement('div');
+                item.className = 'notif-item';
+                
+                let iconSvg = '';
+                if (n.type === 'user') {
+                    iconSvg = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>`;
+                } else if (n.type === 'product') {
+                    iconSvg = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>`;
+                } else {
+                    iconSvg = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>`;
+                }
+
+                item.innerHTML = `
+                    <div class="notif-item-left">
+                        <div class="notif-icon-box ${n.type}">
+                            ${iconSvg}
+                        </div>
+                        <div class="notif-info">
+                            <span class="notif-title">${n.title}</span>
+                            <p class="notif-description">${n.description}</p>
+                            <div class="notif-meta">
+                                <span class="notif-badge-type ${n.type}">${n.type === 'user' ? 'Akun' : n.type === 'product' ? 'Iklan' : 'Keuangan'}</span>
+                                <span>•</span>
+                                <span>${n.meta}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notif-actions" id="actions-${n.id}">
+                        <button class="btn-notif-approve" id="approve-${n.id}">Verifikasi</button>
+                        <button class="btn-notif-reject" id="reject-${n.id}">Tolak</button>
+                        <a href="${n.actionLink}" class="btn-notif-detail">Detail</a>
+                    </div>
+                `;
+
+                container.appendChild(item);
+
+                // Add event listeners to dynamically bound actions
+                document.getElementById(`approve-${n.id}`).addEventListener('click', n.actionApprove);
+                document.getElementById(`reject-${n.id}`).addEventListener('click', n.actionReject);
+            });
+        }
+
+        // Actions: Approve user
+        function approveUser(index, name) {
+            if (confirm(`Verifikasi dan aktifkan akun penjual ${name}?`)) {
+                let users = JSON.parse(localStorage.getItem('re_kost_users')) || [];
+                users[index].status = 'aktif';
+                localStorage.setItem('re_kost_users', JSON.stringify(users));
+                
+                alert(`Akun ${name} telah berhasil terverifikasi.`);
+                renderNotifications();
+            }
+        }
+
+        // Actions: Reject / Suspend user
+        function rejectUser(index, name) {
+            if (confirm(`Tolak verifikasi dan tangguhkan akun ${name}?`)) {
+                let users = JSON.parse(localStorage.getItem('re_kost_users')) || [];
+                users[index].status = 'ditangguhkan';
+                localStorage.setItem('re_kost_users', JSON.stringify(users));
+                
+                alert(`Pengajuan verifikasi akun ${name} ditolak.`);
+                renderNotifications();
+            }
+        }
+
+        // Actions: Approve product
+        function approveProduct(id, title) {
+            if (confirm(`Setujui iklan kos "${title}" dan publish di web?`)) {
+                let products = JSON.parse(localStorage.getItem('re_kost_products')) || [];
+                products = products.map(p => {
+                    if (p.id === id) {
+                        return { ...p, status: 'aktif' };
+                    }
+                    return p;
+                });
+                localStorage.setItem('re_kost_products', JSON.stringify(products));
+                
+                alert(`Iklan kos "${title}" sukses diterbitkan.`);
+                renderNotifications();
+            }
+        }
+
+        // Actions: Reject product
+        function rejectProduct(id, title) {
+            const reason = prompt(`Masukkan alasan penolakan untuk "${title}":`);
+            if (reason !== null) {
+                let products = JSON.parse(localStorage.getItem('re_kost_products')) || [];
+                products = products.map(p => {
+                    if (p.id === id) {
+                        return { ...p, status: 'ditolak', rejectReason: reason };
+                    }
+                    return p;
+                });
+                localStorage.setItem('re_kost_products', JSON.stringify(products));
+                
+                alert(`Iklan kos "${title}" ditolak. Alasan: ${reason || 'Tidak memenuhi syarat.'}`);
+                renderNotifications();
+            }
+        }
+
+        // Actions: Approve transaction
+        function approveTransaction(txId, userName, type) {
+            const isPayment = (type === 'pembayaran');
+            const confirmMsg = isPayment 
+                ? `Apakah Anda yakin ingin memverifikasi pembayaran ${txId} dari ${userName}? Dana akan masuk ke escrow ditahan RE-KOST.`
+                : `Setujui dan proses pencairan dana ${txId} untuk ${userName}?`;
+                
+            if (confirm(confirmMsg)) {
+                let transactions = JSON.parse(localStorage.getItem('re_kost_transactions')) || [];
+                transactions = transactions.map(t => {
+                    if (t.txId === txId) {
+                        return { ...t, status: 'sukses' };
+                    }
+                    return t;
+                });
+                localStorage.setItem('re_kost_transactions', JSON.stringify(transactions));
+                
+                const alertMsg = isPayment 
+                    ? `Pembayaran ${txId} berhasil diverifikasi! Dana kini berada di Escrow.`
+                    : `Pencairan dana ${txId} sukses diproses.`;
+                alert(alertMsg);
+                renderNotifications();
+            }
+        }
+
+        // Actions: Reject transaction
+        function rejectTransaction(txId, userName, type) {
+            const isPayment = (type === 'pembayaran');
+            const promptMsg = isPayment 
+                ? `Masukkan alasan penolakan pembayaran ${txId}:`
+                : `Masukkan alasan penolakan penarikan ${txId}:`;
+                
+            const reason = prompt(promptMsg);
+            if (reason !== null) {
+                let transactions = JSON.parse(localStorage.getItem('re_kost_transactions')) || [];
+                transactions = transactions.map(t => {
+                    if (t.txId === txId) {
+                        return { ...t, status: 'gagal', rejectReason: reason };
+                    }
+                    return t;
+                });
+                localStorage.setItem('re_kost_transactions', JSON.stringify(transactions));
+                
+                const alertMsg = isPayment 
+                    ? `Pembayaran ${txId} ditolak. Alasan: ${reason || 'Bukti transfer tidak valid.'}`
+                    : `Pencairan dana ${txId} ditolak.`;
+                alert(alertMsg);
+                renderNotifications();
+            }
+        }
+    </script>
+</body>
+</html>

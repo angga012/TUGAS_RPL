@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - RE-KOST</title>
+    <meta name="description" content="Halaman profil pengguna RE-KOST. Kelola akun, barang dagangan, dan preferensi Anda.">
+    <!-- Link CSS Global & CSS khusus Profil -->
+    <link rel="stylesheet" href="Css/main.css">
+    <link rel="stylesheet" href="Css/profile.css">
+</head>
+<body>
+
+    <!-- Background Blurry Pastel Blobs (Consistent across screens) -->
+    <div class="background-blobs" aria-hidden="true">
+        <div class="blob blob-teal"></div>
+        <div class="blob blob-orange"></div>
+    </div>
+
+    <!-- Main Wrapper -->
+    <div class="profile-page-wrapper">
+        
+        <!-- 1. Bagian Header Atas (Hanya Muncul di Mobile/Tablet) -->
+        <header class="profile-header">
+            <div class="header-left">
+                <!-- Tombol Kembali ke Beranda -->
+                <a href="dashboard.html" class="back-btn" aria-label="Kembali ke Beranda">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </a>
+                <span class="brand-logo">RE-KOST</span>
+            </div>
+            <div class="header-actions">
+                <!-- Ikon Notifikasi (Lonceng) -->
+                <a href="notifications.html" class="action-btn" aria-label="Notifikasi">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Content Column -->
+        <main class="profile-content-container">
+
+            <!-- 2. Bagian Identitas Pengguna (User Identity) -->
+            <section class="user-identity-section">
+                <!-- Foto Profil -->
+                <div class="profile-avatar-container">
+                    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&auto=format&fit=crop" alt="Ahmad Jaelani" class="profile-avatar-img" id="userAvatar">
+                    <!-- Ikon Kamera Kecil Melayang -->
+                    <button class="avatar-camera-btn" aria-label="Ubah foto profil" onclick="window.location.href='edit-profile.html'">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Nama Pengguna -->
+                <h1 class="user-name">Ahmad Jaelani</h1>
+
+                <!-- Badge Status -->
+                <div class="badge-wrapper">
+                    <span class="user-status-badge">VERIFIED STUDENT</span>
+                </div>
+
+                <!-- Informasi Kampus & Kos -->
+                <div class="user-details-group">
+                    <div class="detail-row">
+                        <!-- Toga Icon -->
+                        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                            <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                        </svg>
+                        <span>Universitas Indonesia</span>
+                    </div>
+                    <div class="detail-row">
+                        <!-- Pin Location Icon -->
+                        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span>Kukusan, Depok (Kos Pondok Hijau)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Bagian Ringkasan Akun (Account Stats Card) -->
+            <section class="stats-cards-section">
+                <!-- Kartu Kiri: Items Sold -->
+                <div class="stat-card">
+                    <span class="stat-title">Items Sold</span>
+                    <span class="stat-value val-green">12</span>
+                </div>
+                <!-- Kartu Tengah: Rating -->
+                <div class="stat-card">
+                    <span class="stat-title">Rating</span>
+                    <span class="stat-value val-brown">4.8 🌟</span>
+                </div>
+                <!-- Kartu Kanan: Followers -->
+                <div class="stat-card">
+                    <span class="stat-title">Followers</span>
+                    <span class="stat-value val-blue">156</span>
+                </div>
+            </section>
+
+            <!-- 4. Bagian Daftar Menu Pengaturan (Menu List Options) -->
+            <section class="menu-list-section">
+                
+                <!-- Bilah 1: Edit Profil -->
+                <a href="edit-profile.html" class="menu-tile">
+                    <div class="menu-tile-left">
+                        <div class="tile-icon-box box-green">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </div>
+                        <span class="tile-title">Edit Profil</span>
+                    </div>
+                    <svg class="tile-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+
+                <!-- Bilah 2: Barang yang Dijual -->
+                <a href="Page_1/my-products.html" class="menu-tile">
+                    <div class="menu-tile-left">
+                        <div class="tile-icon-box box-brown">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+                                <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
+                            </svg>
+                        </div>
+                        <span class="tile-title">Barang yang Dijual</span>
+                    </div>
+                    <svg class="tile-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+
+                <!-- Bilah 3: Barang Favorit -->
+                <a href="Page_1/favorites.html" class="menu-tile">
+                    <div class="menu-tile-left">
+                        <div class="tile-icon-box box-blue">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </div>
+                        <span class="tile-title">Barang Favorit <span class="fav-count-badge" id="favCountBadge" style="display: none;">0</span></span>
+                    </div>
+                    <svg class="tile-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+
+                <!-- Bilah 4: Pengaturan Tema -->
+                <div class="menu-tile no-hover">
+                    <div class="menu-tile-left">
+                        <div class="tile-icon-box box-gray">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            </svg>
+                        </div>
+                        <div class="tile-title-group">
+                            <span class="tile-title">Pengaturan Tema</span>
+                            <span class="tile-subtext">Mode Terang Aktif</span>
+                        </div>
+                    </div>
+                    <!-- Saklar Geser (Toggle Switch) Aktif -->
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked id="themeToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Bilah 5: Bantuan -->
+                <a href="#" class="menu-tile">
+                    <div class="menu-tile-left">
+                        <div class="tile-icon-box box-gray">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                        </div>
+                        <span class="tile-title">Bantuan</span>
+                    </div>
+                    <svg class="tile-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+
+                <!-- Bilah 6: Logout -->
+                <a href="#" class="menu-tile" onclick="logoutUser(event)">
+                    <div class="menu-tile-left">
+                        <div class="tile-icon-box" style="background-color: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.25);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                        </div>
+                        <span class="tile-title" style="color: #ef4444; font-weight: 600;">Keluar dari Akun</span>
+                    </div>
+                    <svg class="tile-arrow-icon" viewBox="0 0 24 24" fill="#ef4444" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+
+            </section>
+
+
+
+            <!-- Footer Teks (Luar Layar Bawah) -->
+            <footer class="profile-footer">
+                <span class="footer-version">RE-KOST v1.2.4-stable</span>
+                <span class="footer-credit">Made with ❤️ for students</span>
+            </footer>
+
+        </main>
+
+        <!-- 5. Menu Navigasi Bawah (Bottom Navigation Bar / Desktop Left Sidebar) -->
+        <nav class="bottom-nav" aria-label="Navigasi Utama">
+            
+            <!-- Home -->
+            <a href="dashboard.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Home</span>
+            </a>
+
+            <!-- Category -->
+            <a href="marketplace.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Category</span>
+            </a>
+
+            <!-- Sell -->
+            <a href="Page_1/sell-product.html" class="nav-item nav-item-sell">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <span>Sell</span>
+            </a>
+
+            <!-- Chat -->
+            <a href="chat.html" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Chat</span>
+            </a>
+
+            <!-- Profile (Status Aktif) -->
+            <a href="profile.html" class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Profile</span>
+            </a>
+
+            <!-- Logout (Hanya muncul di desktop sidebar) -->
+            <a href="#" class="nav-item nav-item-logout" onclick="logoutUser(event)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                <span>Logout</span>
+            </a>
+
+        </nav>
+
+    </div>
+
+    <!-- Script sederhana untuk toggle fungsional visual -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load user data if logged in
+            const currentUserStr = localStorage.getItem('current_user');
+            if (currentUserStr) {
+                const currentUser = JSON.parse(currentUserStr);
+                
+                // Update Avatar
+                const avatarNode = document.querySelector('.profile-avatar-img');
+                if (avatarNode && currentUser.avatar) {
+                    avatarNode.src = currentUser.avatar;
+                }
+                
+                // Update Name
+                const nameNode = document.querySelector('.user-name');
+                if (nameNode) nameNode.textContent = currentUser.name;
+                
+                // Update Campus & Location
+                const detailRows = document.querySelectorAll('.user-details-group .detail-row');
+                if (detailRows.length >= 2) {
+                    detailRows[0].querySelector('span').textContent = currentUser.campus || 'Universitas Indonesia';
+                    detailRows[1].querySelector('span').textContent = (currentUser.location || 'Kukusan, Depok') + ` (${currentUser.phone})`;
+                }
+            }
+
+            const themeToggle = document.getElementById('themeToggle');
+            const themeSubtext = document.querySelector('.tile-subtext');
+
+            if (themeToggle && themeSubtext) {
+                themeToggle.addEventListener('change', function() {
+                    if (this.checked) {
+                        themeSubtext.textContent = 'Mode Terang Aktif';
+                    } else {
+                        themeSubtext.textContent = 'Mode Gelap Aktif';
+                    }
+                });
+            }
+
+            // --- DEKORASI DINAMIS SINKRONISASI FAVORIT ---
+            
+            // Dapatkan daftar favorit aktif
+            function getActiveFavorites() {
+                let ids = null;
+                try {
+                    ids = JSON.parse(localStorage.getItem('re_kost_favorites'));
+                } catch(e){}
+                if (Array.isArray(ids)) return ids;
+                
+                // Fallback awal: ambil 2 produk pertama dari daftar produk di localStorage
+                let storedProducts = [];
+                try {
+                    storedProducts = JSON.parse(localStorage.getItem('re_kost_products')) || [];
+                } catch(e){}
+                if (storedProducts.length > 0) {
+                    return storedProducts.slice(0, 2).map(p => p.id);
+                }
+                return ['p1', 'p2'];
+            }
+
+            // Dapatkan detail data untuk produk favorit
+            function getProducts() {
+                let storedProducts = [];
+                try {
+                    storedProducts = JSON.parse(localStorage.getItem('re_kost_products')) || [];
+                } catch(e){}
+                if (storedProducts.length > 0) return storedProducts;
+                
+                // Fallback default sample products jika localStorage kosong
+                return [
+                    { id: "p1", title: "Headphone Sony WH-1000XM4 Bekas", price: 1500000, campus: "Kukusan, Depok", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop", categoryLabel: "ELEKTRONIK" },
+                    { id: "p2", title: "Lampu Meja Belajar IKEA Tertial", price: 120000, campus: "Pogung Baru, Sleman", image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&auto=format&fit=crop", categoryLabel: "PERABOTAN" }
+                ];
+            }
+
+            const favoriteIds = getActiveFavorites();
+            const allProducts = getProducts();
+            const favoritedProducts = allProducts.filter(p => favoriteIds.includes(p.id));
+
+            // Update badge menu item
+            const favBadge = document.getElementById('favCountBadge');
+            if (favBadge) {
+                favBadge.textContent = favoriteIds.length;
+                favBadge.style.display = favoriteIds.length > 0 ? 'inline-flex' : 'none';
+            }
+
+
+        });
+
+        function logoutUser(event) {
+            event.preventDefault();
+            if (confirm("Apakah Anda yakin ingin keluar dari akun RE-KOST?")) {
+                localStorage.removeItem('user_logged_in');
+                localStorage.removeItem('current_user');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

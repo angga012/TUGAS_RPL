@@ -1,0 +1,777 @@
+/* Stylesheet for Halaman Profil Pengguna (User Profile Screen) */
+
+.profile-page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 90px; /* Space for bottom nav on mobile */
+}
+
+@media (min-width: 768px) {
+    .profile-page-wrapper {
+        margin-left: 240px; /* Shift content right to clear the sidebar width */
+        padding-bottom: 3rem;
+    }
+}
+
+/* 1. Header Navigation Bar (Top Header) */
+.profile-header {
+    background-color: #FFFFFF;
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid #EDF2F7;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-primary); /* Forest Green #0F3D2E */
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    background-color: #F1F5F9;
+    color: #0b2e22;
+}
+
+.back-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.brand-logo {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--color-primary); /* Forest Green #0F3D2E */
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transform: translateY(-1px); /* Penyelarasan vertikal di sebelah tombol kembali */
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-dark);
+    padding: 8px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.action-btn:hover {
+    background-color: #F1F5F9;
+    color: var(--color-primary);
+}
+
+.action-btn svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* Align header paddings on desktop to match home page */
+@media (min-width: 768px) {
+    .profile-header {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+}
+@media (min-width: 1200px) {
+    .profile-header {
+        padding-left: calc((100% - 240px - 1100px) / 2 + 2rem) !important;
+        padding-right: calc((100% - 240px - 1100px) / 2 + 2rem) !important;
+    }
+}
+
+/* 2. Main Content Layout Container */
+.profile-content-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+}
+
+/* 3. Identitas Pengguna (User Identity) */
+.user-identity-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.profile-avatar-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1.25rem;
+}
+
+.profile-avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #14B8A6; /* Bright toska border */
+    box-shadow: 0 8px 25px rgba(20, 184, 166, 0.18);
+}
+
+.avatar-camera-btn {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--color-primary); /* Forest Green */
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+}
+
+.avatar-camera-btn:hover {
+    transform: scale(1.1);
+    background-color: #0b2e22;
+}
+
+.avatar-camera-btn svg {
+    width: 15px;
+    height: 15px;
+    fill: none;
+}
+
+.user-name {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+}
+
+.badge-wrapper {
+    margin-bottom: 1.15rem;
+}
+
+.user-status-badge {
+    background-color: var(--color-secondary); /* Orange */
+    color: #FFFFFF;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 5px 14px;
+    border-radius: 50px;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 10px rgba(255, 122, 48, 0.15);
+}
+
+.user-details-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.detail-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+/* 4. Ringkasan Akun (Account Stats Card) */
+.stats-cards-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    width: 100%;
+    margin-bottom: 2.5rem;
+}
+
+.stat-card {
+    background-color: #FFFFFF;
+    border: 1px solid #EDF2F7;
+    border-radius: 16px;
+    padding: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.012);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.stat-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+}
+
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+/* Value colors */
+.val-green {
+    color: var(--color-primary);
+}
+
+.val-brown {
+    color: #C05621; /* Brown/Dark Orange */
+}
+
+.val-blue {
+    color: #1E3A8A; /* Dark Blue */
+}
+
+/* 5. Daftar Menu Pengaturan (Menu List Options) */
+.menu-list-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 2.5rem;
+}
+
+.menu-tile {
+    background-color: #FFFFFF;
+    border: 1px solid #EDF2F7;
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+    transition: all 0.25s ease;
+}
+
+.menu-tile:not(.no-hover):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+    border-color: rgba(15, 61, 46, 0.08);
+}
+
+.menu-tile-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.tile-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.tile-icon-box svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Icon Box Colors */
+.box-green {
+    background-color: #E6F4EA;
+    color: #059669;
+}
+
+.box-brown {
+    background-color: #FEF3C7;
+    color: #D97706;
+}
+
+.box-blue {
+    background-color: #EFF6FF;
+    color: #2563EB;
+}
+
+.box-gray {
+    background-color: #F1F5F9;
+    color: #64748B;
+}
+
+.tile-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.tile-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tile-subtext {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.tile-arrow-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+    transition: transform 0.2s ease;
+}
+
+.menu-tile:hover .tile-arrow-icon {
+    transform: translateX(2px);
+    color: var(--color-primary);
+}
+
+/* 6. Toggle Switch (Saklar Geser) */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #CBD5E1;
+    transition: .25s ease;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #FFFFFF;
+    transition: .25s ease;
+    border-radius: 50%;
+}
+
+.toggle-switch input:checked + .slider {
+    background-color: #10B981; /* Green toggle background */
+}
+
+.toggle-switch input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* 7. Footer Section */
+.profile-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.footer-version {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.footer-credit {
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+/* 8. Bottom Navigation Bar / Desktop Left Sidebar Nav */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 72px;
+    background-color: var(--color-primary);
+    box-shadow: 0 -5px 20px rgba(15, 61, 46, 0.15);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 100;
+    padding: 0 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.65rem;
+    font-weight: 600;
+    gap: 4px;
+    flex: 1;
+    height: 100%;
+    transition: all 0.2s ease;
+    border-radius: 12px;
+}
+
+.nav-item svg {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.2s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: #FFFFFF;
+}
+
+.nav-item.active svg {
+    transform: translateY(-2px);
+}
+
+.nav-item-sell svg {
+    color: var(--color-secondary);
+}
+
+/* Mobile active button wrap background green toska (screen.png style) */
+.bottom-nav .nav-item.active {
+    background-color: #10B981 !important; /* Toska Green */
+    color: #000000 !important; /* Black text */
+    max-height: 48px;
+    padding: 6px 12px;
+    border-radius: 12px;
+    align-self: center;
+}
+
+.bottom-nav .nav-item.active svg {
+    color: #000000 !important;
+}
+
+/* Desktop Left Sidebar transition (min-width: 768px) */
+@media (min-width: 768px) {
+    .bottom-nav {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: auto;
+        width: 240px;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 3.5rem 1.25rem 2rem 1.25rem;
+        gap: 10px;
+        box-shadow: 4px 0 25px rgba(15, 61, 46, 0.06);
+        border: none;
+        border-radius: 0;
+    }
+
+    /* Sidebar Logo Header */
+    .bottom-nav::before {
+        content: 'RE-KOST';
+        display: block;
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #FFFFFF;
+        margin-bottom: 2.5rem;
+        padding-left: 14px;
+        letter-spacing: 0.05em;
+    }
+
+    .nav-item {
+        flex: none;
+        width: 100%;
+        height: auto;
+        flex-direction: row; /* Stacks horizontal (icon + text) inside sidebar list */
+        justify-content: flex-start;
+        padding: 12px 16px;
+        gap: 16px;
+        font-size: 0.95rem; /* Larger font size for web dashboard sidebar */
+        color: rgba(255, 255, 255, 0.75);
+        border-radius: 12px;
+    }
+
+    .nav-item svg {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+    }
+
+    .nav-item:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+        color: #FFFFFF;
+    }
+
+    /* Desktop active button matching sidebar design */
+    .nav-item.active {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        color: #FFFFFF !important;
+        font-weight: 700;
+        max-height: none !important;
+        padding: 12px 16px !important;
+        align-self: stretch !important;
+        border-radius: 12px !important;
+    }
+
+    .nav-item.active svg {
+        color: #FFFFFF !important;
+        transform: scale(1.05) !important;
+    }
+
+    .nav-item-sell svg {
+        color: var(--color-secondary-light);
+    }
+
+    /* Desktop Sidebar Logout Button */
+    .nav-item-logout {
+        display: flex !important;
+        margin-top: auto !important; /* Push to bottom of sidebar */
+        color: rgba(254, 226, 226, 0.85) !important;
+    }
+    .nav-item-logout:hover {
+        background-color: rgba(239, 68, 68, 0.1) !important;
+        color: #EF4444 !important;
+    }
+}
+
+/* Mobile Sidebar Logout Button Hide */
+.nav-item-logout {
+    display: none !important;
+}
+
+
+/* Responsive constraints on small devices */
+@media (max-width: 640px) {
+    .stats-cards-section {
+        gap: 0.75rem;
+    }
+    
+    .stat-card {
+        padding: 0.75rem;
+        border-radius: 12px;
+    }
+    
+    .stat-title {
+        font-size: 0.65rem;
+    }
+    
+    .stat-value {
+        font-size: 1.15rem;
+    }
+    
+    .menu-tile {
+        padding: 0.85rem 1rem;
+        border-radius: 12px;
+    }
+    
+    .tile-icon-box {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+    }
+    
+    .tile-icon-box svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .tile-title {
+        font-size: 0.88rem;
+    }
+    
+    .user-name {
+        font-size: 1.5rem;
+    }
+    
+    .detail-row {
+        font-size: 0.8rem;
+    }
+}
+
+/* --- FAVORITE SYNC STYLES --- */
+.fav-count-badge {
+    background-color: var(--color-secondary, #FF7A30);
+    color: #FFFFFF;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(255, 122, 48, 0.2);
+}
+
+.profile-favorites-section {
+    margin-top: 1.5rem;
+    margin-bottom: 2.5rem;
+    width: 100%;
+}
+
+.favorites-section-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    text-align: left;
+    letter-spacing: -0.01em;
+}
+
+.profile-favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    width: 100%;
+}
+
+.fav-card {
+    background-color: #FFFFFF;
+    border: 1px solid #EDF2F7;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.fav-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+    border-color: rgba(15, 61, 46, 0.08);
+}
+
+.fav-card-image-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.3 / 1;
+    overflow: hidden;
+    background-color: #F7FAFC;
+}
+
+.fav-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.fav-card:hover .fav-card-image {
+    transform: scale(1.03);
+}
+
+.fav-card-info {
+    padding: 0.85rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.fav-card-category {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #C05621;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.fav-card-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.35;
+    margin-bottom: 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 2.7em;
+}
+
+.fav-card-price {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--color-primary);
+}
+
+@media (max-width: 480px) {
+    .profile-favorites-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
